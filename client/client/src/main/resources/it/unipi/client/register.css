@@ -1,0 +1,53 @@
+.root {
+    -fx-font-family: "Segoe UI", Helvetica, Arial, sans-serif;
+    -fx-font-size: 14px;
+}
+
+.main-container {
+    -fx-background-color: #f4f4f4;
+}
+
+.title-label {
+    -fx-font-size: 24px;
+    -fx-font-weight: bold;
+    -fx-text-fill: #2c3e50;
+    -fx-padding: 0 0 20 0;
+}
+
+.text-field, .password-field {
+    -fx-background-color: white;
+    -fx-border-color: #bdc3c7;
+    -fx-border-radius: 4;
+    -fx-background-radius: 4;
+    -fx-padding: 8;
+}
+
+.text-field:focused, .password-field:focused {
+    -fx-border-color: #3498db;
+    -fx-background-color: #ffffff;
+}
+
+.login-button {
+    -fx-background-color: #3498db;
+    -fx-text-fill: white;
+    -fx-font-weight: bold;
+    -fx-padding: 10 20;
+    -fx-background-radius: 4;
+    -fx-cursor: hand;
+}
+
+.login-button:hover {
+    -fx-background-color: #2980b9;
+}
+
+.login-button:pressed {
+    -fx-background-color: #1f618d;
+}
+
+.radio-button {
+    -fx-text-fill: #34495e;
+}
+
+.radio-button:selected .radio {
+    -fx-background-color: #3498db;
+}
