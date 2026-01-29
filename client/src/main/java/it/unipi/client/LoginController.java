@@ -8,7 +8,6 @@ import javafx.scene.control.Button;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.RadioButton;
 import javafx.scene.control.TextField;
-import javafx.scene.control.ToggleGroup;
 
 public class LoginController {
 
@@ -24,9 +23,6 @@ public class LoginController {
     
     @FXML
     private RadioButton patientRadio;
-
-    @FXML
-    private ToggleGroup roleGroup;
 
     @FXML
     private Button loginButton;
@@ -47,7 +43,9 @@ public class LoginController {
     @FXML
     void handleRegister(ActionEvent event) {
         try {
-            App.setRoot("register");
+
+            if(doctorRadio.isSelected()) App.setRoot("doctorRegister");
+            else if(patientRadio.isSelected()) App.setRoot("patientRegister");
         } catch (IOException e) {
             System.err.println("Errore nel caricamento della pagina di registrazione: " + e.getMessage());
             e.printStackTrace();

@@ -1,0 +1,5 @@
+module-info.class
+it/unipi/client/PatientRegisterController.class
+it/unipi/client/DoctorRegisterController.class
+it/unipi/client/LoginController.class
+it/unipi/client/App.class

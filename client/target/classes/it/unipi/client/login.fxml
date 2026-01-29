@@ -39,7 +39,7 @@
         <Button fx:id="loginButton" maxWidth="300.0" onAction="#handleLogin" styleClass="login-button" text="Accedi" />
 
         <HBox alignment="CENTER" spacing="5.0">
-             <Label text="Vuoi prenotare una visita e non hai un account?" />
+             <Label text="Non hai un account?" />
              <Button onAction="#handleRegister" style="-fx-background-color: transparent; -fx-text-fill: #3498db; -fx-underline: true; -fx-cursor: hand; -fx-padding: 0;" text="Registrati" />
         </HBox>
     
