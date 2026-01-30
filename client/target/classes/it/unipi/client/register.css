@@ -51,3 +51,20 @@
 .radio-button:selected .radio {
     -fx-background-color: #3498db;
 }
+
+.red-button {
+    -fx-background-color: red;
+    -fx-text-fill: black;
+    -fx-font-weight: bold;
+    -fx-padding: 10 20;
+    -fx-background-radius: 4;
+    -fx-cursor: hand;
+}
+
+.red-button:hover {
+    -fx-background-color: #cc0000; /* Rosso più scuro */
+}
+
+.red-button:pressed {
+    -fx-background-color: #990000; /* Rosso molto scuro */
+}

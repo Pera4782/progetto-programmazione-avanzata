@@ -1,6 +1,7 @@
 package it.unipi.client;
 
 import java.io.IOException;
+import javafx.concurrent.Task;
 
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -30,7 +31,31 @@ public class LoginController {
     
     @FXML
     void handleLogin(ActionEvent event) {
-        System.out.println("Bottone accedi premuto");
+        
+        
+        Task<Void> task = new Task<Void>() {
+            
+            @Override
+            public Void call() {
+                
+                try{
+                    
+                    RequestHandler handler = new RequestHandler();
+                    Paziente p = handler.GETRequest("register/paziente", Paziente.class, "ciao");
+
+                    System.out.println(p.getMatricola());
+                
+                }catch(Exception e){
+                    e.printStackTrace();
+                    System.exit(1);
+                }
+                
+                return null;
+            }
+        };
+        
+        new Thread(task).start();
+        
     }
 
 
