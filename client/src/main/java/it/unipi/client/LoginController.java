@@ -15,7 +15,9 @@ import javafx.scene.control.TextField;
 public class LoginController {
 
     
-    public static boolean isDoctor = false;
+    public static boolean isDoctor;
+    
+    public static Utente utente;
     
     @FXML
     private TextField matricolaField;
@@ -43,6 +45,11 @@ public class LoginController {
     
     private void hideMessage(){
         message.setVisible(false);
+    }
+    
+    @FXML
+    void initialize(){
+        isDoctor = false;
     }
     
     @FXML
@@ -97,8 +104,14 @@ public class LoginController {
                                 return;
                               
                             default:
-                                showMessage("login ok");
-                                break;   
+                                
+                                try{
+                                    if(isDoctor) App.setRoot("doctorsMenu");
+                                    else App.setRoot("patientsMenu");
+                                }catch(IOException e){
+                                    e.printStackTrace();
+                                    System.exit(1);
+                                }
                         }
                         
                     });  

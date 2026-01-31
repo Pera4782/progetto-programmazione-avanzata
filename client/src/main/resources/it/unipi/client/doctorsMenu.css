@@ -1,0 +1,205 @@
+/* Palette Colori */
+.root {
+    -fx-background-color: #f4f7fa;
+}
+
+/* Sidebar */
+.sidebar {
+    -fx-background-color: #ffffff;
+    -fx-border-color: #e0e0e0;
+    -fx-border-width: 0 1 0 0;
+}
+
+.logo-text {
+    -fx-font-size: 24px;
+    -fx-font-weight: bold;
+    -fx-text-fill: #2c3e50;
+    -fx-padding: 0 0 30 0;
+}
+
+.nav-button {
+    -fx-background-color: transparent;
+    -fx-text-fill: #7f8c8d;
+    -fx-alignment: CENTER_LEFT;
+    -fx-padding: 15 20;
+    -fx-font-size: 16px;
+    -fx-cursor: hand;
+    -fx-pref-width: 250;
+}
+
+.nav-button:hover {
+    -fx-background-color: #f0f4ff;
+    -fx-text-fill: #3498db;
+}
+
+.nav-button-active {
+    -fx-background-color: #e8f0fe;
+    -fx-text-fill: #1a73e8;
+    -fx-font-weight: bold;
+}
+
+.logout-button {
+    -fx-background-color: #3498db;
+    -fx-text-fill: white;
+    -fx-font-weight: bold;
+    -fx-padding: 15;
+    -fx-font-size: 16px;
+}
+
+/* Main Content */
+.main-content {
+    -fx-background-color: #1a2a40; /* Sfondo blu scuro come da immagine */
+}
+
+.doctor-name {
+    -fx-text-fill: white;
+    -fx-font-size: 20px;
+}
+
+.section-title {
+    -fx-text-fill: white;
+    -fx-font-weight: bold;
+    -fx-font-size: 22px;
+}
+
+.search-field {
+    -fx-background-radius: 15;
+    -fx-background-color: rgba(255,255,255,0.1);
+    -fx-text-fill: white;
+    -fx-prompt-text-fill: #bdc3c7;
+}
+
+.top-bar-button {
+    -fx-background-color: rgba(255,255,255,0.1);
+    -fx-text-fill: white;
+    -fx-background-radius: 5;
+    -fx-font-size: 16px;
+    -fx-cursor: hand;
+}
+
+.top-bar-button:hover {
+    -fx-background-color: rgba(255,255,255,0.2);
+}
+
+/* Appointment Cards */
+.appointments-container {
+    -fx-background-color: white;
+    -fx-background-radius: 10 10 0 0;
+    -fx-padding: 20;
+}
+
+.appointment-card {
+    -fx-background-color: #ffffff;
+    -fx-border-color: #ecf0f1;
+    -fx-border-radius: 5;
+    -fx-padding: 15;
+    -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.05), 5, 0, 0, 2);
+}
+
+.patient-name {
+    -fx-font-weight: bold;
+    -fx-font-size: 18px;
+}
+
+.appointment-time {
+    -fx-text-fill: #95a5a6;
+    -fx-font-size: 16px;
+}
+
+.day-button-active {
+    -fx-background-color: transparent;
+    -fx-cursor: hand;
+    -fx-border-color: transparent transparent #3498db transparent;
+    -fx-border-width: 0 0 3 0;
+    -fx-padding: 8 15;
+    -fx-font-size: 16px;
+}
+
+.day-button-active:hover {
+    -fx-background-color: #f0f4ff; 
+    -fx-text-fill: #3498db;
+}
+
+.day-button {
+    -fx-background-color: transparent;
+    -fx-cursor: hand;
+    -fx-padding: 8 15;
+    -fx-text-fill: #95a5a6;
+    -fx-font-size: 16px;
+}
+
+.day-button:hover {
+    -fx-background-color: #f0f4ff;
+    -fx-text-fill: #3498db;
+}
+
+.content-scroll {
+    -fx-background-color: transparent;
+    -fx-background-insets: 0;
+}
+.content-scroll .viewport {
+    -fx-background-color: transparent;
+}
+
+/* Appointment Table */
+.appointments-table {
+    -fx-background-color: transparent;
+    -fx-table-cell-border-color: transparent;
+}
+
+.appointments-table .column-header-background {
+    -fx-background-color: transparent;
+    -fx-border-width: 0 0 1 0;
+    -fx-border-color: #ecf0f1;
+}
+
+.appointments-table .column-header {
+    -fx-background-color: transparent;
+    -fx-size: 45px;
+}
+
+.appointments-table .column-header .label {
+    -fx-text-fill: #95a5a6;
+    -fx-font-weight: bold;
+    -fx-font-size: 16px;
+}
+
+.appointments-table .table-row-cell {
+    -fx-background-color: transparent;
+    -fx-border-color: #ecf0f1;
+    -fx-border-width: 0 0 1 0;
+    -fx-padding: 8;
+}
+
+.appointments-table .table-row-cell:hover {
+    -fx-background-color: #f8fafc;
+}
+
+.appointments-table .table-row-cell:selected {
+    -fx-background-color: #e8f0fe;
+}
+
+.appointments-table .table-cell {
+    -fx-text-fill: #2c3e50;
+    -fx-font-size: 18px;
+    -fx-alignment: CENTER_LEFT;
+}
+
+.pagination-button {
+    -fx-background-color: #ffffff;
+    -fx-border-color: #dcdcdc;
+    -fx-border-radius: 4;
+    -fx-background-radius: 4;
+    -fx-padding: 10 20;
+    -fx-text-fill: #2c3e50;
+    -fx-font-size: 16px;
+    -fx-cursor: hand;
+    -fx-pref-width: 130px;
+    -fx-alignment: CENTER;
+}
+
+.pagination-button:hover {
+    -fx-background-color: #f0f4ff;
+    -fx-border-color: #3498db;
+    -fx-text-fill: #3498db;
+}
