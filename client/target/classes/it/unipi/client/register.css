@@ -14,7 +14,7 @@
     -fx-padding: 0 0 20 0;
 }
 
-.text-field, .password-field {
+.text-field, .password-field, .combo-box {
     -fx-background-color: white;
     -fx-border-color: #bdc3c7;
     -fx-border-radius: 4;
@@ -22,9 +22,13 @@
     -fx-padding: 8;
 }
 
-.text-field:focused, .password-field:focused {
+.text-field:focused, .password-field:focused, .combo-box:focused {
     -fx-border-color: #3498db;
     -fx-background-color: #ffffff;
+}
+
+.combo-box .list-cell {
+    -fx-padding: 0;
 }
 
 .login-button {
@@ -62,9 +66,9 @@
 }
 
 .red-button:hover {
-    -fx-background-color: #cc0000; /* Rosso più scuro */
+    -fx-background-color: #cc0000;
 }
 
 .red-button:pressed {
-    -fx-background-color: #990000; /* Rosso molto scuro */
+    -fx-background-color: #990000;
 }

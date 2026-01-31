@@ -6,6 +6,7 @@ import javafx.concurrent.Task;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
+import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
@@ -26,7 +27,7 @@ public class RegisterController {
     private Label specializationLabel;
     
     @FXML
-    private TextField specializationField;
+    private ComboBox<String> specializationComboBox;
 
     @FXML
     private PasswordField passwordField;
@@ -61,14 +62,24 @@ public class RegisterController {
         if(!LoginController.isDoctor){
             specializationLabel.setVisible(false);
             specializationLabel.setManaged(false);
-            specializationField.setVisible(false);
-            specializationField.setManaged(false);
+            specializationComboBox.setVisible(false);
+            specializationComboBox.setManaged(false);
             title.setText("Creazione Account Paziente");
+        } else {
+            specializationComboBox.getItems().addAll(
+               "Cardiologia", 
+               "Dermatologia", 
+               "Ginecologia", 
+               "Medicina Generale", 
+               "Neurologia", 
+               "Ortopedia", 
+               "Pediatria", 
+               "Psichiatria"
+            );
         }
         
     }
-    
-    
+
     @FXML
     void handleRegister(ActionEvent event) {
         
@@ -77,12 +88,12 @@ public class RegisterController {
 
         String nome = nameField.getText();
         String cognome = surnameField.getText();
-        String specializzazione = specializationField.getText();
+        String specializzazione = specializationComboBox.getValue();
         String password = passwordField.getText();
         String confirmPassword = confirmPasswordField.getText();
         
         if(nome.isEmpty() || cognome.isEmpty() || password.isEmpty() || confirmPassword.isEmpty()
-           || (specializzazione.isEmpty() && LoginController.isDoctor)){
+           || ((specializzazione == null || specializzazione.isEmpty()) && LoginController.isDoctor)){
             showMessage("Compilare tutti i campi!");
             return;
         }
