@@ -18,7 +18,7 @@
    
          <property name = "hibernate.show_sql">true</property>
          
-         
+         <!-- Change 'update' to 'create' to regenerate the table with AUTO_INCREMENT -->
          <property name="hibernate.hbm2ddl.auto">update</property>
    
      </session-factory> 

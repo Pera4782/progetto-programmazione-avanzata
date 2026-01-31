@@ -11,14 +11,20 @@ import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.HBox;
 
-public class DoctorRegisterController {
+public class RegisterController {
 
+    @FXML
+    private Label title;
+    
     @FXML
     private TextField nameField;
 
     @FXML
     private TextField surnameField;
 
+    @FXML
+    private Label specializationLabel;
+    
     @FXML
     private TextField specializationField;
 
@@ -35,20 +41,34 @@ public class DoctorRegisterController {
     private HBox accediButton;
     
     @FXML
-    private Label errorMessage;
+    private Label message;
 
     @FXML
     private Button hoCapitoButton;
 
     private void showMessage(String msg){
-        errorMessage.setText(msg);
-        errorMessage.setVisible(true);
+        message.setText(msg);
+        message.setVisible(true);
     }
     
     private void hideMessage(){
-        errorMessage.setVisible(false);
+        message.setVisible(false);
     }
 
+    @FXML
+    public void initialize(){
+        
+        if(!LoginController.isDoctor){
+            specializationLabel.setVisible(false);
+            specializationLabel.setManaged(false);
+            specializationField.setVisible(false);
+            specializationField.setManaged(false);
+            title.setText("Creazione Account Paziente");
+        }
+        
+    }
+    
+    
     @FXML
     void handleRegister(ActionEvent event) {
         
@@ -61,7 +81,8 @@ public class DoctorRegisterController {
         String password = passwordField.getText();
         String confirmPassword = confirmPasswordField.getText();
         
-        if(nome.isEmpty() || cognome.isEmpty() || specializzazione.isEmpty() || password.isEmpty() || confirmPassword.isEmpty()){
+        if(nome.isEmpty() || cognome.isEmpty() || password.isEmpty() || confirmPassword.isEmpty()
+           || (specializzazione.isEmpty() && LoginController.isDoctor)){
             showMessage("Compilare tutti i campi!");
             return;
         }
@@ -87,15 +108,26 @@ public class DoctorRegisterController {
                 
                 try{
                     
-                    Medico medico = new Medico(0, password, nome, cognome, specializzazione);
+                    Utente utente;
+                    String endpoint;
+                    
+                    if(LoginController.isDoctor){
+                        utente = new Medico(0, password, nome, cognome, specializzazione);
+                        endpoint = "medico";
+                    }
+                    else {
+                        utente = new Paziente(0, password, nome, cognome);
+                        endpoint = "paziente";
+                    }
+                    
                     RequestHandler rh = new RequestHandler();
                   
-                    Integer returnState = rh.POSTRequest("register/medico", medico, Integer.class);
-                    final Integer result = returnState;
+                    Integer result = rh.POSTRequest("account/register/" + endpoint, utente, Integer.class);
                     
                     Platform.runLater(() -> {
+                        
                         if (result == null) {
-                            showMessage("Errore di connessione col server.");
+                            showMessage("Errore nella comunicazione con il server riprovare più tardi.");
                             registerButton.setDisable(false);
                             return;
                         }
