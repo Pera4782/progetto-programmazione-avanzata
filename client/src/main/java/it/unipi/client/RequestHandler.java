@@ -16,7 +16,7 @@ public class RequestHandler{
     
     public RequestHandler(){}
     
-    public <R> R GETRequest(String endPoint, Class<R> clazz, String... queryParams) throws IOException, InterruptedException{
+    public <R> R GETRequest(String endPoint, Class<R> returnClass, String... queryParams) throws IOException, InterruptedException{
         
         
         StringBuilder sb = new StringBuilder(serverUrl + endPoint);
@@ -47,12 +47,12 @@ public class RequestHandler{
             return null;
         }
 
-        R data = gson.fromJson(response.body(), clazz);
+        R data = gson.fromJson(response.body(), returnClass);
         return data;
     }
     
     
-    public <R, C> R POSTRequest(String endPoint, C body, Class<R> returnClass) throws IOException, InterruptedException{
+    public <R, B> R POSTRequest(String endPoint, B body, Class<R> returnClass) throws IOException, InterruptedException{
         
         String completeUrl = serverUrl + endPoint;
         String jsonBody = gson.toJson(body);

@@ -1,10 +1,11 @@
 it/unipi/client/RegisterController$1.class
+it/unipi/client/PatientsMenuController.class
 it/unipi/client/RequestHandler.class
 it/unipi/client/RegisterController.class
 it/unipi/client/LoginController.class
 it/unipi/client/App.class
 it/unipi/client/Medico.class
-it/unipi/client/PatientsController.class
+it/unipi/client/DoctorsMenuController.class
 it/unipi/client/LoginController$1.class
 module-info.class
 it/unipi/client/Utente.class

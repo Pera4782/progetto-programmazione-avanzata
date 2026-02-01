@@ -9,7 +9,7 @@
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.VBox?>
 
-<BorderPane prefHeight="700.0" prefWidth="1000.0" stylesheets="@doctorsMenu.css" xmlns="http://javafx.com/javafx/25" xmlns:fx="http://javafx.com/fxml/1">
+<BorderPane prefHeight="700.0" prefWidth="1000.0" stylesheets="@doctorsMenu.css" xmlns="http://javafx.com/javafx/25" xmlns:fx="http://javafx.com/fxml/1" fx:controller="it.unipi.client.DoctorsMenuController">
     
     <left>
         <VBox prefWidth="280.0" spacing="10" styleClass="sidebar">
@@ -25,7 +25,7 @@
                 <Button styleClass="nav-button" text="Pazienti" />
             </VBox>
             
-            <Button maxWidth="Infinity" styleClass="logout-button" text="Esci" />
+            <Button maxWidth="Infinity" onAction="#logout" styleClass="logout-button" text="Esci" />
         </VBox>
     </left>
 
@@ -37,7 +37,7 @@
 
             <HBox alignment="CENTER_LEFT" spacing="20">
                 <HBox alignment="CENTER_LEFT" spacing="10" HBox.hgrow="ALWAYS">
-                    <Label styleClass="doctor-name" text="Dr. Tommaso Peruzzi" />
+                    <Label fx:id="doctorNameLabel" styleClass="doctor-name" text="Dr. Tommaso Peruzzi" />
                 </HBox>
                 <Button styleClass="top-bar-button" text="Ricarica" />
             </HBox>

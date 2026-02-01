@@ -12,7 +12,7 @@
 <?import javafx.scene.layout.StackPane?>
 <?import javafx.scene.layout.VBox?>
 
-<VBox spacing="25" styleClass="main-content" stylesheets="@patientsMenu.css" xmlns="http://javafx.com/javafx/25" xmlns:fx="http://javafx.com/fxml/1" fx:controller="it.unipi.client.PatientsController">
+<VBox spacing="25" styleClass="main-content" stylesheets="@patientsMenu.css" xmlns="http://javafx.com/javafx/25" xmlns:fx="http://javafx.com/fxml/1" fx:controller="it.unipi.client.PatientsMenuController">
     <padding>
         <Insets bottom="30" left="40" right="40" top="30" />
     </padding>

@@ -17,7 +17,7 @@ public class LoginController {
     
     public static boolean isDoctor;
     
-    public static Utente utente;
+    public static int loggedMatricola;
     
     @FXML
     private TextField matricolaField;
@@ -50,6 +50,7 @@ public class LoginController {
     @FXML
     void initialize(){
         isDoctor = false;
+        loggedMatricola = 0;
     }
     
     @FXML
@@ -76,12 +77,12 @@ public class LoginController {
                 
                 try{
                     
-                    Utente utente = (isDoctor)? new Medico(matricola, password, "", "", "") : new Paziente(matricola, password, "", "");
+                    Utente u = (isDoctor)? new Medico(matricola, password, "", "", "") : new Paziente(matricola, password, "", "");
                     String endPoint = (isDoctor)? "medico" : "paziente";
                     
                     RequestHandler rh = new RequestHandler();
                     
-                    Integer result = rh.POSTRequest("account/login/" + endPoint, utente, Integer.class);
+                    Integer result = rh.POSTRequest("account/login/" + endPoint, u, Integer.class);
                     
                     Platform.runLater(() -> {
                     
@@ -104,8 +105,8 @@ public class LoginController {
                                 return;
                               
                             default:
-                                
                                 try{
+                                    loggedMatricola = matricola; 
                                     if(isDoctor) App.setRoot("doctorsMenu");
                                     else App.setRoot("patientsMenu");
                                 }catch(IOException e){

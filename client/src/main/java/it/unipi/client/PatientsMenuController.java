@@ -6,7 +6,7 @@ import javafx.scene.control.TextField;
 import javafx.scene.layout.FlowPane;
 import javafx.event.ActionEvent;
 
-public class PatientsController {
+public class PatientsMenuController {
 
     @FXML
     private TextField searchDoctor;

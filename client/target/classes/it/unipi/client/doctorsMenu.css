@@ -44,6 +44,15 @@
     -fx-font-weight: bold;
     -fx-padding: 15;
     -fx-font-size: 16px;
+    -fx-cursor: hand;
+}
+
+.logout-button:hover {
+    -fx-background-color: #2980b9;
+}
+
+.logout-button:pressed {
+    -fx-background-color: #21618c;
 }
 
 /* Main Content */
