@@ -1,7 +1,9 @@
 it/unipi/client/RegisterController$1.class
 it/unipi/client/PatientsMenuController.class
 it/unipi/client/RequestHandler.class
+it/unipi/client/Visita.class
 it/unipi/client/RegisterController.class
+it/unipi/client/LoginRequest.class
 it/unipi/client/LoginController.class
 it/unipi/client/App.class
 it/unipi/client/Medico.class

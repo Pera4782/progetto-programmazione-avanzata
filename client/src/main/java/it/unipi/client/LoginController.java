@@ -77,12 +77,11 @@ public class LoginController {
                 
                 try{
                     
-                    Utente u = (isDoctor)? new Medico(matricola, password, "", "", "") : new Paziente(matricola, password, "", "");
-                    String endPoint = (isDoctor)? "medico" : "paziente";
+                    LoginRequest lr = new LoginRequest(matricola, password, isDoctor);
                     
                     RequestHandler rh = new RequestHandler();
                     
-                    Integer result = rh.POSTRequest("account/login/" + endPoint, u, Integer.class);
+                    Integer result = rh.POSTRequest("account/login", lr, Integer.class);
                     
                     Platform.runLater(() -> {
                     

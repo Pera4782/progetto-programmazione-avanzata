@@ -11,12 +11,11 @@ import org.springframework.web.bind.annotation.ResponseBody;
 public class GetRequestsHandler {
     
     @GetMapping(path = "/nomeCognomeDottore")
-    public @ResponseBody String[] getNomeCognomeDottore(@RequestParam(name = "_0") String matricola){
+    public @ResponseBody String[] getNomeCognomeDottore(@RequestParam(name = "_0") int matricola){
         
         try{
             
-            Medico medico = new Medico(Integer.parseInt(matricola), "", "", "", "");
-            Medico result = QueryHandler.findUtenteByMatricola(medico, Medico.class);
+            Medico result = QueryHandler.findUtenteByMatricola(matricola, Medico.class);
             
             String[] nomeCognome = new String[2];
             nomeCognome[0] = result.getNome();

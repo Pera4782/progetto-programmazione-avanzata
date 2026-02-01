@@ -30,13 +30,13 @@ public class QueryHandler {
         }
     }
     
-    public static <T extends Utente> T findUtenteByMatricola(T utente, Class<T> clazz) throws ServerErrorException{
+    public static <T extends Utente> T findUtenteByMatricola(int matricola, Class<T> clazz) throws ServerErrorException{
         
         Session session = HibernateUtil.getSessionFactory().openSession();
         
         try {
             List<T> result = session.createQuery("FROM " + clazz.getSimpleName() + " WHERE matricola = :matricola", clazz)
-                                         .setParameter("matricola", utente.getMatricola())
+                                         .setParameter("matricola", matricola)
                                          .setMaxResults(1)
                                          .getResultList();
             

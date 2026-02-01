@@ -20,9 +20,9 @@
             <Label styleClass="logo-text" text="MED-CONNECT" />
             
             <VBox spacing="5" VBox.vgrow="ALWAYS">
-                <Button styleClass="nav-button, nav-button-active" text="Appuntamenti" />
-                <Button styleClass="nav-button" text="Aggiungi appuntamenti" />
-                <Button styleClass="nav-button" text="Pazienti" />
+                <Button fx:id="navButton0" onAction="#switchScreen" styleClass="nav-button, nav-button-active" text="Appuntamenti" />
+                <Button fx:id="navButton1" onAction="#switchScreen" styleClass="nav-button" text="Aggiungi appuntamenti" />
+                <Button fx:id="navButton2" onAction="#switchScreen" styleClass="nav-button" text="Pazienti" />
             </VBox>
             
             <Button maxWidth="Infinity" onAction="#logout" styleClass="logout-button" text="Esci" />
@@ -39,21 +39,23 @@
                 <HBox alignment="CENTER_LEFT" spacing="10" HBox.hgrow="ALWAYS">
                     <Label fx:id="doctorNameLabel" styleClass="doctor-name" text="Dr. Tommaso Peruzzi" />
                 </HBox>
-                <Button styleClass="top-bar-button" text="Ricarica" />
+                <Button onAction="#reload" styleClass="top-bar-button" text="Ricarica" />
             </HBox>
 
             <Label styleClass="section-title" text="PROSSIMI APPUNTAMENTI" />
 
-            <VBox prefHeight="524.0" prefWidth="718.0" spacing="10" styleClass="appointments-container" VBox.vgrow="ALWAYS">
+            <VBox fx:id="mainContainer" prefHeight="524.0" prefWidth="718.0" spacing="10" styleClass="appointments-container" VBox.vgrow="ALWAYS">
                 <HBox spacing="10" styleClass="days-header">
-                    <Button styleClass="day-button-active" text="LUN" />
-                    <Button styleClass="day-button" text="MAR" />
-                    <Button styleClass="day-button" text="MER" />
-                    <Button styleClass="day-button" text="GIO" />
-                    <Button styleClass="day-button" text="VEN" />
+                    <Button fx:id="date0" onAction="#loadAppointmentsTable" styleClass="day-button" text="LUN" />
+                    <Button fx:id="date1" onAction="#loadAppointmentsTable" styleClass="day-button" text="MAR" />
+                    <Button fx:id="date2" onAction="#loadAppointmentsTable" styleClass="day-button" text="MER" />
+                    <Button fx:id="date3" onAction="#loadAppointmentsTable" styleClass="day-button" text="GIO" />
+                    <Button fx:id="date4" onAction="#loadAppointmentsTable" styleClass="day-button" text="VEN" />
+                    <Button onAction="#showPrevDates" styleClass="day-button" text="←" />
+                    <Button onAction="#showNextDates" styleClass="day-button" text="→" />
                 </HBox>
 
-                <TableView fx:id="appointmentsTable" styleClass="appointments-table" VBox.vgrow="ALWAYS">
+                <TableView fx:id="appointmentsTable" styleClass="appointments-table" visible="false" VBox.vgrow="ALWAYS">
                     <columns>
                         <TableColumn fx:id="patientColumn" text="Nome Paziente" />
                         <TableColumn fx:id="timeColumn" text="Orario" />

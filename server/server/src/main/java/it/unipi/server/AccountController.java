@@ -1,7 +1,5 @@
 package it.unipi.server;
 
-import java.util.List;
-import org.hibernate.Session;
 import org.springframework.security.crypto.bcrypt.BCrypt;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -46,16 +44,18 @@ public class AccountController {
         }
     }
     
-    @PostMapping(path = "/login/paziente")
-    public @ResponseBody Integer pazienteLogin(@RequestBody Paziente paziente){
+    @PostMapping(path = "/login")
+    public @ResponseBody Integer login(@RequestBody LoginRequest lr){
         
         try{
             
-            Paziente result = QueryHandler.findUtenteByMatricola(paziente, Paziente.class);
+            Class table = (lr.getIsDoctor())? Medico.class:Paziente.class;
+            
+            Utente result = QueryHandler.findUtenteByMatricola(lr.getMatricola(), table);
             if(result == null) return 0;
 
             String hash = result.getPassword();
-            if(!BCrypt.checkpw(paziente.getPassword(), hash)) return 1;
+            if(!BCrypt.checkpw(lr.getPassword(), hash)) return 1;
 
             return 2;
         }catch(ServerErrorException se){
@@ -63,23 +63,6 @@ public class AccountController {
         }
     }
     
-    
-    @PostMapping(path = "/login/medico")
-    public @ResponseBody Integer pazienteLogin(@RequestBody Medico medico){
-        
-        try{
-            
-            Medico result = QueryHandler.findUtenteByMatricola(medico, Medico.class);
-            if(result == null) return 0;
-
-            String hash = result.getPassword();
-            if(!BCrypt.checkpw(medico.getPassword(), hash)) return 1;
-
-            return 2;
-        }catch(ServerErrorException se){
-            return null;
-        }
-    }
 
     
 }
