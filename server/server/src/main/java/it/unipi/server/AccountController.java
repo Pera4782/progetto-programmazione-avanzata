@@ -11,6 +11,11 @@ import org.springframework.web.bind.annotation.ResponseBody;
 @RequestMapping(path="/account")
 public class AccountController {
     
+    /**
+     * @brief endpoint per la registrazione di un paziente
+     * @param paziente paziente da registrare
+     * @return un intero rappresentativo lo stato della risposta null altrimenti
+     */
     @PostMapping(path = "/register/paziente")
     public @ResponseBody Integer pazienteRegister(@RequestBody Paziente paziente){
         
@@ -28,6 +33,12 @@ public class AccountController {
         
     }
     
+    
+    /**
+     * @brief endpoint per la registrazione di un medico
+     * @param medico medico da registrare
+     * @return un intero rappresentativo lo stato della risposta, null in caso di errore
+     */
     @PostMapping(path = "/register/medico")
     public @ResponseBody Integer medicoRegister(@RequestBody Medico medico){
         
@@ -44,6 +55,12 @@ public class AccountController {
         }
     }
     
+    
+    /**
+     * @brief end point per il login di un utente sia esso medico o paziente
+     * @param lr richiesta di login
+     * @return un intero rappresentativo dello stato della risposta, null in caso di errore
+     */
     @PostMapping(path = "/login")
     public @ResponseBody Integer login(@RequestBody LoginRequest lr){
         

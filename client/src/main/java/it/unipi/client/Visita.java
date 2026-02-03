@@ -15,6 +15,12 @@ public class Visita {
     private LocalDate data;
     
     private LocalTime ora;
+    
+    private String tipo;
+
+    public String getTipo() {
+        return tipo;
+    }
 
     public LocalDate getData() {
         return data;
@@ -36,6 +42,10 @@ public class Visita {
         return paziente;
     }
 
+    public String getNomePaziente(){
+        return paziente.getNome() + " " + paziente.getCognome();
+    }
+    
     public void setData(LocalDate data) {
         this.data = data;
     }
@@ -56,6 +66,10 @@ public class Visita {
         this.paziente = paziente;
     }
 
+    public void setTipo(String tipo) {
+        this.tipo = tipo;
+    }
+    
     public Visita(int id, Medico medico, Paziente paziente, LocalDate data, LocalTime ora) {
         this.id = id;
         this.medico = medico;

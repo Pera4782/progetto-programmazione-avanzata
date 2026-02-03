@@ -10,5 +10,7 @@ it/unipi/client/Medico.class
 it/unipi/client/DoctorsMenuController.class
 it/unipi/client/LoginController$1.class
 module-info.class
+it/unipi/client/DoctorsMenuController$2.class
+it/unipi/client/DoctorsMenuController$1.class
 it/unipi/client/Utente.class
 it/unipi/client/Paziente.class

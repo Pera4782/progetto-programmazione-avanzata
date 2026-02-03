@@ -6,6 +6,10 @@ import org.hibernate.cfg.Configuration;
 public class HibernateUtil {
     private static final SessionFactory sessionFactory = buildSessionFactory();
 
+    /**
+     * funzione per costruire la sessionFactory
+     * @return la sessionFactory o null in caso di errore
+     */
     private static SessionFactory buildSessionFactory() {
         try {
             
@@ -14,6 +18,7 @@ public class HibernateUtil {
             
             configuration.addAnnotatedClass(Paziente.class);
             configuration.addAnnotatedClass(Medico.class);
+            configuration.addAnnotatedClass(Visita.class);
             
             return configuration.buildSessionFactory();
         } catch (Throwable e) {

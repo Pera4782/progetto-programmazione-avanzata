@@ -33,6 +33,13 @@ public class Visita {
     
     @Column(name = "ora")
     private LocalTime ora;
+    
+    @Column(name = "tipo")
+    private String tipo;
+
+    public String getTipo() {
+        return tipo;
+    }
 
     public LocalDate getData() {
         return data;
@@ -72,6 +79,10 @@ public class Visita {
 
     public void setPaziente(Paziente paziente) {
         this.paziente = paziente;
+    }
+
+    public void setTipo(String tipo) {
+        this.tipo = tipo;
     }
 
     public Visita(int id, Medico medico, Paziente paziente, LocalDate data, LocalTime ora) {

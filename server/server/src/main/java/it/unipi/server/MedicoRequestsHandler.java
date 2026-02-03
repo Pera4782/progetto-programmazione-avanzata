@@ -7,11 +7,16 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 @Controller
-@RequestMapping(path = "/get")
-public class GetRequestsHandler {
+@RequestMapping(path = "/medico")
+public class MedicoRequestsHandler {
     
-    @GetMapping(path = "/nomeCognomeDottore")
-    public @ResponseBody String[] getNomeCognomeDottore(@RequestParam(name = "_0") int matricola){
+    /**
+     * @brief end point per ottenere nome e cognome di un medico
+     * @param matricola matricola del medico
+     * @return un array di stringhe contenente nome e cognome del medico, null in caso di errore
+     */
+    @GetMapping(path = "/nominativo")
+    public @ResponseBody String[] getNominativoDottore(@RequestParam(name = "_0") int matricola){
         
         try{
             

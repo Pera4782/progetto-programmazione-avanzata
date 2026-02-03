@@ -80,10 +80,15 @@ public class RegisterController {
         
     }
 
+    /**
+     * @brief funzione associata alla pressione del tasto registrati
+     */
     @FXML
-    void handleRegister(ActionEvent event) {
+    void handleRegister() {
         
         hideMessage();
+        
+        //controlli sui campi inseriti
         if(hoCapitoButton != null) hoCapitoButton.setVisible(false);
 
         String nome = nameField.getText();
@@ -130,10 +135,8 @@ public class RegisterController {
                         utente = new Paziente(0, password, nome, cognome);
                         endpoint = "paziente";
                     }
-                    
-                    RequestHandler rh = new RequestHandler();
                   
-                    Integer result = rh.POSTRequest("account/register/" + endpoint, utente, Integer.class);
+                    Integer result = RequestHandler.POSTRequest("account/register/" + endpoint, utente, Integer.class);
                     
                     Platform.runLater(() -> {
                         
@@ -171,8 +174,11 @@ public class RegisterController {
         new Thread(task).start();
     }
 
+    /**
+     * @brief funzione associata alla pressione del bottone accedi
+     */
     @FXML
-    void switchToLoginPage(ActionEvent event) {
+    void switchToLoginPage() {
         try {
             App.setRoot("login");
         } catch (IOException e) {

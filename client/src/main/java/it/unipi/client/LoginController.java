@@ -53,11 +53,15 @@ public class LoginController {
         loggedMatricola = 0;
     }
     
+    /**
+     * @brief funzione associata all'evento della pressione del bottone accedi
+     */
     @FXML
-    void handleLogin(ActionEvent event) {
+    void handleLogin() {
         
         hideMessage();
         
+        //controlli degli input
         if(matricolaField.getText().isEmpty() || passwordField.getText().isEmpty()){
             showMessage("Compilare tutti i campi richiesti!");
             return;
@@ -79,9 +83,7 @@ public class LoginController {
                     
                     LoginRequest lr = new LoginRequest(matricola, password, isDoctor);
                     
-                    RequestHandler rh = new RequestHandler();
-                    
-                    Integer result = rh.POSTRequest("account/login", lr, Integer.class);
+                    Integer result = RequestHandler.POSTRequest("account/login", lr, Integer.class);
                     
                     Platform.runLater(() -> {
                     
@@ -130,17 +132,20 @@ public class LoginController {
 
 
     @FXML
-    void handleInitialize(ActionEvent event) {
+    void handleInitialize() {
         System.out.println("Bottone inizializza premuto");
+        //TODO
     }
 
-
+    /**
+     * @brief funzione associata alla pressione del bottone registrati
+     */
     @FXML
-    void handleRegister(ActionEvent event) {
+    void handleRegister() {
         try {
 
-            if(doctorRadio.isSelected()) isDoctor = true;//App.setRoot("doctorRegister");
-            else if(patientRadio.isSelected()) isDoctor = false; //App.setRoot("patientRegister");
+            if(doctorRadio.isSelected()) isDoctor = true;
+            else if(patientRadio.isSelected()) isDoctor = false;
             
             App.setRoot("register");
             
