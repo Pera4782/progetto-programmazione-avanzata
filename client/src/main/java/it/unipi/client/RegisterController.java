@@ -1,9 +1,13 @@
 package it.unipi.client;
 
+import it.unipi.client.App;
+import it.unipi.client.LoginController;
+import it.unipi.client.model.RequestHandler;
+import it.unipi.client.model.requests.RegisterRequest;
+import it.unipi.client.model.responses.RegisterResponse;
 import java.io.IOException;
 import javafx.application.Platform;
 import javafx.concurrent.Task;
-import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
@@ -124,19 +128,13 @@ public class RegisterController {
                 
                 try{
                     
-                    Utente utente;
-                    String endpoint;
+                    RegisterRequest rr;
                     
-                    if(LoginController.isDoctor){
-                        utente = new Medico(0, password, nome, cognome, specializzazione);
-                        endpoint = "medico";
-                    }
-                    else {
-                        utente = new Paziente(0, password, nome, cognome);
-                        endpoint = "paziente";
-                    }
+                    if(LoginController.isDoctor) rr = new RegisterRequest(nome, cognome, password, specializzazione, true);
+                    else rr = new RegisterRequest(nome, cognome, password, null, false);
+                    
                   
-                    Integer result = RequestHandler.POSTRequest("account/register/" + endpoint, utente, Integer.class);
+                    RegisterResponse result = RequestHandler.POSTRequest("account/register", rr, RegisterResponse.class);
                     
                     Platform.runLater(() -> {
                         
@@ -146,19 +144,22 @@ public class RegisterController {
                             return;
                         }
 
-                        switch(result){
-                            case -1:
+                        switch(result.getStatus()){
+                            case EMPTYFIELDS:
                                 showMessage("Compilare tutti i campi!");
                                 registerButton.setDisable(false);
                                 break;
-                            case -2:
+                            case WRONGPASSWORDFORMAT:
                                 showMessage("La password deve essere lunga almeno 8 caratteri, deve contenere solo caratteri alfanumerici e almeno una lettera maiuscola, un numero e uno trai seguenti caratteri: ! @ .");
                                 registerButton.setDisable(false);
                                 break;
-                            default:
+                            case SUCCESS:
                                 if(accediButton != null) accediButton.setVisible(false);
                                 if(hoCapitoButton != null) hoCapitoButton.setVisible(true);
-                                showMessage("IMPORTANTE!!! La tua matricola è " + result + " assicurati di non perderla, una volta uscito da questa pagina non sarà più possibile recuperarla");
+                                showMessage("IMPORTANTE!!! La tua matricola è " + result.getMatricola() + " assicurati di non perderla, una volta uscito da questa pagina non sarà più possibile recuperarla");
+                                break;
+                            default:
+                                System.exit(1);
                         }
                     });
                 

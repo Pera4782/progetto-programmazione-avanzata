@@ -1,10 +1,12 @@
 package it.unipi.client;
 
+import it.unipi.client.model.requests.LoginRequest;
+import it.unipi.client.model.RequestHandler;
+import it.unipi.client.model.responses.LoginResponse;
 import java.io.IOException;
 import javafx.application.Platform;
 import javafx.concurrent.Task;
 
-import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
@@ -67,12 +69,18 @@ public class LoginController {
             return;
         }
         
-        int matricola = Integer.parseInt(matricolaField.getText());
+        int matricola;
+        try {
+            matricola = Integer.parseInt(matricolaField.getText());
+        } catch (NumberFormatException e) {
+            showMessage("La matricola deve essere un numero!");
+            return;
+        }
+
         String password = passwordField.getText();
         
         if(doctorRadio.isSelected()) isDoctor = true;
-        
-        loginButton.setDisable(true);
+        else isDoctor = false; 
         
         Task<Void> task = new Task<Void>() {
             
@@ -83,7 +91,7 @@ public class LoginController {
                     
                     LoginRequest lr = new LoginRequest(matricola, password, isDoctor);
                     
-                    Integer result = RequestHandler.POSTRequest("account/login", lr, Integer.class);
+                    LoginResponse result = RequestHandler.POSTRequest("account/login", lr, LoginResponse.class);
                     
                     Platform.runLater(() -> {
                     
@@ -92,34 +100,49 @@ public class LoginController {
                             loginButton.setDisable(false);
                             return;
                         }
-                    
-                        switch(result){
+                        
+                        if (result.getStatus() == null) {
+                             showMessage("Risposta non valida dal server.");
+                             loginButton.setDisable(false);
+                             return;
+                        }
+
+                        switch(result.getStatus()){
                             
-                            case 0:
+                            case MATRICOLANOTFOUND:
                                 loginButton.setDisable(false);
                                 showMessage("Matricola non esistente!");
                                 return;
                             
-                            case 1:
+                            case WRONGPASSWORD:
                                 loginButton.setDisable(false);
                                 showMessage("La password inserita non è corretta!");
                                 return;
                               
-                            default:
+                            case SUCCESS:
                                 try{
                                     loggedMatricola = matricola; 
                                     if(isDoctor) App.setRoot("doctorsMenu");
                                     else App.setRoot("patientsMenu");
                                 }catch(IOException e){
                                     e.printStackTrace();
-                                    System.exit(1);
+                                    // Don't exit, just show error
+                                    showMessage("Errore caricamento menu.");
+                                    loginButton.setDisable(false);
                                 }
+                                break;
+                            default:
+                                showMessage("Errore sconosciuto.");
+                                loginButton.setDisable(false);
                         }
                         
                     });  
                 }catch(Exception e){
                     e.printStackTrace();
-                    System.exit(1);
+                    Platform.runLater(() -> {
+                        showMessage("Errore durante il login: " + e.getMessage());
+                        loginButton.setDisable(false);
+                    });
                 }
                 
                 return null;

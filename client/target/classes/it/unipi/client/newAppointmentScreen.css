@@ -1,0 +1,68 @@
+.main-container {
+    -fx-background-color: white;
+    -fx-background-radius: 10;
+}
+
+.header-label {
+    -fx-font-size: 32px;
+    -fx-font-family: "Segoe UI", Helvetica, Arial, sans-serif;
+    -fx-font-weight: bold;
+    -fx-text-fill: #212529;
+}
+
+.label {
+    -fx-font-size: 18px;
+    -fx-text-fill: #495057;
+}
+
+.text-field {
+    -fx-font-size: 16px;
+    -fx-background-color: white;
+    -fx-border-color: #CED4DA;
+    -fx-border-radius: 4;
+    -fx-background-radius: 4;
+    -fx-padding: 10;
+    -fx-pref-height: 45px;
+}
+
+.date-picker, .combo-box {
+    -fx-font-size: 16px;
+    -fx-background-color: white;
+    -fx-border-color: #CED4DA;
+    -fx-border-radius: 4;
+    -fx-background-radius: 4;
+    -fx-padding: 0;
+    -fx-pref-height: 45px;
+}
+
+.text-field:focused, .date-picker:focused, .combo-box:focused {
+    -fx-border-color: #0D6EFD;
+    -fx-ring-width: 2px;
+}
+
+.button-primary {
+    -fx-font-size: 16px;
+    -fx-background-color: #0D6EFD;
+    -fx-text-fill: white;
+    -fx-cursor: hand;
+    -fx-font-weight: bold;
+    -fx-padding: 10 20;
+}
+
+.button-primary:hover {
+    -fx-background-color: #0B5ED7;
+}
+
+.button-secondary {
+    -fx-font-size: 16px;
+    -fx-background-color: #6C757D;
+    -fx-text-fill: white;
+    -fx-cursor: hand;
+    -fx-padding: 10 20;
+}
+
+#message {
+    -fx-text-fill: #b50000;
+    -fx-font-size: 16px;
+    -fx-font-weight: bold;
+}
