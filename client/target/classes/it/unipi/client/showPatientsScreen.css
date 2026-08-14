@@ -1,0 +1,82 @@
+/* Container principale: pulito e trasparente */
+.patients-view-container {
+    -fx-background-color: #ffffff;
+    -fx-padding: 0;
+    -fx-fill-width: true;
+}
+
+/* Tabella JavaFX in stile Flat/Minimal */
+.patients-table {
+    -fx-background-color: transparent;
+    -fx-table-cell-border-color: transparent;
+    -fx-fixed-cell-size: 60px;
+    -fx-border-width: 0;
+    -fx-padding: 0;
+    -fx-focus-color: transparent;
+    -fx-faint-focus-color: transparent;
+}
+
+.patients-table .viewport {
+    -fx-background-color: transparent;
+}
+
+/* Intestazione delle colonne */
+.patients-table .column-header-background {
+    -fx-background-color: transparent;
+}
+
+.patients-table .column-header {
+    -fx-background-color: transparent;
+    -fx-size: 45px;
+    -fx-border-color: transparent;
+    -fx-border-width: 0;
+    -fx-padding: 0;
+}
+
+/* Nasconde il filler vuoto a destra dell'header delle colonne */
+.patients-table .column-header-background .filler {
+    -fx-background-color: transparent;
+}
+
+.patients-table .column-header .label {
+    -fx-text-fill: #95a5a6;
+    -fx-font-weight: bold;
+    -fx-font-size: 16px;
+    -fx-alignment: CENTER;
+}
+
+/* Righe della tabella */
+.patients-table .table-row-cell {
+    -fx-background-color: transparent;
+    -fx-border-color: transparent;
+    -fx-border-width: 0;
+}
+
+.patients-table .table-row-cell:hover {
+    -fx-background-color: #f8fafc;
+}
+
+.patients-table .table-row-cell:selected {
+    -fx-background-color: #e8f0fe;
+    -fx-border-color: transparent;
+}
+
+/* Pulizia per le righe vuote */
+.patients-table .table-row-cell:empty,
+.patients-table .table-row-cell:hover:empty {
+    -fx-background-color: transparent;
+    -fx-border-color: transparent;
+}
+
+.patients-table .table-row-cell:empty .table-cell,
+.patients-table .table-row-cell:hover:empty .table-cell {
+    -fx-border-width: 0px;
+}
+
+/* Celle singole */
+.patients-table .table-cell {
+    -fx-text-fill: #2c3e50;
+    -fx-font-size: 16px;
+    -fx-alignment: CENTER;
+    -fx-padding: 10;
+}

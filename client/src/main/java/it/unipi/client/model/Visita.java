@@ -48,6 +48,19 @@ public class Visita {
         return paziente.getNome() + " " + paziente.getCognome();
     }
     
+    public Integer getMatricolaPaziente(){
+        if(paziente == null) return -1;
+        return paziente.getMatricola();
+    }
+    
+    public String getStatusVisita(){
+        
+        LocalDate oggi = LocalDate.now();
+        
+        if(data.isBefore(oggi)) return "Completata";
+        return "Da Fare";
+    }
+    
     public void setData(LocalDate data) {
         this.data = data;
     }

@@ -17,6 +17,8 @@ public class DoctorsMenuController {
     
     private BookedAppointmentScreen bookedAppointmentScreen = new BookedAppointmentScreen();
     private NewAppointmentScreen newAppointmentScreen = new NewAppointmentScreen();
+    private ShowPatientsScreen showPatientsScreen = new ShowPatientsScreen();
+   
     
     @FXML
     private Label doctorNameLabel;
@@ -118,7 +120,8 @@ public class DoctorsMenuController {
                 mainContainer.getChildren().setAll(newAppointmentScreen);
                 break;
             case 2:
-                //TODO
+                pageTitle.setText("Pazienti Visitati");
+                mainContainer.getChildren().setAll(showPatientsScreen);
                 break;
             
         }

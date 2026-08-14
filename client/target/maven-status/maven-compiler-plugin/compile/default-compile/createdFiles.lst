@@ -14,6 +14,7 @@ module-info.class
 it/unipi/client/model/Medico.class
 it/unipi/client/model/requests/LoginRequest.class
 it/unipi/client/model/responses/LoginResponse.class
+it/unipi/client/ShowPatientsScreen$1.class
 it/unipi/client/BookedAppointmentScreen$2.class
 it/unipi/client/PatientsMenuController.class
 it/unipi/client/RegisterController$2.class
@@ -23,6 +24,7 @@ it/unipi/client/model/RequestHandler.class
 it/unipi/client/App.class
 it/unipi/client/model/requests/RegisterRequest.class
 it/unipi/client/DoctorsMenuController.class
+it/unipi/client/ShowPatientsScreen.class
 it/unipi/client/model/responses/RegisterResponse.class
 it/unipi/client/model/responses/GetVisiteByMedicoResponse.class
 it/unipi/client/BookedAppointmentScreen$1.class

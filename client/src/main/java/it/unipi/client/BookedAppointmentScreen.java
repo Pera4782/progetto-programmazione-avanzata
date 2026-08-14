@@ -161,8 +161,7 @@ public class BookedAppointmentScreen extends VBox {
                     GetVisiteByMedicoResponse response = RequestHandler.GETRequest("visita/medico", GetVisiteByMedicoResponse.class, 
                                                                                    Integer.toString(LoginController.loggedMatricola));
                     if(response == null || response.getStatus() == GetVisiteByMedicoResponse.Status.ERROR){
-                        //TODO
-                        return null;
+                        throw new Exception();
                     }
                     
                     Visita[] rows = Arrays.stream(response.getVisite()).filter(v -> v.getData().equals(clickedDate)).toArray(Visita[]::new);

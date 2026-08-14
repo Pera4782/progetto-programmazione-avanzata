@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.layout.VBox?>
+
+<fx:root type="VBox" 
+         spacing="15.0" 
+         styleClass="patients-view-container" 
+         stylesheets="@showPatientsScreen.css" 
+         xmlns="http://javafx.com/javafx/25" 
+         xmlns:fx="http://javafx.com/fxml/1">
+
+    <padding>
+        <Insets bottom="20.0" left="20.0" right="20.0" top="20.0" />
+    </padding>
+
+    <TableView fx:id="patientsTable" styleClass="patients-table" VBox.vgrow="ALWAYS">
+        <columns>
+            <TableColumn fx:id="nameColumn" prefWidth="180.0" text="Nome e Cognome" />
+            <TableColumn fx:id="matColumn" prefWidth="150.0" text="Matricola Paziente" />
+            <TableColumn fx:id="nearestVisitColumn" prefWidth="130.0" text="Visita più vicina" />
+            <TableColumn fx:id="statusColumn" prefWidth="120.0" text="Stato Visita" />
+        </columns>
+        <columnResizePolicy>
+            <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
+        </columnResizePolicy>
+    </TableView>
+
+</fx:root>
