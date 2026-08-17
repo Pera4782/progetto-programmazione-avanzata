@@ -5,8 +5,6 @@ import it.unipi.server.model.utils.QueryHandler;
 import it.unipi.server.model.Visita;
 import it.unipi.server.model.requests.CreateVisitaRequest;
 import it.unipi.server.model.responses.GetVisitaByMedicoResponse;
-import java.time.LocalDate;
-import java.time.LocalTime;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -59,10 +57,11 @@ public class VisiteRequestController {
         try{
             
             Visita visita = new Visita(0, createVisitaRequest.getMedico(), null, createVisitaRequest.getDate(), createVisitaRequest.getTime(),
-                                       createVisitaRequest.getType());
+                                       createVisitaRequest.getType(), createVisitaRequest.getOrdinaria());
             
             QueryHandler.createVisita(visita);
             return true;
+            
         }catch(ServerErrorException se){
             return false;
         }

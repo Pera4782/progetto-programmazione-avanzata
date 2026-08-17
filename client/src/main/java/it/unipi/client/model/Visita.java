@@ -17,6 +17,8 @@ public class Visita {
     private LocalTime ora;
     
     private String tipo;
+    
+    private boolean ordinaria;
 
     public String getTipo() {
         return tipo;
@@ -42,6 +44,10 @@ public class Visita {
         return paziente;
     }
 
+    public boolean getOrdinaria(){
+        return ordinaria;
+    }
+    
     public String getNomePaziente(){
         
         if(paziente == null) return "-";
@@ -85,13 +91,18 @@ public class Visita {
         this.tipo = tipo;
     }
     
-    public Visita(int id, Medico medico, Paziente paziente, LocalDate data, LocalTime ora, String tipo) {
+    public void setOrdinaria(boolean ordinaria){
+        this.ordinaria = ordinaria;
+    }
+    
+    public Visita(int id, Medico medico, Paziente paziente, LocalDate data, LocalTime ora, String tipo, boolean ordinaria) {
         this.id = id;
         this.medico = medico;
         this.paziente = paziente;
         this.data = data;
         this.ora = ora;
         this.tipo = tipo;
+        this.ordinaria = ordinaria;
     }
 
     public Visita() {

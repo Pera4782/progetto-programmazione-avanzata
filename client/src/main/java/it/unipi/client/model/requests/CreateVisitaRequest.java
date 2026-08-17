@@ -10,15 +10,17 @@ public class CreateVisitaRequest {
     private LocalTime time;
     private String type;
     private Medico medico;
+    private boolean ordinaria;
     
     public CreateVisitaRequest() {
     }
 
-    public CreateVisitaRequest(LocalDate date, LocalTime time, String type, Medico medico) {
+    public CreateVisitaRequest(LocalDate date, LocalTime time, String type, Medico medico, boolean ordinaria) {
         this.date = date;
         this.time = time;
         this.type = type;
         this.medico = medico;
+        this.ordinaria = ordinaria;
     }
 
     public Medico getMedico() {
@@ -37,6 +39,10 @@ public class CreateVisitaRequest {
         return type;
     }
 
+    public boolean getOrdinaria() {
+        return ordinaria;
+    }
+    
     public void setDate(LocalDate date) {
         this.date = date;
     }
@@ -51,5 +57,9 @@ public class CreateVisitaRequest {
 
     public void setMedico(Medico medico) {
         this.medico = medico;
+    }
+    
+    public void setOrdinaria(boolean ordinaria){
+        this.ordinaria = ordinaria;
     }
 }

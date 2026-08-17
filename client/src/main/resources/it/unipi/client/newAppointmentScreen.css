@@ -66,3 +66,25 @@
     -fx-font-size: 16px;
     -fx-font-weight: bold;
 }
+
+
+/* Stile per i RadioButton (opzioni tonde) */
+.radio-container {
+    -fx-padding: 5px 0px;
+}
+
+.custom-radio {
+    -fx-font-size: 16px;
+    -fx-text-fill: #495057;
+    -fx-cursor: hand;
+}
+
+.custom-radio .radio {
+    -fx-border-color: #CED4DA;
+    -fx-border-radius: 10px;
+    -fx-padding: 3px;
+}
+
+.custom-radio:selected .radio .dot {
+    -fx-background-color: #0D6EFD;
+}

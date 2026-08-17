@@ -13,6 +13,7 @@ import java.time.LocalDate;
 import java.time.LocalTime;
 import javafx.application.Platform;
 import javafx.concurrent.Task;
+import javafx.event.ActionEvent;
 
 public class NewAppointmentScreen extends VBox {
 
@@ -23,6 +24,9 @@ public class NewAppointmentScreen extends VBox {
     @FXML private Label message;
     
     @FXML private Button createAppointmentButton;
+    
+    @FXML private RadioButton optionOrdinaria;
+    @FXML private RadioButton optionSpeciale;
     
     private void showMessage(String msg){
         message.setText(msg);
@@ -46,6 +50,21 @@ public class NewAppointmentScreen extends VBox {
         }
     }
     
+    @FXML
+    public void initialize(){
+        dateField.setDisable(true);
+    }
+    
+    
+    @FXML
+    public void tipoPrenotazioneChanged(ActionEvent event){
+        
+        RadioButton selectedRatio = (RadioButton) event.getSource();
+        
+        boolean disabled = selectedRatio == optionOrdinaria;
+        
+        dateField.setDisable(disabled);
+    }
     
     private boolean checkValidity(LocalDate date, LocalTime time) throws Exception{
         
@@ -71,8 +90,9 @@ public class NewAppointmentScreen extends VBox {
         LocalDate date = dateField.getValue();
         String timeString = timeField.getValue();
         String type = typeField.getText();
+        boolean ordinaria = optionOrdinaria.isSelected();
         
-        if(date == null || timeString == null || type == null || type.isEmpty() || timeString.isEmpty()){
+        if((date == null && !ordinaria) || timeString == null || type == null || type.isEmpty() || timeString.isEmpty()){
             showMessage("Compilare tutti i campi richiesti!");
             return;
         }
@@ -97,7 +117,7 @@ public class NewAppointmentScreen extends VBox {
                         return null;
                     }
                     
-                    CreateVisitaRequest createVisitaRequest = new CreateVisitaRequest(date, time, type, DoctorsMenuController.loggedMedico);
+                    CreateVisitaRequest createVisitaRequest = new CreateVisitaRequest(date, time, type, DoctorsMenuController.loggedMedico, ordinaria);
                     Boolean response = RequestHandler.POSTRequest("visita/crea", createVisitaRequest, Boolean.class);
                     
                     if(response == null || response == false){
