@@ -115,7 +115,13 @@ public class RequestHandler{
         return data;
     }
     
-    
+    /**
+     * @param <R> tipo di ritorno 
+     * @param endPoint
+     * @param returnClass tipo di ritorno
+     * @param queryParams parametri da aggiungere nella query string
+     * @return risposta della richiesta DELETE
+     */
     public static <R> R DELETERequest(String endPoint, Class<R> returnClass, String... queryParams) throws IOException, InterruptedException{
         
         String completeUrl = prepareQueryString(endPoint, queryParams);

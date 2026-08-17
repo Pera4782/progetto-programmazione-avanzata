@@ -80,3 +80,7 @@
     -fx-alignment: CENTER;
     -fx-padding: 10;
 }
+
+.table-view .placeholder {
+    -fx-opacity: 0;
+}

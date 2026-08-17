@@ -108,11 +108,15 @@ public class ShowPatientsScreen extends VBox{
                     
                     for(Visita visita: visiteMedico){
                         
+                        if(visita.getPaziente() == null) continue;
+                        
                         int index = findVisitaPaziente(nearestVisite, visita.getPaziente());
                         
                         if(index == -1) nearestVisite.add(visita);
                         else if(!isCloser(nearestVisite.get(index).getData(), visita.getData())) nearestVisite.set(index, visita);
                     }
+                    
+                    if(visiteMedico == null || visiteMedico.length == 0) return null;
                     
                     rowList.addAll(nearestVisite);
                     patientsTable.setItems(rowList);

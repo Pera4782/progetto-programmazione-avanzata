@@ -76,9 +76,10 @@ public class NewAppointmentScreen extends VBox {
         if(response.getVisite() == null) return true;
         
         Visita[] visite = response.getVisite();
-        for(Visita visita:visite)
-            if(visita.getData().equals(date) && visita.getOra().equals(time)) return false;
-        
+        for(Visita visita:visite){
+            if(!visita.getOrdinaria() && visita.getData().equals(date) && visita.getOra().equals(time)) return false;
+            else if(visita.getOrdinaria() && visita.getOra().equals(time)) return false;
+        }
         return true;
     }
     
@@ -117,7 +118,8 @@ public class NewAppointmentScreen extends VBox {
                         return null;
                     }
                     
-                    CreateVisitaRequest createVisitaRequest = new CreateVisitaRequest(date, time, type, DoctorsMenuController.loggedMedico, ordinaria);
+                    CreateVisitaRequest createVisitaRequest = new CreateVisitaRequest((ordinaria)? null:date, time, type, 
+                                                                                      DoctorsMenuController.loggedMedico, ordinaria);
                     Boolean response = RequestHandler.POSTRequest("visita/crea", createVisitaRequest, Boolean.class);
                     
                     if(response == null || response == false){

@@ -54,6 +54,11 @@ public class Visita {
         return paziente.getNome() + " " + paziente.getCognome();
     }
     
+    public String getOrdinariaChar(){
+        if(ordinaria) return "✓";
+        return "✗";
+    }
+    
     public Integer getMatricolaPaziente(){
         if(paziente == null) return -1;
         return paziente.getMatricola();

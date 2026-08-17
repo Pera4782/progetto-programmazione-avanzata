@@ -143,3 +143,7 @@
 .context-menu .menu-item:focused .label {
     -fx-text-fill: #3498db;
 }
+
+.table-view .placeholder {
+    -fx-opacity: 0;
+}

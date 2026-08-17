@@ -50,6 +50,9 @@ public class BookedAppointmentScreen extends VBox {
     @FXML
     private TableColumn<Visita, String> typeColumn;
     
+    @FXML
+    private TableColumn<Visita, String> ordinariaColumn;
+    
     private ObservableList<Visita> rowList;
 
     
@@ -106,6 +109,7 @@ public class BookedAppointmentScreen extends VBox {
         patientColumn.setCellValueFactory(new PropertyValueFactory<>("nomePaziente"));
         timeColumn.setCellValueFactory(new PropertyValueFactory<>("ora"));
         typeColumn.setCellValueFactory(new PropertyValueFactory<>("tipo"));
+        ordinariaColumn.setCellValueFactory(new PropertyValueFactory<>("ordinariaChar"));
 
         rowList = FXCollections.observableArrayList();
     }
@@ -160,11 +164,13 @@ public class BookedAppointmentScreen extends VBox {
                     
                     GetVisiteByMedicoResponse response = RequestHandler.GETRequest("visita/medico", GetVisiteByMedicoResponse.class, 
                                                                                    Integer.toString(LoginController.loggedMatricola));
-                    if(response == null || response.getStatus() == GetVisiteByMedicoResponse.Status.ERROR){
+                    if(response == null || response.getStatus() == GetVisiteByMedicoResponse.Status.ERROR)
                         throw new Exception();
-                    }
                     
-                    Visita[] rows = Arrays.stream(response.getVisite()).filter(v -> v.getData().equals(clickedDate)).toArray(Visita[]::new);
+                    
+                    Visita[] rows = Arrays.stream(response.getVisite()).filter(v -> ( v.getOrdinaria() 
+                                                                                     || v.getData().equals(clickedDate)))
+                                                                                     .toArray(Visita[]::new);
                     
                     if(rows == null) return null;
                     

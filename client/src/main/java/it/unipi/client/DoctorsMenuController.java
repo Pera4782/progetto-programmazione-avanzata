@@ -120,7 +120,7 @@ public class DoctorsMenuController {
                 mainContainer.getChildren().setAll(newAppointmentScreen);
                 break;
             case 2:
-                pageTitle.setText("Pazienti Visitati");
+                pageTitle.setText("Pazienti Visitati/Da Visitare");
                 mainContainer.getChildren().setAll(showPatientsScreen);
                 break;
             

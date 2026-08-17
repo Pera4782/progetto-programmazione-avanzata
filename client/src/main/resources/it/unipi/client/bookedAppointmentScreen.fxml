@@ -26,6 +26,7 @@
             <TableColumn fx:id="patientColumn" text="Nome Paziente" />
             <TableColumn fx:id="timeColumn" text="Orario" />
             <TableColumn fx:id="typeColumn" text="Tipo" />
+            <TableColumn fx:id="ordinariaColumn" text="Ordinaria" />
         </columns>
         <columnResizePolicy>
             <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
