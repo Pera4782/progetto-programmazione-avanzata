@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.StackPane?>
+<?import javafx.scene.layout.VBox?>
+
+<fx:root minWidth="280" prefWidth="280" spacing="10" styleClass="doctor-card" stylesheets="@patientsMenu.css" type="javafx.scene.layout.VBox" xmlns="http://javafx.com/javafx/25" xmlns:fx="http://javafx.com/fxml/1">
+    <HBox alignment="CENTER_LEFT" spacing="15">
+        <StackPane styleClass="avatar-placeholder">
+            <Label fx:id="avatarText" styleClass="avatar-text" text="PP" />
+        </StackPane>
+        <VBox>
+            <Label fx:id="doctorNameLabel" styleClass="card-doc-name" text="Dr. Nome Cognome" />
+            <Label fx:id="specializationLabel" styleClass="card-doc-spec" text="Specializzazione" />
+        </VBox>
+    </HBox>
+    <Button fx:id="bookButton" maxWidth="Infinity" onAction="#bookAppointment" styleClass="book-button" text="Prenota Visita" />
+</fx:root>

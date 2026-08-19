@@ -12,4 +12,12 @@ public class Medico extends Utente implements Serializable {
         super(matricola, password, nome, cognome);
         this.specializzazione = specializzazione;
     }
+
+    public String getSpecializzazione() {
+        return specializzazione;
+    }
+
+    public void setSpecializzazione(String specializzazione) {
+        this.specializzazione = specializzazione;
+    }
 }

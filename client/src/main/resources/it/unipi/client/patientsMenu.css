@@ -1,21 +1,11 @@
+/* ==========================================================================
+   LAYOUT GENERALE
+   ========================================================================== */
+
 .welcome-text {
     -fx-font-size: 24px;
     -fx-font-weight: bold;
     -fx-text-fill: #2c3e50;
-}
-
-.search-container {
-    -fx-background-color: white;
-    -fx-padding: 20;
-    -fx-background-radius: 15;
-    -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.1), 10, 0, 0, 5);
-}
-
-.hub-search-field {
-    -fx-background-color: #f8f9fa;
-    -fx-border-color: #dee2e6;
-    -fx-border-radius: 5;
-    -fx-padding: 12;
 }
 
 .my-appointments-btn {
@@ -27,6 +17,89 @@
     -fx-cursor: hand;
 }
 
+.my-appointments-btn:hover {
+    -fx-background-color: #1557b0;
+}
+
+/* ==========================================================================
+   CONTENITORE E BARRA DI RICERCA
+   ========================================================================== */
+
+.search-container {
+    -fx-background-color: white;
+    -fx-padding: 20;
+    -fx-background-radius: 15;
+    -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.1), 10, 0, 0, 5);
+}
+
+.hub-search-field {
+    -fx-background-color: #f8f9fa;
+    -fx-border-color: #dee2e6;
+    -fx-border-radius: 5px;
+    -fx-background-radius: 5px;
+    -fx-padding: 12;
+}
+
+.hub-search-field:focused {
+    -fx-background-color: #ffffff;
+    -fx-border-color: #3182ce;
+}
+
+/* ComboBox Specializzazione */
+.hub-combo {
+    -fx-background-color: #f8f9fa;
+    -fx-border-color: #dee2e6;
+    -fx-border-radius: 5px;
+    -fx-background-radius: 5px;
+    -fx-padding: 3px 8px;
+    -fx-font-size: 14px;
+}
+
+.hub-combo:hover {
+    -fx-background-color: #ffffff;
+    -fx-border-color: #cbd5e0;
+}
+
+.hub-combo:focused {
+    -fx-background-color: #ffffff;
+    -fx-border-color: #3182ce;
+}
+
+.hub-combo .arrow-button {
+    -fx-background-color: transparent;
+}
+
+.hub-combo .arrow {
+    -fx-background-color: #a0aec0;
+}
+
+/* Pulsante Cerca */
+.search-confirm-btn {
+    -fx-background-color: #ebf8ff;
+    -fx-text-fill: #2b6cb0;
+    -fx-border-color: #bbe3fe;
+    -fx-border-radius: 5px;
+    -fx-background-radius: 5px;
+    -fx-padding: 10px 22px;
+    -fx-font-weight: bold;
+    -fx-font-size: 14px;
+    -fx-cursor: hand;
+}
+
+.search-confirm-btn:hover {
+    -fx-background-color: #3182ce;
+    -fx-text-fill: white;
+    -fx-border-color: #3182ce;
+}
+
+.search-confirm-btn:pressed {
+    -fx-background-color: #2b6cb0;
+    -fx-border-color: #2b6cb0;
+}
+
+/* ==========================================================================
+   CARDS DEI MEDICI
+   ========================================================================== */
 
 .doctor-card {
     -fx-background-color: white;
@@ -44,10 +117,19 @@
     -fx-background-radius: 25;
 }
 
-.avatar-text { -fx-text-fill: #1a73e8; -fx-font-weight: bold; }
+.avatar-text { 
+    -fx-text-fill: #1a73e8; 
+    -fx-font-weight: bold; 
+}
 
-.card-doc-name { -fx-font-weight: bold; -fx-font-size: 16px; }
-.card-doc-spec { -fx-text-fill: #718096; }
+.card-doc-name { 
+    -fx-font-weight: bold; 
+    -fx-font-size: 16px; 
+}
+
+.card-doc-spec { 
+    -fx-text-fill: #718096; 
+}
 
 .availability-text {
     -fx-padding: 15 0;
@@ -59,7 +141,13 @@
     -fx-background-color: #f0f7ff;
     -fx-text-fill: #1a73e8;
     -fx-border-color: #1a73e8;
-    -fx-border-radius: 5;
+    -fx-border-radius: 5px;
+    -fx-background-radius: 5px;
     -fx-padding: 8;
+    -fx-cursor: hand;
 }
-.book-button:hover { -fx-background-color: #1a73e8; -fx-text-fill: white; }
+
+.book-button:hover { 
+    -fx-background-color: #1a73e8; 
+    -fx-text-fill: white; 
+}
