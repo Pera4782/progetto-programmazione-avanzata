@@ -25,9 +25,9 @@
 
     <VBox spacing="15" styleClass="search-container">
         <HBox alignment="CENTER" spacing="15">
-            <TextField fx:id="doctorSearchBar" promptText="Cerca per Nome del Medico..." styleClass="hub-search-field" HBox.hgrow="ALWAYS" />
+            <TextField fx:id="doctorSearchBar" promptText="Cerca per Cognome del Medico..." styleClass="hub-search-field" HBox.hgrow="ALWAYS" />
             <ComboBox fx:id="specializationComboBox" prefWidth="200" promptText="Specializzazione" styleClass="hub-combo" />
-            <Button fx:id="searchButton" styleClass="search-confirm-btn" text="Cerca" />
+            <Button fx:id="searchButton" onAction="#searchDoctors" styleClass="search-confirm-btn" text="Cerca" />
         </HBox>
     </VBox>
 
