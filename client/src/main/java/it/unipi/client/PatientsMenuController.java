@@ -27,6 +27,7 @@ public class PatientsMenuController {
     @FXML
     private FlowPane doctorsList;
     
+    private DoctorCard[] doctorCards;
     
     @FXML
     public void initialize(){
@@ -62,6 +63,8 @@ public class PatientsMenuController {
                "Psichiatria"
             );
             
+            specializationComboBox.setValue("Qualsiasi");
+            
         }catch(Exception e){
             e.printStackTrace();
             System.exit(1);
@@ -78,35 +81,45 @@ public class PatientsMenuController {
     }
     
     
+    /**
+     * @brief funzione per la ricerca di medici nella pagina principale del paziente
+     */
     @FXML
     public void searchDoctors(){
         
         String cognomeMedico = doctorSearchBar.getText();
         String specializzazione = specializationComboBox.getValue();
         
+        if(cognomeMedico.isEmpty() && specializzazione == null) return;
+        
+        doctorsList.getChildren().clear();
         
         Task<Void> task = new Task<Void>() {
-            
             @Override
             public Void call(){
-                
-                
                 try{
-
-                    doctorsList.getChildren().clear();
                     
                     FindDottoriResponse response = RequestHandler.GETRequest("medico/find", FindDottoriResponse.class, cognomeMedico, specializzazione);
                     if(response.getStatus() == FindDottoriResponse.Status.ERROR) throw new Exception();
 
                     Medico[] medici = response.getMedici();
                     
-                    for(Medico medico: medici){
-                        DoctorCard dc = new DoctorCard(medico.getNome(), medico.getCognome(), medico.getSpecializzazione());
-                        doctorsList.getChildren().add(dc);
+                    doctorCards = new DoctorCard[medici.length];
+                    
+                    for(int i = 0; i < medici.length; ++i){
+                        DoctorCard dc = new DoctorCard(medici[i]);
+                        doctorCards[i] = dc;
+                        
+                        dc.setBookButtonClicked(() -> createBookingScreen());
                     }
 
+                    Platform.runLater(() -> {
+                        doctorsList.getChildren().addAll(doctorCards);
+                    });
+                    
                 }catch(Exception e){
-
+                    e.printStackTrace();
+                    System.exit(1);
                 }
                 
                 return null;
@@ -114,7 +127,11 @@ public class PatientsMenuController {
             
         };
         
+        new Thread(task).start();
         
+    }
+    
+    public void createBookingScreen(){
         
     }
     

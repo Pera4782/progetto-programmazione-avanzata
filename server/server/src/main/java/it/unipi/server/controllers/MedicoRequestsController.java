@@ -45,7 +45,7 @@ public class MedicoRequestsController {
         try{
             
             if(cognome == null) return new FindDottoriResponse(FindDottoriResponse.Status.SUCCESS, QueryHandler.getMedicoBySpecializzazione(specializzazione));
-            else if(specializzazione == null || specializzazione.equals("Qualsiasi")) return new FindDottoriResponse(FindDottoriResponse.Status.SUCCESS, QueryHandler.getMedicoByCognome(cognome));
+            else if(specializzazione.equals("Qualsiasi")) return new FindDottoriResponse(FindDottoriResponse.Status.SUCCESS, QueryHandler.getMedicoByCognome(cognome));
             else return new FindDottoriResponse(FindDottoriResponse.Status.SUCCESS, QueryHandler.getMedicoByCognomeAndSpecializzazione(cognome, specializzazione));
             
         }catch(ServerErrorException se){
