@@ -16,11 +16,12 @@
         <Insets bottom="30" left="40" right="40" top="30" />
     </padding>
 
-    <HBox alignment="CENTER_LEFT" spacing="20">
+    <HBox alignment="CENTER_LEFT" spacing="15">
         <VBox HBox.hgrow="ALWAYS">
             <Label fx:id="patientNameLable" styleClass="welcome-text" text="Bentornato, Paolo!" />
         </VBox>
-        <Button onAction="#showBookedAppointments" styleClass="my-appointments-btn" text="📅 I Miei Appuntamenti" />
+        <Button onAction="#showBookedAppointments" styleClass="header-btn" text="📅 I Miei Appuntamenti" />
+        <Button fx:id="logoutButton" onAction="#logout" styleClass="header-btn" text="Esci" />
     </HBox>
 
     <VBox spacing="15" styleClass="search-container">
@@ -34,6 +35,6 @@
     <Separator />
     
     <ScrollPane fitToWidth="true" styleClass="transparent-scroll" VBox.vgrow="ALWAYS">
-        <FlowPane fx:id="doctorsList" hgap="20" vgap="20" />
+        <FlowPane fx:id="mainContainer" hgap="20" vgap="20" />
     </ScrollPane>
 </VBox>

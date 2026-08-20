@@ -2,6 +2,7 @@ package it.unipi.client;
 
 import it.unipi.client.model.Medico;
 import it.unipi.client.model.RequestHandler;
+import it.unipi.client.model.UserSession;
 import javafx.application.Platform;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -36,15 +37,12 @@ public class DoctorsMenuController {
     private int activeNavButton = 0;
     
     
-    public static Medico loggedMedico;
-    
-    
     @FXML
     void initialize(){
         
         //riempimento del nome del dottore
         try{
-            Medico medico = RequestHandler.GETRequest("medico/info", Medico.class, Integer.toString(LoginController.loggedMatricola));
+            Medico medico = RequestHandler.GETRequest("medico/info", Medico.class, Integer.toString(UserSession.getSession().getLoggedMatricola()));
             
             if(medico == null){
                 
@@ -59,7 +57,7 @@ public class DoctorsMenuController {
                 return;
             }
             
-            loggedMedico = medico;
+            UserSession.getSession().setLoggedUtente(medico);
             
             doctorNameLabel.setText("Dr. " + medico.getNome() + " " + medico.getCognome());
             
@@ -83,6 +81,7 @@ public class DoctorsMenuController {
     @FXML
     void logout(){
         try{
+            UserSession.getSession().clearSession();
             App.setRoot("login");
         }catch(Exception e){
             e.printStackTrace();

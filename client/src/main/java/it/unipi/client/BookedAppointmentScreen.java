@@ -2,6 +2,7 @@ package it.unipi.client;
 
 import it.unipi.client.model.Visita;
 import it.unipi.client.model.RequestHandler;
+import it.unipi.client.model.UserSession;
 import it.unipi.client.model.responses.GetVisiteByMedicoResponse;
 import java.io.IOException;
 import java.time.LocalDate;
@@ -163,7 +164,7 @@ public class BookedAppointmentScreen extends VBox {
                     rowList.clear();
                     
                     GetVisiteByMedicoResponse response = RequestHandler.GETRequest("visita/medico", GetVisiteByMedicoResponse.class, 
-                                                                                   Integer.toString(LoginController.loggedMatricola));
+                                                                                   Integer.toString(UserSession.getSession().getLoggedMatricola()));
                     if(response == null || response.getStatus() == GetVisiteByMedicoResponse.Status.ERROR)
                         throw new Exception();
                     

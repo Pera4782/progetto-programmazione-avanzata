@@ -51,7 +51,7 @@
     
     </VBox>
 
-    <Button onAction="#handleInitialize" style="-fx-font-size: 11px; -fx-padding: 5 10;" styleClass="login-button" text="inizializza" StackPane.alignment="BOTTOM_RIGHT">
+    <Button onAction="#inizializzaDB" style="-fx-font-size: 11px; -fx-padding: 5 10;" styleClass="login-button" text="inizializza" StackPane.alignment="BOTTOM_RIGHT">
         <StackPane.margin>
             <Insets bottom="20.0" right="20.0" />
         </StackPane.margin>

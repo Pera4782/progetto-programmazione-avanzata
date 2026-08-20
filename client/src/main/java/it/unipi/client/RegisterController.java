@@ -74,7 +74,6 @@ public class RegisterController {
                "Cardiologia", 
                "Dermatologia", 
                "Ginecologia", 
-               "Medicina Generale", 
                "Neurologia", 
                "Ortopedia", 
                "Pediatria", 

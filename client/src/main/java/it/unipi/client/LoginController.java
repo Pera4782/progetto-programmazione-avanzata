@@ -2,6 +2,7 @@ package it.unipi.client;
 
 import it.unipi.client.model.requests.LoginRequest;
 import it.unipi.client.model.RequestHandler;
+import it.unipi.client.model.UserSession;
 import it.unipi.client.model.responses.LoginResponse;
 import java.io.IOException;
 import javafx.application.Platform;
@@ -18,8 +19,6 @@ public class LoginController {
 
     
     public static boolean isDoctor;
-    
-    public static int loggedMatricola;
     
     @FXML
     private TextField matricolaField;
@@ -52,7 +51,6 @@ public class LoginController {
     @FXML
     void initialize(){
         isDoctor = false;
-        loggedMatricola = 0;
     }
     
     /**
@@ -121,7 +119,9 @@ public class LoginController {
                               
                             case SUCCESS:
                                 try{
-                                    loggedMatricola = matricola; 
+                                    UserSession session = UserSession.getSession();
+                                    session.setLoggedMatricola(matricola);
+                                    
                                     if(isDoctor) App.setRoot("doctorsMenu");
                                     else App.setRoot("patientsMenu");
                                 }catch(IOException e){
@@ -155,9 +155,8 @@ public class LoginController {
 
 
     @FXML
-    void handleInitialize() {
-        System.out.println("Bottone inizializza premuto");
-        //TODO
+    void inizializzaDB() {
+        
     }
 
     /**

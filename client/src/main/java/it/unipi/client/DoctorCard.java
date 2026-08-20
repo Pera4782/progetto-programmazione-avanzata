@@ -42,6 +42,11 @@ public class DoctorCard extends VBox{
         specializationLabel.setText(medico.getSpecializzazione());
         
     }
+
+    public Medico getMedico() {
+        return medico;
+    }
+    
     
     @FXML
     public void bookAppointment(ActionEvent e){

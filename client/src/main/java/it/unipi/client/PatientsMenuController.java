@@ -3,6 +3,7 @@ package it.unipi.client;
 import it.unipi.client.model.Medico;
 import it.unipi.client.model.Paziente;
 import it.unipi.client.model.RequestHandler;
+import it.unipi.client.model.UserSession;
 import it.unipi.client.model.responses.FindDottoriResponse;
 import javafx.application.Platform;
 import javafx.concurrent.Task;
@@ -11,6 +12,7 @@ import javafx.scene.control.ComboBox;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.FlowPane;
 import javafx.event.ActionEvent;
+import javafx.geometry.Pos;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 
@@ -25,7 +27,7 @@ public class PatientsMenuController {
     @FXML private Button searchButton;
 
     @FXML
-    private FlowPane doctorsList;
+    private FlowPane mainContainer;
     
     private DoctorCard[] doctorCards;
     
@@ -34,7 +36,7 @@ public class PatientsMenuController {
         
         try{
             
-            Paziente paziente = RequestHandler.GETRequest("paziente/info", Paziente.class, Integer.toString(LoginController.loggedMatricola));
+            Paziente paziente = RequestHandler.GETRequest("paziente/info", Paziente.class, Integer.toString(UserSession.getSession().getLoggedMatricola()));
             
             if(paziente == null){
                 Platform.runLater(() -> {
@@ -56,7 +58,6 @@ public class PatientsMenuController {
                "Cardiologia", 
                "Dermatologia", 
                "Ginecologia", 
-               "Medicina Generale", 
                "Neurologia", 
                "Ortopedia", 
                "Pediatria", 
@@ -92,7 +93,7 @@ public class PatientsMenuController {
         
         if(cognomeMedico.isEmpty() && specializzazione == null) return;
         
-        doctorsList.getChildren().clear();
+        mainContainer.getChildren().clear();
         
         Task<Void> task = new Task<Void>() {
             @Override
@@ -110,11 +111,25 @@ public class PatientsMenuController {
                         DoctorCard dc = new DoctorCard(medici[i]);
                         doctorCards[i] = dc;
                         
-                        dc.setBookButtonClicked(() -> createBookingScreen());
+                        dc.setBookButtonClicked(() -> {
+                            
+                            searchButton.setDisable(true);
+                            mainContainer.getChildren().clear();
+                            mainContainer.setAlignment(Pos.CENTER);
+                            
+                            BookAppointmentScreen bas = new BookAppointmentScreen(dc.getMedico());
+                            
+                            bas.setGoBackButtonClicked(() -> {
+                                mainContainer.getChildren().clear();
+                                mainContainer.setAlignment(Pos.TOP_LEFT);
+                                searchButton.setDisable(false);
+                            });
+                            mainContainer.getChildren().add(bas);
+                        });
                     }
 
                     Platform.runLater(() -> {
-                        doctorsList.getChildren().addAll(doctorCards);
+                        mainContainer.getChildren().addAll(doctorCards);
                     });
                     
                 }catch(Exception e){
@@ -130,8 +145,17 @@ public class PatientsMenuController {
         new Thread(task).start();
         
     }
-    
-    public void createBookingScreen(){
+ 
+    @FXML
+    public void logout(){
+        
+        try{
+            UserSession.getSession().clearSession();
+            App.setRoot("login");
+        }catch(Exception e){
+            e.printStackTrace();
+            System.exit(1);
+        }
         
     }
     

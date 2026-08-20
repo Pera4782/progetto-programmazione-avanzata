@@ -1,6 +1,8 @@
 package it.unipi.client;
 
+import it.unipi.client.model.Medico;
 import it.unipi.client.model.RequestHandler;
+import it.unipi.client.model.UserSession;
 import it.unipi.client.model.Visita;
 import it.unipi.client.model.requests.CreateVisitaRequest;
 import it.unipi.client.model.responses.GetVisiteByMedicoResponse;
@@ -69,7 +71,7 @@ public class NewAppointmentScreen extends VBox {
     private boolean checkValidity(LocalDate date, LocalTime time) throws Exception{
         
         GetVisiteByMedicoResponse response = RequestHandler.GETRequest("visita/medico", GetVisiteByMedicoResponse.class, 
-                                                                        Integer.toString(DoctorsMenuController.loggedMedico.getMatricola()));
+                                                                        Integer.toString(UserSession.getSession().getLoggedMatricola()));
         
         if(response == null || response.getStatus() == GetVisiteByMedicoResponse.Status.ERROR) throw new Exception();
         
@@ -119,7 +121,8 @@ public class NewAppointmentScreen extends VBox {
                     }
                     
                     CreateVisitaRequest createVisitaRequest = new CreateVisitaRequest((ordinaria)? null:date, time, type, 
-                                                                                      DoctorsMenuController.loggedMedico, ordinaria);
+                                                                                      (Medico) UserSession.getSession().getLoggedUtente(),
+                                                                                       ordinaria);
                     Boolean response = RequestHandler.POSTRequest("visita/crea", createVisitaRequest, Boolean.class);
                     
                     if(response == null || response == false){
