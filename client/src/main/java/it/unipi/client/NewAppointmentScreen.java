@@ -5,7 +5,7 @@ import it.unipi.client.model.RequestHandler;
 import it.unipi.client.model.UserSession;
 import it.unipi.client.model.Visita;
 import it.unipi.client.model.requests.CreateVisitaRequest;
-import it.unipi.client.model.responses.GetVisiteByMedicoResponse;
+import it.unipi.client.model.responses.GetVisiteResponse;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.control.*;
@@ -70,10 +70,10 @@ public class NewAppointmentScreen extends VBox {
     
     private boolean checkValidity(LocalDate date, LocalTime time) throws Exception{
         
-        GetVisiteByMedicoResponse response = RequestHandler.GETRequest("visita/medico", GetVisiteByMedicoResponse.class, 
+        GetVisiteResponse response = RequestHandler.GETRequest("visita/medico", GetVisiteResponse.class, 
                                                                         Integer.toString(UserSession.getSession().getLoggedMatricola()));
         
-        if(response == null || response.getStatus() == GetVisiteByMedicoResponse.Status.ERROR) throw new Exception();
+        if(response == null || response.getStatus() == GetVisiteResponse.Status.ERROR) throw new Exception();
         
         if(response.getVisite() == null) return true;
         

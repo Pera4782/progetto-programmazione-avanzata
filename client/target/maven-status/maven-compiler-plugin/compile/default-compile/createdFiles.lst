@@ -1,6 +1,6 @@
+it/unipi/client/BookAppointmentScreen$1.class
 it/unipi/client/NewAppointmentScreen.class
 it/unipi/client/model/responses/FindDottoriResponse$Status.class
-it/unipi/client/model/responses/GetVisiteByMedicoResponse$Status.class
 it/unipi/client/model/Utente.class
 it/unipi/client/LoginController.class
 it/unipi/client/model/Paziente.class
@@ -13,7 +13,6 @@ it/unipi/client/BookedAppointmentScreen.class
 it/unipi/client/model/responses/RegisterResponse$Status.class
 it/unipi/client/ShowPatientsScreen.class
 it/unipi/client/model/responses/RegisterResponse.class
-it/unipi/client/model/responses/GetVisiteByMedicoResponse.class
 it/unipi/client/DoctorCard.class
 it/unipi/client/LoginController$2.class
 it/unipi/client/RegisterController$1.class
@@ -24,8 +23,10 @@ it/unipi/client/model/requests/CreateVisitaRequest.class
 it/unipi/client/model/responses/LoginResponse$Status.class
 it/unipi/client/LoginController$1.class
 module-info.class
+it/unipi/client/model/responses/GetVisiteResponse.class
 it/unipi/client/model/Medico.class
 it/unipi/client/model/requests/LoginRequest.class
+it/unipi/client/model/responses/GetVisiteResponse$Status.class
 it/unipi/client/model/responses/LoginResponse.class
 it/unipi/client/PatientsMenuController.class
 it/unipi/client/RegisterController$2.class

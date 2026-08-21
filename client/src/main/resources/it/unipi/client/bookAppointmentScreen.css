@@ -150,3 +150,34 @@
 .confirm-booking-btn:pressed {
     -fx-background-color: #22543d;
 }
+
+/* ==========================================================================
+   MESSAGGI DI STATO (CONFERMA / ERRORE)
+   ========================================================================== */
+
+/* ==========================================================================
+   MESSAGGI DI STATO (CONFERMA / ERRORE)
+   ========================================================================== */
+
+/* ==========================================================================
+   MESSAGGI DI STATO (CONFERMA / ERRORE)
+   ========================================================================== */
+
+/* Stile base della label di stato */
+.status-message {
+    -fx-font-size: 14px;
+    -fx-font-weight: bold;
+    -fx-padding: 8px 0px;
+    -fx-alignment: center;
+    -fx-background-color: transparent;
+}
+
+/* Variante Errore (Usa lo stesso rosso puro di .red-button) */
+.status-message.error {
+    -fx-text-fill: #b50000;
+}
+
+/* Variante Successo */
+.status-message.success {
+    -fx-text-fill: #276749;
+}

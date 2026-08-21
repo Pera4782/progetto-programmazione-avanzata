@@ -4,7 +4,8 @@ import it.unipi.server.model.ServerErrorException;
 import it.unipi.server.model.utils.QueryHandler;
 import it.unipi.server.model.Visita;
 import it.unipi.server.model.requests.CreateVisitaRequest;
-import it.unipi.server.model.responses.GetVisitaByMedicoResponse;
+import it.unipi.server.model.responses.GetVisiteResponse;
+import java.time.LocalDate;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -23,12 +24,12 @@ public class VisiteRequestController {
      * @return lo stato della risposta
      */
     @GetMapping(path = "/medico")
-    public @ResponseBody GetVisitaByMedicoResponse getVisiteByMedico(@RequestParam(name = "_0") int matricola){
+    public @ResponseBody GetVisiteResponse getVisiteByMedico(@RequestParam(name = "_0") int matricola){
         try{
             Visita[] visite = QueryHandler.getVisiteByMedico(matricola);
-            return new GetVisitaByMedicoResponse(GetVisitaByMedicoResponse.Status.SUCCESS, visite);
+            return new GetVisiteResponse(GetVisiteResponse.Status.SUCCESS, visite);
         }catch(ServerErrorException se){
-            return new GetVisitaByMedicoResponse(GetVisitaByMedicoResponse.Status.ERROR, null);
+            return new GetVisiteResponse(GetVisiteResponse.Status.ERROR, null);
         }
     }
     
@@ -65,6 +66,18 @@ public class VisiteRequestController {
         }catch(ServerErrorException se){
             return false;
         }
+    }
+    
+    @GetMapping(path = "data")
+    public @ResponseBody GetVisiteResponse getVisiteByData(@RequestParam(name = "_0") LocalDate date){
+        
+        try{
+            Visita[] visite = QueryHandler.getVisiteByData(date);
+            return new GetVisiteResponse(GetVisiteResponse.Status.SUCCESS, visite);
+        }catch(ServerErrorException se){
+            return new GetVisiteResponse(GetVisiteResponse.Status.ERROR, null);
+        }
+        
     }
     
 }

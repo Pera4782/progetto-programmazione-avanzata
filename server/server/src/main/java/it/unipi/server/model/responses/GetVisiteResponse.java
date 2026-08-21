@@ -1,8 +1,8 @@
-package it.unipi.client.model.responses;
+package it.unipi.server.model.responses;
 
-import it.unipi.client.model.Visita;
+import it.unipi.server.model.Visita;
 
-public class GetVisiteByMedicoResponse {
+public class GetVisiteResponse {
     
     public enum Status {
         SUCCESS, ERROR;
@@ -11,12 +11,12 @@ public class GetVisiteByMedicoResponse {
     private Status status;
     private Visita[] visite;
 
-    public GetVisiteByMedicoResponse(Status status, Visita[] visite) {
+    public GetVisiteResponse(Status status, Visita[] visite) {
         this.status = status;
         this.visite = visite;
     }
 
-    public GetVisiteByMedicoResponse() {
+    public GetVisiteResponse() {
     }
 
     public Status getStatus() {

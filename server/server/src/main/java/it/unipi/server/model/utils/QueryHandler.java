@@ -4,6 +4,7 @@ import it.unipi.server.model.Medico;
 import it.unipi.server.model.ServerErrorException;
 import it.unipi.server.model.Utente;
 import it.unipi.server.model.Visita;
+import java.time.LocalDate;
 import java.util.List;
 
 import org.hibernate.Session;
@@ -208,6 +209,27 @@ public class QueryHandler {
         }finally{
             session.close();
         }       
+    }
+    
+    public static Visita[] getVisiteByData(LocalDate date) throws ServerErrorException{
+        
+        Session session = HibernateUtil.getSessionFactory().openSession();
+        
+        try{
+            List<Visita> result = session.createQuery("SELECT v FROM Visita v WHERE v.data = :data", Visita.class)
+                                  .setParameter("data", date)
+                                  .getResultList();
+            
+            if(result == null) return null;
+            
+            return result.toArray(new Visita[0]);
+            
+        }catch(Exception e){
+            throw new ServerErrorException();
+        }finally{
+            session.close();
+        }       
+        
     }
     
 }

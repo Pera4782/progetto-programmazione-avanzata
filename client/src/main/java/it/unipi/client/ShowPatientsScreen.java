@@ -4,7 +4,7 @@ import it.unipi.client.model.Paziente;
 import it.unipi.client.model.Visita;
 import it.unipi.client.model.RequestHandler;
 import it.unipi.client.model.UserSession;
-import it.unipi.client.model.responses.GetVisiteByMedicoResponse;
+import it.unipi.client.model.responses.GetVisiteResponse;
 import java.io.IOException;
 import java.time.LocalDate;
 import java.time.temporal.ChronoUnit;
@@ -97,10 +97,10 @@ public class ShowPatientsScreen extends VBox{
                 
                 try {
                     
-                    GetVisiteByMedicoResponse response = RequestHandler.GETRequest("visita/medico", GetVisiteByMedicoResponse.class, 
+                    GetVisiteResponse response = RequestHandler.GETRequest("visita/medico", GetVisiteResponse.class, 
                                                                                     Integer.toString(UserSession.getSession().getLoggedMatricola()));
                     
-                    if(response == null || response.getStatus() == GetVisiteByMedicoResponse.Status.ERROR){
+                    if(response == null || response.getStatus() == GetVisiteResponse.Status.ERROR){
                         throw new Exception();
                     }
                     

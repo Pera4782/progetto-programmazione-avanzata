@@ -1,6 +1,9 @@
 package it.unipi.client;
 
 import it.unipi.client.model.Medico;
+import it.unipi.client.model.RequestHandler;
+import it.unipi.client.model.Visita;
+import it.unipi.client.model.responses.GetVisiteResponse;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.control.DatePicker;
@@ -10,6 +13,8 @@ import javafx.scene.layout.VBox;
 
 import java.io.IOException;
 import java.time.LocalDate;
+import javafx.application.Platform;
+import javafx.concurrent.Task;
 
 public class BookAppointmentScreen extends VBox {
 
@@ -21,8 +26,27 @@ public class BookAppointmentScreen extends VBox {
     @FXML private DatePicker appointmentDatePicker;
     @FXML private ListView<String> timeSlotsList;
     
+    @FXML private Label statusLabel;
+    
     private Runnable goBackButtonClicked;
-
+    
+    private void showMessage(String msg, boolean error){
+        
+        hideMessage();
+        
+        String styleClass = (error)? "error" : "success";
+        statusLabel.getStyleClass().add(styleClass);
+        statusLabel.setText(msg);
+        statusLabel.setVisible(true);
+    }
+    
+    private void hideMessage(){
+        
+        statusLabel.getStyleClass().removeAll("error", "success");
+        statusLabel.setText("");
+        statusLabel.setVisible(false);
+    }
+       
     public BookAppointmentScreen(Medico medico) {
         FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("bookAppointmentScreen.fxml"));
         fxmlLoader.setRoot(this);
@@ -59,17 +83,47 @@ public class BookAppointmentScreen extends VBox {
         LocalDate selectedDate = appointmentDatePicker.getValue();
         String selectedTime = timeSlotsList.getSelectionModel().getSelectedItem();
         
+        
+        
     }
 
     
     @FXML
     public void showAvailableTimes(){
-        System.out.println("DATA SELEZIONATA");
-    }
-    
-    public void setDoctorDetails(String name, String specialization, String initials) {
         
+        LocalDate date = appointmentDatePicker.getValue();
+        if(date.isBefore(LocalDate.now())) return;
+        appointmentDatePicker.setDisable(true);
+        
+        timeSlotsList.getItems().clear();
+        
+        Task<Void> task = new Task<Void>() {
+            
+            @Override
+            public Void call(){
+                
+                try{
+                    
+                    GetVisiteResponse response = RequestHandler.GETRequest("visita/data", GetVisiteResponse.class, date.toString());
+                    
+                    if(response.getStatus() == GetVisiteResponse.Status.ERROR) throw new Exception();
+                    
+                    Visita[] visite = response.getVisite();
+                    
+                }catch(Exception e){
+                    showMessage("Errore nella comunicazione con il server", true);
+                    return null;
+                }
+                
+                
+                Platform.runLater(() -> {appointmentDatePicker.setDisable(false);});
+                
+                return null;
+            }
+        
+        };
+        
+        
+        new Thread(task).start();
     }
-
-    
 }

@@ -7,7 +7,6 @@
 /home/tommaso/Scrivania/progetti/progetto-programmazione-avanzata/client/src/main/java/it/unipi/client/model/requests/LoginRequest.java
 /home/tommaso/Scrivania/progetti/progetto-programmazione-avanzata/client/src/main/java/it/unipi/client/model/Utente.java
 /home/tommaso/Scrivania/progetti/progetto-programmazione-avanzata/client/src/main/java/module-info.java
-/home/tommaso/Scrivania/progetti/progetto-programmazione-avanzata/client/src/main/java/it/unipi/client/model/responses/GetVisiteByMedicoResponse.java
 /home/tommaso/Scrivania/progetti/progetto-programmazione-avanzata/client/src/main/java/it/unipi/client/model/responses/LoginResponse.java
 /home/tommaso/Scrivania/progetti/progetto-programmazione-avanzata/client/src/main/java/it/unipi/client/model/requests/RegisterRequest.java
 /home/tommaso/Scrivania/progetti/progetto-programmazione-avanzata/client/src/main/java/it/unipi/client/model/Medico.java
@@ -17,6 +16,7 @@
 /home/tommaso/Scrivania/progetti/progetto-programmazione-avanzata/client/src/main/java/it/unipi/client/RegisterController.java
 /home/tommaso/Scrivania/progetti/progetto-programmazione-avanzata/client/src/main/java/it/unipi/client/NewAppointmentScreen.java
 /home/tommaso/Scrivania/progetti/progetto-programmazione-avanzata/client/src/main/java/it/unipi/client/model/Paziente.java
+/home/tommaso/Scrivania/progetti/progetto-programmazione-avanzata/client/src/main/java/it/unipi/client/model/responses/GetVisiteResponse.java
 /home/tommaso/Scrivania/progetti/progetto-programmazione-avanzata/client/src/main/java/it/unipi/client/LoginController.java
 /home/tommaso/Scrivania/progetti/progetto-programmazione-avanzata/client/src/main/java/it/unipi/client/model/RequestHandler.java
 /home/tommaso/Scrivania/progetti/progetto-programmazione-avanzata/client/src/main/java/it/unipi/client/model/Visita.java
