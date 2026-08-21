@@ -1,12 +1,14 @@
 it/unipi/client/BookAppointmentScreen$1.class
 it/unipi/client/NewAppointmentScreen.class
 it/unipi/client/model/responses/FindDottoriResponse$Status.class
+it/unipi/client/model/requests/BookAppointmentRequest.class
 it/unipi/client/model/Utente.class
 it/unipi/client/LoginController.class
 it/unipi/client/model/Paziente.class
 it/unipi/client/BookAppointmentScreen.class
 it/unipi/client/model/UserSession.class
 it/unipi/client/ShowPatientsScreen$1.class
+it/unipi/client/BookAppointmentScreen$2.class
 it/unipi/client/BookedAppointmentScreen$2.class
 it/unipi/client/model/responses/FindDottoriResponse.class
 it/unipi/client/BookedAppointmentScreen.class

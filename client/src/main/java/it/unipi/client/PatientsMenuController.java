@@ -17,8 +17,6 @@ import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 
 public class PatientsMenuController {
-
-    private static Paziente loggedPaziente;
     
     @FXML private Label patientNameLable;
     
@@ -49,9 +47,9 @@ public class PatientsMenuController {
                 });
             }
             
-            loggedPaziente = paziente;
+            UserSession.getSession().setLoggedUtente(paziente);
             
-            patientNameLable.setText("Bentornato, " + loggedPaziente.getNome() + "!");
+            patientNameLable.setText("Bentornato, " + UserSession.getSession().getLoggedUtente().getNome() + "!");
             
             specializationComboBox.getItems().addAll(
                "Qualsiasi",

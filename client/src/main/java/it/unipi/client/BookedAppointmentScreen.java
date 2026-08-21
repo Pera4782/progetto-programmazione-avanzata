@@ -8,8 +8,11 @@ import java.io.IOException;
 import java.time.LocalDate;
 import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Comparator;
+import java.util.HashMap;
+import javafx.application.Platform;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.concurrent.Task;
@@ -76,6 +79,37 @@ public class BookedAppointmentScreen extends VBox {
             nextButtonDate = nextButtonDate.plusDays(1);
         }
     }
+    
+    
+    /**
+     * @brief funzione per il filtraggio delle visite 
+     * @param unfilteredVisits array di visite
+     * @param clickedDate data selezionata
+     * @return ArrayList di visite filtrate
+     */
+    private ArrayList<Visita> filterVisits(Visita[] unfilteredVisits, LocalDate clickedDate){
+    
+        ArrayList<Visita> visite = new ArrayList<>(Arrays.asList(unfilteredVisits));
+        HashMap<LocalTime, Integer> timeMap = new HashMap<>();
+
+        for(int i = 0; i < visite.size(); ++i){
+            if(timeMap.containsKey(visite.get(i).getOra())) 
+                timeMap.put(visite.get(i).getOra(), timeMap.get(visite.get(i).getOra()) + 1);
+            else
+                timeMap.put(visite.get(i).getOra(), 1);
+        }
+
+        
+        
+        visite.removeIf(v -> {
+            boolean hasDuplicateTimeAndNoPatient = v.getOrdinaria() && timeMap.get(v.getOra()) > 1 && v.getPaziente() == null;
+            boolean isNotOrdinaryAndDifferentDate = !v.getOrdinaria() && !v.getData().equals(clickedDate);
+            return hasDuplicateTimeAndNoPatient || isNotOrdinaryAndDifferentDate;
+        });
+                    
+        return visite;
+    }
+    
     
     public BookedAppointmentScreen() {
         FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("bookedAppointmentScreen.fxml"));
@@ -154,6 +188,8 @@ public class BookedAppointmentScreen extends VBox {
         LocalDate clickedDate = nextButtonDate.minusDays(5 - index);
         appointmentsTable.setVisible(true);
 
+        rowList.clear();
+        
         //riempimento della tabella
         Task<Void> task = new Task<Void>() {
             
@@ -161,24 +197,23 @@ public class BookedAppointmentScreen extends VBox {
             public Void call(){
                 try{
                     
-                    rowList.clear();
-                    
                     GetVisiteResponse response = RequestHandler.GETRequest("visita/medico", GetVisiteResponse.class, 
                                                                                    Integer.toString(UserSession.getSession().getLoggedMatricola()));
                     if(response == null || response.getStatus() == GetVisiteResponse.Status.ERROR)
                         throw new Exception();
                     
                     
-                    Visita[] rows = Arrays.stream(response.getVisite()).filter(v -> ( v.getOrdinaria() 
-                                                                                     || v.getData().equals(clickedDate)))
-                                                                                     .toArray(Visita[]::new);
+                    ArrayList<Visita> rows = filterVisits(response.getVisite(), clickedDate);
                     
-                    if(rows == null) return null;
+                    if(rows == null || rows.isEmpty()) return null;
                     
-                    Arrays.sort(rows, Comparator.comparing(Visita::getOra));
+                    rows.sort(Comparator.comparing(Visita::getOra));
                     
-                    rowList.addAll(rows);
-                    appointmentsTable.setItems(rowList);
+                    
+                    Platform.runLater(() -> {
+                        rowList.addAll(rows);
+                        appointmentsTable.setItems(rowList);
+                    });
                     
                 }catch(Exception e){
                     e.printStackTrace();

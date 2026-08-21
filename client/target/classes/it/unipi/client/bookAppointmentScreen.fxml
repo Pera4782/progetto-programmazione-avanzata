@@ -9,7 +9,7 @@
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.VBox?>
 
-<fx:root spacing="25" styleClass="main-content" stylesheets="@bookAppointmentScreen.css" type="javafx.scene.layout.VBox" xmlns="http://javafx.com/javafx/25" xmlns:fx="http://javafx.com/fxml/1">
+<fx:root spacing="25" styleClass="main-content" stylesheets="@bookAppointmentScreen.css" type="javafx.scene.layout.VBox" xmlns="http://javafx.com/javafx/26" xmlns:fx="http://javafx.com/fxml/1">
     <padding>
         <Insets bottom="30" left="40" right="40" top="30" />
     </padding>
@@ -44,7 +44,6 @@
             <VBox spacing="8" HBox.hgrow="ALWAYS">
                 <Label styleClass="form-label" text="1. Seleziona la Data" />
                 <DatePicker fx:id="appointmentDatePicker" maxWidth="Infinity" onAction="#showAvailableTimes" styleClass="custom-date-picker" />
-                <Label styleClass="info-subtext" text="* Disponibilità rilevate per i prossimi 30 giorni" />
             </VBox>
 
             <!-- Colonna Orari -->
@@ -61,7 +60,7 @@
 
         <!-- Label di Stato in Fondo -->
         <HBox alignment="CENTER">
-            <Label fx:id="statusLabel" managed="true" visible="false" styleClass="status-message" />
+            <Label fx:id="statusLabel" managed="true" styleClass="status-message" visible="false" />
         </HBox>
     </VBox>
 </fx:root>

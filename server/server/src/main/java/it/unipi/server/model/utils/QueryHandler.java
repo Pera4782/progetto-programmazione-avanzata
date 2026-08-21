@@ -4,6 +4,7 @@ import it.unipi.server.model.Medico;
 import it.unipi.server.model.ServerErrorException;
 import it.unipi.server.model.Utente;
 import it.unipi.server.model.Visita;
+import it.unipi.server.model.requests.BookAppointmentRequest;
 import java.time.LocalDate;
 import java.util.List;
 
@@ -216,7 +217,7 @@ public class QueryHandler {
         Session session = HibernateUtil.getSessionFactory().openSession();
         
         try{
-            List<Visita> result = session.createQuery("SELECT v FROM Visita v WHERE v.data = :data", Visita.class)
+            List<Visita> result = session.createQuery("SELECT v FROM Visita v WHERE v.data = :data OR v.data IS NULL ORDER BY v.data", Visita.class)
                                   .setParameter("data", date)
                                   .getResultList();
             
@@ -230,6 +231,45 @@ public class QueryHandler {
             session.close();
         }       
         
+    }
+    
+    private static void bookAppointmentOrdinario(BookAppointmentRequest bas, Visita visita, Session session) throws ServerErrorException, Exception{
+        visita.setPaziente(bas.getPaziente());
+        session.persist(visita);
+        session.getTransaction().commit();
+    }
+    
+    public static void bookAppointment(BookAppointmentRequest bas) throws ServerErrorException{
+        
+        Session session = HibernateUtil.getSessionFactory().openSession();
+        
+        try{
+            
+            session.beginTransaction();
+            
+            Visita[] visite = QueryHandler.getVisiteByData(bas.getDate());
+            
+            Visita correctVisita = null;
+            
+            for(Visita visita: visite) 
+                if(visita.getOra().equals(bas.getTime())){
+                    correctVisita = visita;
+                    break;
+                }
+            
+            boolean isOrdinaria = correctVisita.getOrdinaria();
+            
+            if(isOrdinaria) bookAppointmentOrdinario(bas, correctVisita, session);
+            //else bookAppointmentNotOrdinario(BookAppointmentRequest bas); //TODO
+            
+            
+        }catch(Exception e){
+            session.getTransaction().rollback();
+            throw new ServerErrorException();
+        }finally{
+            session.close();
+        }     
+    
     }
     
 }

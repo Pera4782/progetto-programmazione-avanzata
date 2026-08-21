@@ -68,7 +68,15 @@ public class NewAppointmentScreen extends VBox {
         dateField.setDisable(disabled);
     }
     
-    private boolean checkValidity(LocalDate date, LocalTime time) throws Exception{
+    /**
+     * @brief controlla la validita dei campi per la creazione delle visite
+     * @param date data della visita null se è ordinaria   
+     * @param time ora della visita
+     * @param ordinaria se è ordinaria o meno
+     * @return se i campi sono validi o meno
+     * @throws Exception 
+     */
+    private boolean checkValidity(LocalDate date, LocalTime time, boolean ordinaria) throws Exception{
         
         GetVisiteResponse response = RequestHandler.GETRequest("visita/medico", GetVisiteResponse.class, 
                                                                         Integer.toString(UserSession.getSession().getLoggedMatricola()));
@@ -79,8 +87,8 @@ public class NewAppointmentScreen extends VBox {
         
         Visita[] visite = response.getVisite();
         for(Visita visita:visite){
-            if(!visita.getOrdinaria() && visita.getData().equals(date) && visita.getOra().equals(time)) return false;
-            else if(visita.getOrdinaria() && visita.getOra().equals(time)) return false;
+            if(!ordinaria && visita.getData().equals(date) && visita.getOra().equals(time)) return false;
+            if(ordinaria && visita.getOra().equals(time)) return false;
         }
         return true;
     }
@@ -110,11 +118,11 @@ public class NewAppointmentScreen extends VBox {
                 
                 try{
                     
-                    boolean valid = checkValidity(date, time);
+                    boolean valid = checkValidity(date, time, ordinaria);
                     
                     if(!valid){
                         Platform.runLater(() -> {
-                            showMessage("Appuntamento già esistente per quella data e ora");
+                            showMessage("Appuntamento già esistente per quell'ora");
                             createAppointmentButton.setDisable(false);
                         });
                         return null;

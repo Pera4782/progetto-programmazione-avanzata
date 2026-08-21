@@ -3,6 +3,7 @@ package it.unipi.server.controllers;
 import it.unipi.server.model.ServerErrorException;
 import it.unipi.server.model.utils.QueryHandler;
 import it.unipi.server.model.Visita;
+import it.unipi.server.model.requests.BookAppointmentRequest;
 import it.unipi.server.model.requests.CreateVisitaRequest;
 import it.unipi.server.model.responses.GetVisiteResponse;
 import java.time.LocalDate;
@@ -76,6 +77,18 @@ public class VisiteRequestController {
             return new GetVisiteResponse(GetVisiteResponse.Status.SUCCESS, visite);
         }catch(ServerErrorException se){
             return new GetVisiteResponse(GetVisiteResponse.Status.ERROR, null);
+        }
+        
+    }
+    
+    @PostMapping(path = "/prenota")
+    public @ResponseBody Integer bookAppointment(@RequestBody BookAppointmentRequest bas){
+        
+        try{
+            QueryHandler.bookAppointment(bas);
+            return 0;
+        }catch(ServerErrorException se){
+            return null;
         }
         
     }
