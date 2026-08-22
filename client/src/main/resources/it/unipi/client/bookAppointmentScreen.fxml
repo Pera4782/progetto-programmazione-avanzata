@@ -55,7 +55,7 @@
 
         <!-- Azioni di Conferma -->
         <HBox alignment="CENTER_RIGHT" spacing="15">
-            <Button onAction="#confirmBooking" styleClass="confirm-booking-btn" text="Conferma Prenotazione" />
+            <Button fx:id="bookButton" onAction="#confirmBooking" styleClass="confirm-booking-btn" text="Conferma Prenotazione" />
         </HBox>
 
         <!-- Label di Stato in Fondo -->

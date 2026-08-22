@@ -90,6 +90,11 @@ public class BookedAppointmentScreen extends VBox {
     private ArrayList<Visita> filterVisits(Visita[] unfilteredVisits, LocalDate clickedDate){
     
         ArrayList<Visita> visite = new ArrayList<>(Arrays.asList(unfilteredVisits));
+        
+        visite.removeIf(v -> {
+            return v.getData() != null && !v.getData().equals(clickedDate);
+        });
+        
         HashMap<LocalTime, Integer> timeMap = new HashMap<>();
 
         for(int i = 0; i < visite.size(); ++i){
@@ -98,13 +103,9 @@ public class BookedAppointmentScreen extends VBox {
             else
                 timeMap.put(visite.get(i).getOra(), 1);
         }
-
-        
         
         visite.removeIf(v -> {
-            boolean hasDuplicateTimeAndNoPatient = v.getOrdinaria() && timeMap.get(v.getOra()) > 1 && v.getPaziente() == null;
-            boolean isNotOrdinaryAndDifferentDate = !v.getOrdinaria() && !v.getData().equals(clickedDate);
-            return hasDuplicateTimeAndNoPatient || isNotOrdinaryAndDifferentDate;
+            return v.getOrdinaria() && timeMap.get(v.getOra()) > 1 && v.getPaziente() == null;
         });
                     
         return visite;

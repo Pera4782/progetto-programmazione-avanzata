@@ -69,6 +69,11 @@ public class VisiteRequestController {
         }
     }
     
+    /**
+     * @brief end point per ottenere le visite con una certa data
+     * @param date data che si vuole cercare
+     * @return le visite cercate e lo stato della risposta
+     */
     @GetMapping(path = "data")
     public @ResponseBody GetVisiteResponse getVisiteByData(@RequestParam(name = "_0") LocalDate date){
         
@@ -81,6 +86,11 @@ public class VisiteRequestController {
         
     }
     
+    /**
+     * @brief end point per prenotare un appuntamento
+     * @param bas richiesta di prenotazione
+     * @return lo stato della risposta
+     */
     @PostMapping(path = "/prenota")
     public @ResponseBody Integer bookAppointment(@RequestBody BookAppointmentRequest bas){
         

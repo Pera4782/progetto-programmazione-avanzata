@@ -1,0 +1,193 @@
+/* ==========================================================================
+   GLOBAL & ROOT STYLES
+   ========================================================================== */
+
+.root {
+    -fx-font-family: 'Segoe UI', Helvetica, Arial, sans-serif;
+    -fx-background-color: #f4f7f6; /* Sfondo generale chiaro e riposante */
+}
+
+.main-content {
+    -fx-background-color: #f4f7f6;
+}
+
+/* ==========================================================================
+   HEADER & TYPOGRAPHY
+   ========================================================================== */
+
+.welcome-text {
+    -fx-font-size: 22px;
+    -fx-font-weight: bold;
+    -fx-text-fill: #1e293b; /* Dark slate */
+}
+
+/* Bottone generico nell'Header (I miei appuntamenti, Torna al menu, Esci) */
+.header-btn {
+    -fx-background-color: #ffffff;
+    -fx-text-fill: #0f766e; /* Teal scuro */
+    -fx-border-color: #cbd5e1;
+    -fx-border-width: 1px;
+    -fx-border-radius: 8px;
+    -fx-background-radius: 8px;
+    -fx-padding: 8 16 8 16;
+    -fx-font-size: 13px;
+    -fx-font-weight: bold;
+    -fx-cursor: hand;
+}
+
+.header-btn:hover {
+    -fx-background-color: #f1f5f9;
+    -fx-border-color: #0f766e;
+}
+
+/* Bottone di Logout stile specifico (opzionale se si vuole differenziare) */
+#logoutButton {
+    -fx-text-fill: #e11d48; /* Rosso tenue per uscita */
+}
+
+#logoutButton:hover {
+    -fx-background-color: #ffe4e6;
+    -fx-border-color: #e11d48;
+}
+
+/* ==========================================================================
+   BARRA DI RICERCA E FILTRI
+   ========================================================================== */
+
+.search-container {
+    -fx-background-color: #ffffff;
+    -fx-padding: 15px;
+    -fx-background-radius: 12px;
+    -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.04), 10, 0, 0, 4);
+}
+
+/* Campo di testo per la ricerca */
+.hub-search-field {
+    -fx-background-color: #f8fafc;
+    -fx-border-color: #cbd5e1;
+    -fx-border-radius: 6px;
+    -fx-background-radius: 6px;
+    -fx-padding: 8 12;
+    -fx-font-size: 14px;
+}
+
+.hub-search-field:focused {
+    -fx-border-color: #0d9488;
+    -fx-background-color: #ffffff;
+}
+
+/* ComboBox Filtri e Specializzazioni */
+.hub-combo {
+    -fx-background-color: #f8fafc;
+    -fx-border-color: #cbd5e1;
+    -fx-border-radius: 6px;
+    -fx-background-radius: 6px;
+    -fx-font-size: 13px;
+    -fx-padding: 2 4 2 4;
+}
+
+.hub-combo:hover {
+    -fx-border-color: #0d9488;
+}
+
+/* Bottone Cerca / Filtra */
+.search-confirm-btn {
+    -fx-background-color: #0d9488; /* Teal primario */
+    -fx-text-fill: white;
+    -fx-font-weight: bold;
+    -fx-font-size: 14px;
+    -fx-background-radius: 6px;
+    -fx-padding: 8 20;
+    -fx-cursor: hand;
+}
+
+.search-confirm-btn:hover {
+    -fx-background-color: #0f766e;
+}
+
+/* SEPARATORE */
+.separator .line {
+    -fx-border-color: #e2e8f0;
+    -fx-border-width: 1px;
+}
+
+/* ==========================================================================
+   SCROLLPANEL & CONTENITORE CARD
+   ========================================================================== */
+
+.transparent-scroll {
+    -fx-background-color: transparent;
+    -fx-background: transparent;
+}
+
+.transparent-scroll > .viewport {
+    -fx-background-color: transparent;
+}
+
+/* Nasconde i bordi fastidiosi dello ScrollPane */
+.transparent-scroll {
+    -fx-border-color: transparent;
+}
+
+/* ==========================================================================
+   STILI PER LE CARD DEGLI APPUNTAMENTI / MEDICI (Dinamiche)
+   Dato che aggiungerai le card da Java/Controller, puoi usare queste classi.
+   ========================================================================== */
+
+/* Contenitore singola Card */
+.appointment-card, .doctor-card {
+    -fx-background-color: #ffffff;
+    -fx-background-radius: 12px;
+    -fx-padding: 20px;
+    -fx-pref-width: 320px;
+    -fx-effect: dropshadow(three-pass-box, rgba(0, 0, 0, 0.05), 8, 0, 0, 2);
+    -fx-border-color: #e2e8f0;
+    -fx-border-radius: 12px;
+}
+
+.appointment-card:hover, .doctor-card:hover {
+    -fx-effect: dropshadow(three-pass-box, rgba(13, 148, 136, 0.15), 12, 0, 0, 4);
+    -fx-border-color: #99f6e4;
+}
+
+/* Titolo della Card (Nome Medico / Titolo Appuntamento) */
+.card-title {
+    -fx-font-size: 16px;
+    -fx-font-weight: bold;
+    -fx-text-fill: #0f172a;
+}
+
+/* Sottotitolo / Specializzazione */
+.card-subtitle {
+    -fx-font-size: 13px;
+    -fx-text-fill: #64748b;
+}
+
+/* Dettagli (Data, Ora, Studio) */
+.card-info {
+    -fx-font-size: 13px;
+    -fx-text-fill: #334155;
+}
+
+/* Badge di stato (Programmato, Completato, Annullato) */
+.status-badge {
+    -fx-background-radius: 12px;
+    -fx-padding: 4 10;
+    -fx-font-size: 11px;
+    -fx-font-weight: bold;
+}
+
+.status-scheduled {
+    -fx-background-color: #e0f2fe;
+    -fx-text-fill: #0369a1; /* Blu */
+}
+
+.status-completed {
+    -fx-background-color: #dcfce7;
+    -fx-text-fill: #15803d; /* Verde */
+}
+
+.status-cancelled {
+    -fx-background-color: #fee2e2;
+    -fx-text-fill: #b91c1c; /* Rosso */
+}

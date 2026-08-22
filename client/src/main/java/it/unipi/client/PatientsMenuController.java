@@ -76,7 +76,15 @@ public class PatientsMenuController {
     
     @FXML
     public void showBookedAppointments(ActionEvent event) {
-        System.out.println("Show booked appointments");
+        
+        try{
+            UserSession.getSession().clearSession();
+            App.setRoot("showBookedAppointmentsMenu");
+        }catch(Exception e){
+            e.printStackTrace();
+            System.exit(1);
+        }
+        
     }
     
     

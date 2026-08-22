@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
+
+<fx:root minWidth="280" prefWidth="280" spacing="12" styleClass="appointment-card" stylesheets="@showBookedAppointmentsScreen.css" type="javafx.scene.layout.VBox" xmlns="http://javafx.com/javafx/26" xmlns:fx="http://javafx.com/fxml/1">
+    <HBox alignment="CENTER_LEFT">
+        <VBox HBox.hgrow="ALWAYS">
+            <Label fx:id="doctorNameLabel" styleClass="card-title" text="Dott. Nome Cognome" />
+            <Label fx:id="specializationLabel" styleClass="card-subtitle" text="Specializzazione" />
+        </VBox>
+        <Label fx:id="statusBadge" styleClass="status-badge, status-scheduled" text="Stato" />
+    </HBox>
+
+    <VBox spacing="4">
+        <Label fx:id="dateTimeLabel" styleClass="card-info" text="📅 Data e Ora" />
+    </VBox>
+
+    <HBox alignment="CENTER_RIGHT">
+        <Button fx:id="actionButton" onAction="#handleAction" styleClass="header-btn" text="Azione" />
+    </HBox>
+</fx:root>

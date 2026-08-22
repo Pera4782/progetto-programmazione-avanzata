@@ -124,7 +124,11 @@ public class QueryHandler {
         
     }
     
-    
+    /**
+     * @brief funzione per creare una visita
+     * @param visita visita che si vuole creare
+     * @throws ServerErrorException 
+     */
     public static void createVisita(Visita visita) throws ServerErrorException {
         Session session = HibernateUtil.getSessionFactory().openSession();
         
@@ -140,6 +144,13 @@ public class QueryHandler {
         }
     }
     
+    
+    /**
+     * @brief funzione per ottenere tutti i medici per un match di cognome
+     * @param cognome stringa per fare match
+     * @return un array di medici
+     * @throws ServerErrorException 
+     */
     public static Medico[] getMedicoByCognome(String cognome) throws ServerErrorException{
         
         Session session = HibernateUtil.getSessionFactory().openSession();
@@ -160,6 +171,13 @@ public class QueryHandler {
         }       
     }
     
+    
+    /**
+     * @brief funzione per ottenere tutti i medici per specializzazione
+     * @param specializzazione specializzazione da cercare
+     * @return un array di medici con la specializzazione cercata
+     * @throws ServerErrorException 
+     */
     public static Medico[] getMedicoBySpecializzazione(String specializzazione) throws ServerErrorException{
         Session session = HibernateUtil.getSessionFactory().openSession();
         
@@ -190,7 +208,13 @@ public class QueryHandler {
         }       
     }
     
-    
+    /**
+     * @brief funzione per ottenere tutti i medici per specializzazione e per cognome
+     * @param cognome stringa su cui fare match del cognome
+     * @param specializzazione specializzazione da cercare
+     * @return un array di medici con la specializzazione e cognome cercati
+     * @throws ServerErrorException 
+     */
     public static Medico[] getMedicoByCognomeAndSpecializzazione(String cognome, String Specializzazione) throws ServerErrorException{
         
         Session session = HibernateUtil.getSessionFactory().openSession();
@@ -212,6 +236,12 @@ public class QueryHandler {
         }       
     }
     
+    /**
+     * @brief funzione per ottenere le visite con una certa data
+     * @param date data da cercare
+     * @return un array di visite con la data cercata
+     * @throws ServerErrorException 
+     */
     public static Visita[] getVisiteByData(LocalDate date) throws ServerErrorException{
         
         Session session = HibernateUtil.getSessionFactory().openSession();
@@ -233,21 +263,61 @@ public class QueryHandler {
         
     }
     
+    
+    /**
+     * @brief funzione per prenotare un appuntamento ordinario
+     * @param bas richiesta di prenotazione
+     * @param visita visita da prenotare
+     * @param session sessione hibernate
+     * @throws ServerErrorException
+     * @throws Exception 
+     */
     private static void bookAppointmentOrdinario(BookAppointmentRequest bas, Visita visita, Session session) throws ServerErrorException, Exception{
-        visita.setPaziente(bas.getPaziente());
-        session.persist(visita);
+        
+        Visita prenotazione = new Visita();
+        
+        prenotazione.setMedico(visita.getMedico());
+        prenotazione.setPaziente(bas.getPaziente());
+        prenotazione.setTipo(visita.getTipo());
+        prenotazione.setData(bas.getDate());
+        prenotazione.setOra(bas.getTime());
+        prenotazione.setOrdinaria(true);
+        
+        session.persist(prenotazione);
+        
         session.getTransaction().commit();
     }
     
+    
+    /**
+     * @brief funzione per prenotare un appuntamento non ordinario
+     * @param bas richiesta di prenotazione
+     * @param visita visita da prenotare
+     * @param session sessione hibernate
+     * @throws ServerErrorException
+     * @throws Exception 
+     */
+    private static void bookAppointmentNotOrdinario(BookAppointmentRequest bas, Visita visita, Session session){
+        visita.setPaziente(bas.getPaziente());
+        session.merge(visita);
+        session.getTransaction().commit();
+    }
+    
+    
+    /**
+     * @brief funzione per prenotare un appuntamento
+     * @param bas richiesta di prenotazione
+     * @throws ServerErrorException 
+     */
     public static void bookAppointment(BookAppointmentRequest bas) throws ServerErrorException{
+        
+        Visita[] visite = QueryHandler.getVisiteByData(bas.getDate());
         
         Session session = HibernateUtil.getSessionFactory().openSession();
         
         try{
             
             session.beginTransaction();
-            
-            Visita[] visite = QueryHandler.getVisiteByData(bas.getDate());
             
             Visita correctVisita = null;
             
@@ -260,7 +330,7 @@ public class QueryHandler {
             boolean isOrdinaria = correctVisita.getOrdinaria();
             
             if(isOrdinaria) bookAppointmentOrdinario(bas, correctVisita, session);
-            //else bookAppointmentNotOrdinario(BookAppointmentRequest bas); //TODO
+            else bookAppointmentNotOrdinario(bas, correctVisita, session); 
             
             
         }catch(Exception e){

@@ -22,6 +22,7 @@ import java.util.Arrays;
 import java.util.HashMap;
 import javafx.application.Platform;
 import javafx.concurrent.Task;
+import javafx.scene.control.Button;
 
 public class BookAppointmentScreen extends VBox {
 
@@ -33,6 +34,7 @@ public class BookAppointmentScreen extends VBox {
     @FXML private DatePicker appointmentDatePicker;
     @FXML private ListView<String> timeSlotsList;
     
+    @FXML private Button bookButton;
     @FXML private Label statusLabel;
     
     private Runnable goBackButtonClicked;
@@ -72,8 +74,7 @@ public class BookAppointmentScreen extends VBox {
         }
 
         visite.removeIf(v -> {
-            if(timeMap.get(v.getOra()) > 1 || v.getPaziente() != null) return true;
-            return false;
+            return timeMap.get(v.getOra()) > 1 || v.getPaziente() != null;
         });
                     
         return visite;
@@ -137,14 +138,15 @@ public class BookAppointmentScreen extends VBox {
                     
                     ArrayList<Visita> visite = removeBookedAppointments(response.getVisite());
                     
-                    ArrayList<String> orari = new ArrayList<>(visite.size());
-                    visite.forEach(v -> orari.add(v.getOra().toString() + " " + v.getTipo()));
+                    visite.removeIf(v -> v.getMedico().equals(medico));
                     
-                    if (visite.isEmpty()) {
+                    if (visite == null || visite.isEmpty()) {
                         Platform.runLater(() -> {appointmentDatePicker.setDisable(false);});
                         return null;
                     }
                     
+                    ArrayList<String> orari = new ArrayList<>(visite.size());
+                    visite.forEach(v -> orari.add(v.getOra().toString() + " " + v.getTipo()));
                     Platform.runLater(() -> timeSlotsList.getItems().addAll(orari));
                     
                 }catch(Exception e){
@@ -163,10 +165,14 @@ public class BookAppointmentScreen extends VBox {
     }
     
     
+    /**
+     * @brief funzione associata all'evento di click del bottone per prenotare
+     */
     @FXML
     private void confirmBooking() {
         
         hideMessage();
+        bookButton.setDisable(false);
         
         LocalDate selectedDate = appointmentDatePicker.getValue();
         String selectedSlot = timeSlotsList.getSelectionModel().getSelectedItem();
@@ -180,17 +186,18 @@ public class BookAppointmentScreen extends VBox {
         
         Task<Void> task = new Task<Void>() {
             @Override
-            protected Void call() {
+            public Void call() {
                 
                 try{
                     BookAppointmentRequest body = new BookAppointmentRequest(selectedDate, selectedTime, 
                                                                             (Paziente) UserSession.getSession().getLoggedUtente());
                     Integer response = RequestHandler.POSTRequest("visita/prenota", body, Integer.class);
-                
+                    
                     if(response == null) throw new Exception();
                     
                     
                     Platform.runLater(() -> {
+                        bookButton.setDisable(true);
                         showMessage("Appuntamento prenotato con successo", false);
                     });
                     
