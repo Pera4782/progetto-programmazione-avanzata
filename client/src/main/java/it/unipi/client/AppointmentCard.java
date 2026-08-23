@@ -1,6 +1,6 @@
 package it.unipi.client;
 
-import javafx.event.ActionEvent;
+import it.unipi.client.model.Visita;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.control.Button;
@@ -8,34 +8,60 @@ import javafx.scene.control.Label;
 import javafx.scene.layout.VBox;
 
 import java.io.IOException;
+import java.time.LocalDateTime;
+import java.util.function.Consumer;
 
 public class AppointmentCard extends VBox {
 
+    private Visita visita;
+    
     @FXML private Label doctorNameLabel;
     @FXML private Label specializationLabel;
     @FXML private Label statusBadge;
     @FXML private Label dateTimeLabel;
     @FXML private Button actionButton;
     
-    private Runnable actionButtonClicked;
+    private Consumer<Visita> annullaPrenotazioneClicked;
 
-    public AppointmentCard() {
-        FXMLLoader loader = new FXMLLoader(getClass().getResource("AppointmentCard.fxml"));
+    public AppointmentCard(Visita visita) {
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("appointmentCard.fxml"));
         loader.setRoot(this);
         loader.setController(this);
 
         try {
             loader.load();
         } catch (IOException e) {
-            throw new RuntimeException("Impossibile caricare AppointmentCard.fxml", e);
+            throw new RuntimeException("Impossibile caricare appointmentCard.fxml", e);
         }
+        
+        this.visita = visita;
+        
+        doctorNameLabel.setText("Dott. " + visita.getMedico().getNome() + " " + visita.getMedico().getCognome());
+        specializationLabel.setText(visita.getMedico().getSpecializzazione());
+        
+        LocalDateTime dateTime = LocalDateTime.of(visita.getData(), visita.getOra());
+        dateTimeLabel.setText(visita.getData().toString() + " " + visita.getOra().toString() + " " + visita.getTipo());
+        
+        if(dateTime.isBefore(LocalDateTime.now())) {
+            statusBadge.getStyleClass().add("status-completed");
+            statusBadge.setText("Completato");
+            actionButton.setVisible(false);
+        }else {
+            statusBadge.getStyleClass().add("status-scheduled");
+            statusBadge.setText("Da Fare");
+            actionButton.setText("Annulla");
+        }
+        
     }
 
-    public void setActionButton(Button actionButton) {
-        this.actionButton = actionButton;
+    public void setAnnullaPrenotazioneClicked(Consumer<Visita> annullaPrenotazioneClicked) {
+        this.annullaPrenotazioneClicked = annullaPrenotazioneClicked;
     }
+
+    
     @FXML
-    private void handleAction(ActionEvent event) {
-        if(actionButtonClicked != null) actionButtonClicked.run();
+    private void annullaPrenotazione() {
+        
+        if(annullaPrenotazioneClicked != null) annullaPrenotazioneClicked.accept(this.visita); 
     }
 }

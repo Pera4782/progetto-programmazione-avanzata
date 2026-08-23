@@ -54,7 +54,7 @@ public class VisiteRequestController {
      * @param createVisitaRequest richiesta di creazione di una visita
      * @return true in caso di successo false altrimenti
      */
-    @PostMapping(path = "crea")
+    @PostMapping(path = "/crea")
     public @ResponseBody Boolean createVisita(@RequestBody CreateVisitaRequest createVisitaRequest){
         try{
             
@@ -74,7 +74,7 @@ public class VisiteRequestController {
      * @param date data che si vuole cercare
      * @return le visite cercate e lo stato della risposta
      */
-    @GetMapping(path = "data")
+    @GetMapping(path = "/data")
     public @ResponseBody GetVisiteResponse getVisiteByData(@RequestParam(name = "_0") LocalDate date){
         
         try{
@@ -101,6 +101,38 @@ public class VisiteRequestController {
             return null;
         }
         
+    }
+    
+    
+    /**
+     * @brief end point per la ricerca degli appuntamenti per paziente 
+     * @param matricola matricola del paziente
+     * @return le visite e lo stato della risposta
+     */
+    @GetMapping(path = "/paziente")
+    public @ResponseBody GetVisiteResponse getVisiteByPaziente(@RequestParam(name = "_0") int matricola){
+    
+        try{
+            Visita[] visite = QueryHandler.getVisiteByPaziente(matricola);
+            return new GetVisiteResponse(GetVisiteResponse.Status.SUCCESS, visite);
+        }catch(ServerErrorException se){
+            return new GetVisiteResponse(GetVisiteResponse.Status.ERROR, null);
+        }
+    }
+    
+    /**
+     * @brief end point per la cancellazione di una prenotazione
+     * @param visita visita di cui si vuole annullare la prenotazione
+     * @return lo stato della risposta
+     */
+    @PostMapping(path = "/annulla/prenotazione")
+    public @ResponseBody Integer deleteAppointment(@RequestBody Visita visita){
+        try{
+            QueryHandler.deleteAppointment(visita);
+            return 0;
+        }catch(ServerErrorException se){
+            return null;
+        }
     }
     
 }

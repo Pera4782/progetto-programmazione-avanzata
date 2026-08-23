@@ -78,7 +78,6 @@ public class PatientsMenuController {
     public void showBookedAppointments(ActionEvent event) {
         
         try{
-            UserSession.getSession().clearSession();
             App.setRoot("showBookedAppointmentsMenu");
         }catch(Exception e){
             e.printStackTrace();

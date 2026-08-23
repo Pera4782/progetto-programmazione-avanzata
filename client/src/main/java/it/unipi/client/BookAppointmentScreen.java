@@ -138,7 +138,7 @@ public class BookAppointmentScreen extends VBox {
                     
                     ArrayList<Visita> visite = removeBookedAppointments(response.getVisite());
                     
-                    visite.removeIf(v -> v.getMedico().equals(medico));
+                    visite.removeIf(v -> v.getMedico().getMatricola() != medico.getMatricola());
                     
                     if (visite == null || visite.isEmpty()) {
                         Platform.runLater(() -> {appointmentDatePicker.setDisable(false);});

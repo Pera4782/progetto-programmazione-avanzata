@@ -118,20 +118,15 @@
 .transparent-scroll {
     -fx-background-color: transparent;
     -fx-background: transparent;
+    -fx-border-color: transparent;
 }
 
 .transparent-scroll > .viewport {
     -fx-background-color: transparent;
 }
 
-/* Nasconde i bordi fastidiosi dello ScrollPane */
-.transparent-scroll {
-    -fx-border-color: transparent;
-}
-
 /* ==========================================================================
    STILI PER LE CARD DEGLI APPUNTAMENTI / MEDICI (Dinamiche)
-   Dato che aggiungerai le card da Java/Controller, puoi usare queste classi.
    ========================================================================== */
 
 /* Contenitore singola Card */
@@ -190,4 +185,27 @@
 .status-cancelled {
     -fx-background-color: #fee2e2;
     -fx-text-fill: #b91c1c; /* Rosso */
+}
+
+/* ==========================================================================
+   MESSAGGI DI STATO (CONFERMA / ERRORE)
+   ========================================================================== */
+
+/* Stile base della label di stato */
+.status-message {
+    -fx-font-size: 14px;
+    -fx-font-weight: bold;
+    -fx-padding: 8px 0px;
+    -fx-alignment: center;
+    -fx-background-color: transparent;
+}
+
+/* Variante Errore (Rosso per avvisi/errori) */
+.status-message.error {
+    -fx-text-fill: #e11d48;
+}
+
+/* Variante Successo (Verde teal coerente con il design) */
+.status-message.success {
+    -fx-text-fill: #0f766e;
 }

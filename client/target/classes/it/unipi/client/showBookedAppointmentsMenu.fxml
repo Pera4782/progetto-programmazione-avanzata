@@ -10,12 +10,7 @@
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.VBox?>
 
-<VBox spacing="25" 
-      styleClass="main-content" 
-      stylesheets="@showBookedAppointmentsMenu.css" 
-      xmlns="http://javafx.com/javafx/26" 
-      xmlns:fx="http://javafx.com/fxml/1" 
-      fx:controller="it.unipi.client.ShowBookedAppointmentsMenuController">
+<VBox prefHeight="577.0" prefWidth="842.0" spacing="25" styleClass="main-content" stylesheets="@showBookedAppointmentsMenu.css" xmlns="http://javafx.com/javafx/26" xmlns:fx="http://javafx.com/fxml/1" fx:controller="it.unipi.client.ShowBookedAppointmentsMenuController">
     
     <padding>
         <Insets bottom="30" left="40" right="40" top="30" />
@@ -27,10 +22,10 @@
             <Label styleClass="welcome-text" text="📅 I Miei Appuntamenti" />
         </VBox>
         <Button onAction="#backToPatientMenu" styleClass="header-btn" text="⬅ Torna al Menu" />
-        <Button fx:id="logoutButton" onAction="#logout" styleClass="header-btn" text="Esci" />
+        <Button id="logoutButton" onAction="#logout" styleClass="header-btn" text="Esci" />
     </HBox>
 
-    <!-- Filtri per gestire la lista degli appuntamenti -->
+    <!-- Barra dei Filtri -->
     <VBox spacing="15" styleClass="search-container">
         <HBox alignment="CENTER_LEFT" spacing="15">
             <ComboBox fx:id="statusFilterComboBox" prefWidth="220" promptText="Stato Appuntamento" styleClass="hub-combo" />
@@ -38,9 +33,12 @@
         </HBox>
     </VBox>
 
+    <!-- Label per Messaggi di Stato (Errore / Successo / Caricamento) -->
+    <Label fx:id="statusRichiestaLabel" managed="true" prefHeight="36.0" prefWidth="0.0" styleClass="status-message" text="" visible="false" />
+
     <Separator />
 
-    <!-- Container con Card Statiche di Prova -->
+    <!-- Container Scorrevole per le Card degli Appuntamenti -->
     <ScrollPane fitToWidth="true" styleClass="transparent-scroll" VBox.vgrow="ALWAYS">
         <FlowPane fx:id="appointmentsContainer" hgap="20" vgap="20" />
     </ScrollPane>

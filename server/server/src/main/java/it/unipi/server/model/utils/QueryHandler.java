@@ -112,7 +112,7 @@ public class QueryHandler {
         
         try {
             session.beginTransaction();
-            session.remove(visita);
+            session.remove(session.merge(visita));
             session.getTransaction().commit();
             
         }catch(Exception e){
@@ -342,4 +342,59 @@ public class QueryHandler {
     
     }
     
+    /**
+     * @brief funzione per ottenere le visite per paziente
+     * @param matricola matricola del paziente
+     * @return le visite trovate
+     * @throws ServerErrorException 
+     */
+    public static Visita[] getVisiteByPaziente(int matricola) throws ServerErrorException{
+        
+        Session session = HibernateUtil.getSessionFactory().openSession();
+        
+        try{
+            List<Visita> result = session.createQuery("SELECT v FROM Visita v WHERE v.paziente.matricola = :matricola ORDER BY v.data ASC, v.ora ASC", Visita.class)
+                                  .setParameter("matricola", matricola)
+                                  .getResultList();
+            
+            if(result == null) return null;
+            
+            return result.toArray(new Visita[0]);
+            
+        }catch(Exception e){
+            throw new ServerErrorException();
+        }finally{
+            session.close();
+        }       
+        
+    }
+    
+    
+    /**
+     * @brief funzione per annullare una prenotazione
+     * @param visita prenotazione che si vuole annullare
+     * @throws ServerErrorException 
+     */
+    public static void deleteAppointment(Visita visita) throws ServerErrorException{
+        
+        Session session = HibernateUtil.getSessionFactory().openSession();
+        
+        try{
+            session.beginTransaction();
+            
+            if(visita.getOrdinaria()) session.remove(session.merge(visita));
+            else{
+                visita.setPaziente(null);
+                session.merge(visita);
+            }
+            
+            session.getTransaction().commit();
+        }catch(Exception e){
+            session.getTransaction().rollback();
+            throw new ServerErrorException();
+        }finally{
+            session.close();
+        }       
+        
+    }
 }
