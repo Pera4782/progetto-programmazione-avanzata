@@ -10,7 +10,7 @@ public class FindDottoriResponse {
     
     private Status status;
     private Medico[] medici;
-
+    
     public FindDottoriResponse() {
     }
 

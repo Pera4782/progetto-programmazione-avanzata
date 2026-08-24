@@ -61,12 +61,17 @@
     -fx-padding: 10 20;
 }
 
-#message {
+.error {
     -fx-text-fill: #b50000;
     -fx-font-size: 16px;
     -fx-font-weight: bold;
 }
 
+.success {
+    -fx-text-fill: #198754;
+    -fx-font-size: 16px;
+    -fx-font-weight: bold;
+}
 
 /* Stile per i RadioButton (opzioni tonde) */
 .radio-container {

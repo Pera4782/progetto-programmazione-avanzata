@@ -1,4 +1,6 @@
-package it.unipi.client.model;
+package it.unipi.client.session;
+
+import it.unipi.client.model.Utente;
 
 
 public class UserSession {

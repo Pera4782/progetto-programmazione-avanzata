@@ -56,19 +56,31 @@
     -fx-background-color: #3498db;
 }
 
-.red-button {
-    -fx-background-color: red;
-    -fx-text-fill: black;
+.green-button {
+    -fx-background-color: #198754;
+    -fx-text-fill: white;
     -fx-font-weight: bold;
     -fx-padding: 10 20;
     -fx-background-radius: 4;
     -fx-cursor: hand;
 }
 
-.red-button:hover {
-    -fx-background-color: #cc0000;
+.green-button:hover {
+    -fx-background-color: #157347;
 }
 
-.red-button:pressed {
-    -fx-background-color: #990000;
+.green-button:pressed {
+    -fx-background-color: #125b38;
+}
+
+.error {
+    -fx-text-fill: #b50000;
+    -fx-font-size: 16px;
+    -fx-font-weight: bold;
+}
+
+.success {
+    -fx-text-fill: #198754;
+    -fx-font-size: 16px;
+    -fx-font-weight: bold;
 }

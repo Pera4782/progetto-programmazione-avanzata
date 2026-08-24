@@ -8,7 +8,6 @@
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.VBox?>
-<?import javafx.scene.text.Font?>
 
 <VBox alignment="CENTER" spacing="20.0" styleClass="main-container" stylesheets="@register.css" xmlns="http://javafx.com/javafx/25" xmlns:fx="http://javafx.com/fxml/1" fx:controller="it.unipi.client.RegisterController">
     <padding>
@@ -43,11 +42,7 @@
             <Button onAction="#switchToLoginPage" style="-fx-background-color: transparent; -fx-text-fill: #3498db; -fx-underline: true; -fx-cursor: hand; -fx-padding: 0;" text="Accedi" />
     </HBox>
     
-    <Label fx:id="message" alignment="CENTER" prefHeight="75.0" prefWidth="663.0" text="Label" textAlignment="CENTER" textFill="#b50000" visible="false" wrapText="true">
-      <font>
-         <Font name="System Bold" size="16.0" />
-      </font>
-    </Label>
+    <Label fx:id="message" alignment="CENTER" prefHeight="75.0" prefWidth="663.0" text="Label" textAlignment="CENTER" visible="false" wrapText="true" />
     
-    <Button fx:id="hoCapitoButton" mnemonicParsing="false" onAction="#switchToLoginPage" prefHeight="42.0" prefWidth="136.0" styleClass="red-button" text="Ho Capito" visible="false" />
+    <Button fx:id="hoCapitoButton" mnemonicParsing="false" onAction="#switchToLoginPage" prefHeight="42.0" prefWidth="136.0" styleClass="green-button" text="Ho Capito" visible="false" />
 </VBox>

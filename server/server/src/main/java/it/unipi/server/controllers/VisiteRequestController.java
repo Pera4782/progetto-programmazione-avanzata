@@ -1,11 +1,12 @@
 package it.unipi.server.controllers;
 
 import it.unipi.server.model.ServerErrorException;
-import it.unipi.server.model.utils.QueryHandler;
+import it.unipi.server.util.QueryHandler;
 import it.unipi.server.model.Visita;
 import it.unipi.server.model.requests.BookAppointmentRequest;
 import it.unipi.server.model.requests.CreateVisitaRequest;
 import it.unipi.server.model.responses.GetVisiteResponse;
+import it.unipi.server.model.responses.Response;
 import java.time.LocalDate;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -40,12 +41,12 @@ public class VisiteRequestController {
      * @return true in caso di successo false altrimenti
      */
     @PostMapping(path = "/elimina")
-    public @ResponseBody Boolean removeVisita(@RequestBody Visita visita){
+    public @ResponseBody Response removeVisita(@RequestBody Visita visita){
         try{
             QueryHandler.removeVisita(visita);
-            return true;
+            return new Response(false);
         }catch(ServerErrorException se){
-            return false;
+            return new Response(true);
         }
     }
     
@@ -55,17 +56,17 @@ public class VisiteRequestController {
      * @return true in caso di successo false altrimenti
      */
     @PostMapping(path = "/crea")
-    public @ResponseBody Boolean createVisita(@RequestBody CreateVisitaRequest createVisitaRequest){
+    public @ResponseBody Response createVisita(@RequestBody CreateVisitaRequest createVisitaRequest){
         try{
             
             Visita visita = new Visita(0, createVisitaRequest.getMedico(), null, createVisitaRequest.getDate(), createVisitaRequest.getTime(),
                                        createVisitaRequest.getType(), createVisitaRequest.getOrdinaria());
             
             QueryHandler.createVisita(visita);
-            return true;
+            return new Response(false);
             
         }catch(ServerErrorException se){
-            return false;
+            return new Response(true);
         }
     }
     
@@ -92,13 +93,13 @@ public class VisiteRequestController {
      * @return lo stato della risposta
      */
     @PostMapping(path = "/prenota")
-    public @ResponseBody Integer bookAppointment(@RequestBody BookAppointmentRequest bas){
+    public @ResponseBody Response bookAppointment(@RequestBody BookAppointmentRequest bas){
         
         try{
             QueryHandler.bookAppointment(bas);
-            return 0;
+            return new Response(false);
         }catch(ServerErrorException se){
-            return null;
+            return new Response(true);
         }
         
     }
@@ -126,12 +127,12 @@ public class VisiteRequestController {
      * @return lo stato della risposta
      */
     @PostMapping(path = "/annulla/prenotazione")
-    public @ResponseBody Integer deleteAppointment(@RequestBody Visita visita){
+    public @ResponseBody Response deleteAppointment(@RequestBody Visita visita){
         try{
             QueryHandler.deleteAppointment(visita);
-            return 0;
+            return new Response(false);
         }catch(ServerErrorException se){
-            return null;
+            return new Response(true);
         }
     }
     

@@ -1,11 +1,13 @@
 package it.unipi.client;
 
 import it.unipi.client.model.Medico;
-import it.unipi.client.model.RequestHandler;
-import it.unipi.client.model.UserSession;
+import it.unipi.client.util.RequestHandler;
+import it.unipi.client.session.UserSession;
 import it.unipi.client.model.Visita;
 import it.unipi.client.model.requests.CreateVisitaRequest;
 import it.unipi.client.model.responses.GetVisiteResponse;
+import it.unipi.client.model.responses.Response;
+import it.unipi.client.util.MessageHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.control.*;
@@ -30,14 +32,7 @@ public class NewAppointmentScreen extends VBox {
     @FXML private RadioButton optionOrdinaria;
     @FXML private RadioButton optionSpeciale;
     
-    private void showMessage(String msg){
-        message.setText(msg);
-        message.setVisible(true);
-    }
-    
-    private void hideMessage(){
-        message.setVisible(false);
-    }
+    private MessageHandler messageHandler;
     
     public NewAppointmentScreen() {
     
@@ -50,6 +45,8 @@ public class NewAppointmentScreen extends VBox {
         } catch (IOException exception) {
             throw new RuntimeException("Errore nel caricamento del file FXML", exception);
         }
+        
+        messageHandler = new MessageHandler(message, "success", "error");
     }
     
     @FXML
@@ -86,9 +83,18 @@ public class NewAppointmentScreen extends VBox {
         if(response.getVisite() == null) return true;
         
         Visita[] visite = response.getVisite();
-        for(Visita visita:visite){
-            if(!ordinaria && visita.getData().equals(date) && visita.getOra().equals(time)) return false;
-            if(ordinaria && visita.getOra().equals(time)) return false;
+        
+        for(Visita visita: visite){
+            
+            if(visita.getData() != null && visita.getData().isBefore(LocalDate.now())) continue;
+            
+            
+            if (ordinaria) {
+                if (visita.getOra().equals(time)) return false;
+            } else {
+                if (visita.getOrdinaria() && visita.getOra().equals(time)) return false;
+                if (!visita.getOrdinaria() && visita.getData() != null && visita.getData().equals(date) && visita.getOra().equals(time)) return false;
+            }
         }
         return true;
     }
@@ -96,7 +102,7 @@ public class NewAppointmentScreen extends VBox {
     @FXML
     public void createAppointment(){
         
-        hideMessage();
+        messageHandler.hideMessage();
         
         LocalDate date = dateField.getValue();
         String timeString = timeField.getValue();
@@ -104,7 +110,7 @@ public class NewAppointmentScreen extends VBox {
         boolean ordinaria = optionOrdinaria.isSelected();
         
         if((date == null && !ordinaria) || timeString == null || type == null || type.isEmpty() || timeString.isEmpty()){
-            showMessage("Compilare tutti i campi richiesti!");
+            messageHandler.showMessage("Compilare tutti i campi richiesti!", true);
             return;
         }
         
@@ -122,7 +128,7 @@ public class NewAppointmentScreen extends VBox {
                     
                     if(!valid){
                         Platform.runLater(() -> {
-                            showMessage("Appuntamento già esistente per quell'ora");
+                            messageHandler.showMessage("Appuntamento già esistente per quell'ora", true);
                             createAppointmentButton.setDisable(false);
                         });
                         return null;
@@ -131,23 +137,18 @@ public class NewAppointmentScreen extends VBox {
                     CreateVisitaRequest createVisitaRequest = new CreateVisitaRequest((ordinaria)? null:date, time, type, 
                                                                                       (Medico) UserSession.getSession().getLoggedUtente(),
                                                                                        ordinaria);
-                    Boolean response = RequestHandler.POSTRequest("visita/crea", createVisitaRequest, Boolean.class);
+                    Response response = RequestHandler.POSTRequest("visita/crea", createVisitaRequest, Response.class);
                     
-                    if(response == null || response == false){
-                        Platform.runLater(() -> {
-                            showMessage("Errore nella comunicazione con il server");
-                            createAppointmentButton.setDisable(false);
-                        });
-                        return null;
-                    }
+                    if(response == null || response.isError()) throw new Exception();
                     
                     Platform.runLater(() -> {
                         createAppointmentButton.setDisable(false);
+                        messageHandler.showMessage("Appuntamento creato con successo", false);
                     });
                     
                 }catch(Exception e){
                     Platform.runLater(() -> {
-                        showMessage("Errore nella creazione della visita");
+                        messageHandler.showMessage("Errore nella creazione della visita", true);
                         createAppointmentButton.setDisable(false);
                     });
                     return null;

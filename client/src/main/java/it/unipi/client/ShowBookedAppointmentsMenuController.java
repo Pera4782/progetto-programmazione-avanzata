@@ -1,9 +1,11 @@
 package it.unipi.client;
 
-import it.unipi.client.model.RequestHandler;
-import it.unipi.client.model.UserSession;
+import it.unipi.client.util.RequestHandler;
+import it.unipi.client.session.UserSession;
 import it.unipi.client.model.Visita;
 import it.unipi.client.model.responses.GetVisiteResponse;
+import it.unipi.client.model.responses.Response;
+import it.unipi.client.util.MessageHandler;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -23,22 +25,15 @@ public class ShowBookedAppointmentsMenuController {
     
     @FXML private Label statusRichiestaLabel;
     
-    private void showErrorMessage(String msg){
-        
-        hideErrorMessage();
-        statusRichiestaLabel.setText(msg);
-        statusRichiestaLabel.setVisible(true);
-    }
+    private MessageHandler messageHandler;
     
-    private void hideErrorMessage(){
-        statusRichiestaLabel.setText("");
-        statusRichiestaLabel.setVisible(false);
-    }
-
+    
     @FXML
     public void initialize() {
         statusFilterComboBox.getItems().addAll("Tutti", "Programmato", "Completato");
         statusFilterComboBox.getSelectionModel().selectFirst();
+        
+        messageHandler = new MessageHandler(statusRichiestaLabel, null, "error");
     }
 
     
@@ -55,14 +50,14 @@ public class ShowBookedAppointmentsMenuController {
             
                 try{
                     
-                    Integer response = RequestHandler.POSTRequest("visita/annulla/prenotazione", visita, Integer.class);
+                    Response response = RequestHandler.POSTRequest("visita/annulla/prenotazione", visita, Response.class);
                     
-                    if(response == null) throw new Exception();
+                    if(response == null || response.isError()) throw new Exception();
                     
                     Platform.runLater(() -> {appointmentsContainer.getChildren().clear();});
                     
                 }catch(Exception e){
-                    Platform.runLater(() -> {showErrorMessage("Errore nella comunicazione con il server");});
+                    Platform.runLater(() -> {messageHandler.showMessage("Errore nella comunicazione con il server", true);});
                     return null;
                 }
                 
@@ -105,7 +100,7 @@ public class ShowBookedAppointmentsMenuController {
         
         appointmentsContainer.getChildren().clear();
         filterButton.setDisable(true);
-        hideErrorMessage();
+        messageHandler.hideMessage();
         
         Task<Void> task = new Task<Void>(){
             
@@ -136,7 +131,7 @@ public class ShowBookedAppointmentsMenuController {
                     
                 }catch(Exception e){
                     Platform.runLater(() -> {
-                        showErrorMessage("Errore nella comunicazione con il server");
+                        messageHandler.showMessage("Errore nella comunicazione con il server", true);
                     });
                     return  null;
                 }

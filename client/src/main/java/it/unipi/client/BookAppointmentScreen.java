@@ -2,11 +2,13 @@ package it.unipi.client;
 
 import it.unipi.client.model.Medico;
 import it.unipi.client.model.Paziente;
-import it.unipi.client.model.RequestHandler;
-import it.unipi.client.model.UserSession;
+import it.unipi.client.util.RequestHandler;
+import it.unipi.client.session.UserSession;
 import it.unipi.client.model.Visita;
 import it.unipi.client.model.requests.BookAppointmentRequest;
 import it.unipi.client.model.responses.GetVisiteResponse;
+import it.unipi.client.model.responses.Response;
+import it.unipi.client.util.MessageHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.control.DatePicker;
@@ -38,22 +40,7 @@ public class BookAppointmentScreen extends VBox {
     @FXML private Label statusLabel;
     
     private Runnable goBackButtonClicked;
-    
-    private void showMessage(String msg, boolean error){
-        
-        hideMessage();
-        
-        String styleClass = (error)? "error" : "success";
-        statusLabel.getStyleClass().add(styleClass);
-        statusLabel.setText(msg);
-        statusLabel.setVisible(true);
-    }
-    
-    private void hideMessage(){
-        statusLabel.getStyleClass().removeAll("error", "success");
-        statusLabel.setText("");
-        statusLabel.setVisible(false);
-    }
+    private MessageHandler messageHandler;
     
     
     /**
@@ -94,6 +81,7 @@ public class BookAppointmentScreen extends VBox {
         }
         
         this.medico = medico;
+        this.messageHandler = new MessageHandler(statusLabel, "success", "error");
         
         String inizialeNome = medico.getNome().substring(0,1).toUpperCase();
         String inizialeCognome = medico.getCognome().substring(0,1).toUpperCase();
@@ -150,7 +138,8 @@ public class BookAppointmentScreen extends VBox {
                     Platform.runLater(() -> timeSlotsList.getItems().addAll(orari));
                     
                 }catch(Exception e){
-                    showMessage("Errore nella comunicazione con il server", true);
+                    
+                    Platform.runLater(() -> {messageHandler.showMessage("Errore nella comunicazione con il server", true);});
                     return null;
                 }
                 
@@ -171,14 +160,14 @@ public class BookAppointmentScreen extends VBox {
     @FXML
     private void confirmBooking() {
         
-        hideMessage();
+        messageHandler.hideMessage();
         bookButton.setDisable(false);
         
         LocalDate selectedDate = appointmentDatePicker.getValue();
         String selectedSlot = timeSlotsList.getSelectionModel().getSelectedItem();
         
         if(selectedDate == null || selectedSlot == null){
-            showMessage("Selezionare data e ora", true);
+            messageHandler.showMessage("Selezionare data e ora", true);
             return;
         }
         
@@ -191,20 +180,20 @@ public class BookAppointmentScreen extends VBox {
                 try{
                     BookAppointmentRequest body = new BookAppointmentRequest(selectedDate, selectedTime, 
                                                                             (Paziente) UserSession.getSession().getLoggedUtente());
-                    Integer response = RequestHandler.POSTRequest("visita/prenota", body, Integer.class);
+                    Response response = RequestHandler.POSTRequest("visita/prenota", body, Response.class);
                     
-                    if(response == null) throw new Exception();
+                    if(response == null || response.isError()) throw new Exception();
                     
                     
                     Platform.runLater(() -> {
                         bookButton.setDisable(true);
-                        showMessage("Appuntamento prenotato con successo", false);
+                        messageHandler.showMessage("Appuntamento prenotato con successo", false);
                     });
                     
                     
                 }catch(Exception e){
                     Platform.runLater(() -> {
-                        showMessage("Errore nella comunicazione con il server", true);
+                        messageHandler.showMessage("Errore nella comunicazione con il server", true);
                     });
                     return null;
                 }

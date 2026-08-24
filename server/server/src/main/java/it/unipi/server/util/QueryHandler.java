@@ -1,5 +1,6 @@
-package it.unipi.server.model.utils;
+package it.unipi.server.util;
 
+import it.unipi.server.util.HibernateUtil;
 import it.unipi.server.model.Medico;
 import it.unipi.server.model.ServerErrorException;
 import it.unipi.server.model.Utente;

@@ -1,7 +1,7 @@
 package it.unipi.server.controllers;
 
 import it.unipi.server.model.ServerErrorException;
-import it.unipi.server.model.utils.QueryHandler;
+import it.unipi.server.util.QueryHandler;
 import it.unipi.server.model.Medico;
 import it.unipi.server.model.responses.FindDottoriResponse;
 import org.springframework.stereotype.Controller;

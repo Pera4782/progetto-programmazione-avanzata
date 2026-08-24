@@ -1,4 +1,4 @@
-package it.unipi.server.model.utils;
+package it.unipi.server.util;
 
 import it.unipi.server.model.Paziente;
 import it.unipi.server.model.Visita;

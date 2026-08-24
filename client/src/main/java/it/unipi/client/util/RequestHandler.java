@@ -1,4 +1,4 @@
-package it.unipi.client.model;
+package it.unipi.client.util;
 
 import java.io.IOException;
 import java.net.URI;

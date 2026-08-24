@@ -1,9 +1,10 @@
 package it.unipi.client;
 
 import it.unipi.client.model.Visita;
-import it.unipi.client.model.RequestHandler;
-import it.unipi.client.model.UserSession;
+import it.unipi.client.util.RequestHandler;
+import it.unipi.client.session.UserSession;
 import it.unipi.client.model.responses.GetVisiteResponse;
+import it.unipi.client.model.responses.Response;
 import java.io.IOException;
 import java.time.LocalDate;
 import java.time.LocalTime;
@@ -245,9 +246,9 @@ public class BookedAppointmentScreen extends VBox {
                 try{
                     
                     Visita selected = appointmentsTable.getSelectionModel().getSelectedItem();
-                    Boolean response = RequestHandler.POSTRequest("visita/elimina", selected, Boolean.class);
+                    Response response = RequestHandler.POSTRequest("visita/elimina", selected, Response.class);
                     
-                    if(response == null || response == false) {
+                    if(response == null || response.isError()) {
                         return null;
                     }
                     

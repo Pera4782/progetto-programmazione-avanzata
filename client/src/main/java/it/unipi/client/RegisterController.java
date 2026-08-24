@@ -2,9 +2,10 @@ package it.unipi.client;
 
 import it.unipi.client.App;
 import it.unipi.client.LoginController;
-import it.unipi.client.model.RequestHandler;
+import it.unipi.client.util.RequestHandler;
 import it.unipi.client.model.requests.RegisterRequest;
 import it.unipi.client.model.responses.RegisterResponse;
+import it.unipi.client.util.MessageHandler;
 import java.io.IOException;
 import javafx.application.Platform;
 import javafx.concurrent.Task;
@@ -51,14 +52,7 @@ public class RegisterController {
     @FXML
     private Button hoCapitoButton;
 
-    private void showMessage(String msg){
-        message.setText(msg);
-        message.setVisible(true);
-    }
-    
-    private void hideMessage(){
-        message.setVisible(false);
-    }
+    private MessageHandler messageHandler;
 
     @FXML
     public void initialize(){
@@ -81,6 +75,7 @@ public class RegisterController {
             );
         }
         
+        messageHandler = new MessageHandler(message, "success", "error");
     }
 
     /**
@@ -89,7 +84,7 @@ public class RegisterController {
     @FXML
     void handleRegister() {
         
-        hideMessage();
+        messageHandler.hideMessage();
         
         //controlli sui campi inseriti
         if(hoCapitoButton != null) hoCapitoButton.setVisible(false);
@@ -102,19 +97,19 @@ public class RegisterController {
         
         if(nome.isEmpty() || cognome.isEmpty() || password.isEmpty() || confirmPassword.isEmpty()
            || ((specializzazione == null || specializzazione.isEmpty()) && LoginController.isDoctor)){
-            showMessage("Compilare tutti i campi!");
+            messageHandler.showMessage("Compilare tutti i campi!", true);
             return;
         }
         
         if(!password.equals(confirmPassword)){
-            showMessage("Le password digitate non coincidono!");
+            messageHandler.showMessage("Le password digitate non coincidono!", true);
             return;
         }
         
         String passwordRegex = "^(?=.*[A-Z])(?=.*\\d)(?=.*[@! .=])[A-Za-z\\d@! .=]{8,}$";
         
         if(!password.matches(passwordRegex)){
-            showMessage("La password deve essere lunga almeno 8 caratteri, deve contenere solo caratteri alfanumerici e almeno una lettera maiuscola, un numero e uno trai seguenti caratteri: ! @ .");
+            messageHandler.showMessage("La password deve essere lunga almeno 8 caratteri, deve contenere solo caratteri alfanumerici e almeno una lettera maiuscola, un numero e uno trai seguenti caratteri: ! @ .", true);
             return;
         }
 
@@ -138,24 +133,24 @@ public class RegisterController {
                     Platform.runLater(() -> {
                         
                         if (result == null) {
-                            showMessage("Errore nella comunicazione con il server riprovare più tardi.");
+                            messageHandler.showMessage("Errore nella comunicazione con il server riprovare più tardi.", true);
                             registerButton.setDisable(false);
                             return;
                         }
 
                         switch(result.getStatus()){
                             case EMPTYFIELDS:
-                                showMessage("Compilare tutti i campi!");
+                                messageHandler.showMessage("Compilare tutti i campi!", true);
                                 registerButton.setDisable(false);
                                 break;
                             case WRONGPASSWORDFORMAT:
-                                showMessage("La password deve essere lunga almeno 8 caratteri, deve contenere solo caratteri alfanumerici e almeno una lettera maiuscola, un numero e uno trai seguenti caratteri: ! @ .");
+                                messageHandler.showMessage("La password deve essere lunga almeno 8 caratteri, deve contenere solo caratteri alfanumerici e almeno una lettera maiuscola, un numero e uno trai seguenti caratteri: ! @ .", true);
                                 registerButton.setDisable(false);
                                 break;
                             case SUCCESS:
                                 if(accediButton != null) accediButton.setVisible(false);
                                 if(hoCapitoButton != null) hoCapitoButton.setVisible(true);
-                                showMessage("IMPORTANTE!!! La tua matricola è " + result.getMatricola() + " assicurati di non perderla, una volta uscito da questa pagina non sarà più possibile recuperarla");
+                                messageHandler.showMessage("IMPORTANTE!!! La tua matricola è " + result.getMatricola() + " assicurati di non perderla, una volta uscito da questa pagina non sarà più possibile recuperarla", false);
                                 break;
                             default:
                                 System.exit(1);

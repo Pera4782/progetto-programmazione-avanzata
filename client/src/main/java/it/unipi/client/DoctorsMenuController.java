@@ -1,8 +1,9 @@
 package it.unipi.client;
 
+import it.unipi.client.App;
 import it.unipi.client.model.Medico;
-import it.unipi.client.model.RequestHandler;
-import it.unipi.client.model.UserSession;
+import it.unipi.client.util.RequestHandler;
+import it.unipi.client.session.UserSession;
 import javafx.application.Platform;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;

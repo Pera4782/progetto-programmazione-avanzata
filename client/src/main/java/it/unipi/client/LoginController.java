@@ -1,9 +1,10 @@
 package it.unipi.client;
 
 import it.unipi.client.model.requests.LoginRequest;
-import it.unipi.client.model.RequestHandler;
-import it.unipi.client.model.UserSession;
+import it.unipi.client.util.RequestHandler;
+import it.unipi.client.session.UserSession;
 import it.unipi.client.model.responses.LoginResponse;
+import it.unipi.client.util.MessageHandler;
 import java.io.IOException;
 import javafx.application.Platform;
 import javafx.concurrent.Task;
@@ -38,19 +39,13 @@ public class LoginController {
     
     @FXML
     private Label message;
-
-    private void showMessage(String msg){
-        message.setText(msg);
-        message.setVisible(true);
-    }
     
-    private void hideMessage(){
-        message.setVisible(false);
-    }
+    private MessageHandler messageHandler;
     
     @FXML
     void initialize(){
         isDoctor = false;
+        messageHandler = new MessageHandler(message, null, "error");
     }
     
     /**
@@ -59,11 +54,11 @@ public class LoginController {
     @FXML
     void handleLogin() {
         
-        hideMessage();
+        messageHandler.hideMessage();
         
         //controlli degli input
         if(matricolaField.getText().isEmpty() || passwordField.getText().isEmpty()){
-            showMessage("Compilare tutti i campi richiesti!");
+            messageHandler.showMessage("Compilare tutti i campi richiesti", true);
             return;
         }
         
@@ -71,7 +66,7 @@ public class LoginController {
         try {
             matricola = Integer.parseInt(matricolaField.getText());
         } catch (NumberFormatException e) {
-            showMessage("La matricola deve essere un numero!");
+            messageHandler.showMessage("La matricola deve essere un numero!", true);
             return;
         }
 
@@ -94,13 +89,13 @@ public class LoginController {
                     Platform.runLater(() -> {
                     
                         if(result == null) {
-                            showMessage("Errore nella comunicazione con il server riprovare più tardi.");
+                            messageHandler.showMessage("Errore nella comunicazione con il server", true);
                             loginButton.setDisable(false);
                             return;
                         }
                         
                         if (result.getStatus() == null) {
-                             showMessage("Risposta non valida dal server.");
+                             messageHandler.showMessage("Risposta non valida dal server", true);
                              loginButton.setDisable(false);
                              return;
                         }
@@ -109,12 +104,12 @@ public class LoginController {
                             
                             case MATRICOLANOTFOUND:
                                 loginButton.setDisable(false);
-                                showMessage("Matricola non esistente!");
+                                messageHandler.showMessage("Matricola non esistente", true);
                                 return;
                             
                             case WRONGPASSWORD:
                                 loginButton.setDisable(false);
-                                showMessage("La password inserita non è corretta!");
+                                messageHandler.showMessage("Password errata", true);
                                 return;
                               
                             case SUCCESS:
@@ -127,12 +122,12 @@ public class LoginController {
                                 }catch(IOException e){
                                     e.printStackTrace();
                                     // Don't exit, just show error
-                                    showMessage("Errore caricamento menu.");
+                                    messageHandler.showMessage("Errore nel caricamento del menu", true);
                                     loginButton.setDisable(false);
                                 }
                                 break;
                             default:
-                                showMessage("Errore sconosciuto.");
+                                messageHandler.showMessage("Errore sconosciuto", true);
                                 loginButton.setDisable(false);
                         }
                         
@@ -140,7 +135,7 @@ public class LoginController {
                 }catch(Exception e){
                     e.printStackTrace();
                     Platform.runLater(() -> {
-                        showMessage("Errore durante il login: " + e.getMessage());
+                        messageHandler.showMessage("Errore durante il login", true);
                         loginButton.setDisable(false);
                     });
                 }

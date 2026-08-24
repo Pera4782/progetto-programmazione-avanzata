@@ -2,8 +2,8 @@ package it.unipi.client;
 
 import it.unipi.client.model.Paziente;
 import it.unipi.client.model.Visita;
-import it.unipi.client.model.RequestHandler;
-import it.unipi.client.model.UserSession;
+import it.unipi.client.util.RequestHandler;
+import it.unipi.client.session.UserSession;
 import it.unipi.client.model.responses.GetVisiteResponse;
 import java.io.IOException;
 import java.time.LocalDate;

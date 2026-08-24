@@ -51,3 +51,9 @@
 .radio-button:selected .radio {
     -fx-background-color: #3498db;
 }
+
+.error {
+    -fx-text-fill: #b50000;
+    -fx-font-weight: bold;
+    -fx-font-size: 16px;
+}
