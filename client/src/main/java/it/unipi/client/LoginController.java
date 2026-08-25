@@ -4,6 +4,7 @@ import it.unipi.client.model.requests.LoginRequest;
 import it.unipi.client.util.RequestHandler;
 import it.unipi.client.session.UserSession;
 import it.unipi.client.model.responses.LoginResponse;
+import it.unipi.client.model.responses.Response;
 import it.unipi.client.util.MessageHandler;
 import java.io.IOException;
 import javafx.application.Platform;
@@ -152,6 +153,22 @@ public class LoginController {
     @FXML
     void inizializzaDB() {
         
+        Task<Void> task = new Task<Void>(){
+            
+            @Override
+            public Void call(){
+                try{
+                    Response response = RequestHandler.POSTRequest("inizializza", null, Response.class);
+                    if(response.isError()) throw new Exception();
+                    
+                }catch(Exception e){
+                    System.exit(1);
+                }
+                return null;
+            }
+        };
+        
+        new Thread(task).start();
     }
 
     /**

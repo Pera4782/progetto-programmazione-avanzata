@@ -1,20 +1,92 @@
 package it.unipi.server.util;
 
-import it.unipi.server.util.HibernateUtil;
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
+import com.google.gson.JsonDeserializer;
+import com.google.gson.JsonNull;
+import com.google.gson.JsonPrimitive;
+import com.google.gson.JsonSerializer;
+import it.unipi.server.model.DatabaseData;
 import it.unipi.server.model.Medico;
+import it.unipi.server.model.Paziente;
 import it.unipi.server.model.ServerErrorException;
 import it.unipi.server.model.Utente;
 import it.unipi.server.model.Visita;
 import it.unipi.server.model.requests.BookAppointmentRequest;
+import java.io.InputStreamReader;
+import java.io.Reader;
+import java.nio.charset.StandardCharsets;
 import java.time.DayOfWeek;
 import java.time.LocalDate;
+import java.time.LocalTime;
 import java.util.List;
 
 import org.hibernate.Session;
+import org.springframework.core.io.ClassPathResource;
 import org.springframework.security.crypto.bcrypt.BCrypt;
 
 
 public class QueryHandler {
+    
+    private static final Gson gson = new GsonBuilder()
+            .registerTypeAdapter(LocalDate.class, (JsonDeserializer<LocalDate>) (json, type, context) -> 
+                    json.isJsonNull() ? null : LocalDate.parse(json.getAsString()))
+            .registerTypeAdapter(LocalDate.class, (JsonSerializer<LocalDate>) (src, type, context) -> 
+                    src == null ? JsonNull.INSTANCE : new JsonPrimitive(src.toString()))
+            .registerTypeAdapter(LocalTime.class, (JsonDeserializer<LocalTime>) (json, type, context) -> 
+                    json.isJsonNull() ? null : LocalTime.parse(json.getAsString()))
+            .registerTypeAdapter(LocalTime.class, (JsonSerializer<LocalTime>) (src, type, context) -> 
+                    src == null ? JsonNull.INSTANCE : new JsonPrimitive(src.toString()))
+            .create();
+    
+    
+    private static void resetDatabase() throws ServerErrorException {
+    Session session = HibernateUtil.getSessionFactory().openSession();
+    
+        try {
+            session.beginTransaction();
+            
+            session.createNativeQuery("SET FOREIGN_KEY_CHECKS = 0", Void.class).executeUpdate();
+            
+            
+            session.createNativeQuery("TRUNCATE TABLE visite", Void.class).executeUpdate();
+            session.createNativeQuery("TRUNCATE TABLE pazienti", Void.class).executeUpdate();
+            session.createNativeQuery("TRUNCATE TABLE medici", Void.class).executeUpdate();
+            
+            session.createNativeQuery("SET FOREIGN_KEY_CHECKS = 1", Void.class).executeUpdate();
+            
+            session.getTransaction().commit();
+
+        } catch (Exception e) {
+            
+            session.getTransaction().rollback();
+            e.printStackTrace();
+            throw new ServerErrorException();
+        } finally {
+            session.close();
+        }
+    }
+    
+    
+    public static void loadDB() throws ServerErrorException {
+    
+        ClassPathResource resource = new ClassPathResource("dataset.json");
+        
+        try (Reader reader = new InputStreamReader(resource.getInputStream(), StandardCharsets.UTF_8)) {
+                
+            DatabaseData data = gson.fromJson(reader, DatabaseData.class);
+            QueryHandler.resetDatabase();
+            
+            for(Medico medico: data.getMedici()) QueryHandler.insertUtente(medico);
+            for(Paziente paziente: data.getPazienti()) QueryHandler.insertUtente(paziente);
+            
+            
+        }catch(Exception e){
+            throw new ServerErrorException();
+        }
+        
+    }
+    
     
     /**
      * @brief funzione per l'inserimento di un utente del database, sia esso paziente o medico
@@ -28,6 +100,7 @@ public class QueryHandler {
         
         try {
             session.beginTransaction();
+            utente.setMatricola(0);
             String hashed = BCrypt.hashpw(utente.getPassword(), BCrypt.gensalt());
             utente.setPassword(hashed);
             session.persist(utente);
