@@ -13,6 +13,7 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.control.*;
 import javafx.scene.layout.VBox;
 import java.io.IOException;
+import java.time.DayOfWeek;
 import java.time.LocalDate;
 import java.time.LocalTime;
 import javafx.application.Platform;
@@ -92,7 +93,10 @@ public class NewAppointmentScreen extends VBox {
             if (ordinaria) {
                 if (visita.getOra().equals(time)) return false;
             } else {
-                if (visita.getOrdinaria() && visita.getOra().equals(time)) return false;
+                if (visita.getOrdinaria() && 
+                    date.getDayOfWeek() != DayOfWeek.SATURDAY && date.getDayOfWeek() != DayOfWeek.SUNDAY &&
+                    visita.getOra().equals(time)) return false;
+                
                 if (!visita.getOrdinaria() && visita.getData() != null && visita.getData().equals(date) && visita.getOra().equals(time)) return false;
             }
         }

@@ -6,6 +6,7 @@ import it.unipi.server.model.ServerErrorException;
 import it.unipi.server.model.Utente;
 import it.unipi.server.model.Visita;
 import it.unipi.server.model.requests.BookAppointmentRequest;
+import java.time.DayOfWeek;
 import java.time.LocalDate;
 import java.util.List;
 
@@ -322,11 +323,19 @@ public class QueryHandler {
             
             Visita correctVisita = null;
             
-            for(Visita visita: visite) 
+            for(Visita visita: visite) {
+                if((bas.getDate().getDayOfWeek() == DayOfWeek.SATURDAY || bas.getDate().getDayOfWeek() == DayOfWeek.SUNDAY) &&
+                   visita.getOrdinaria()){
+                    continue;
+                } 
+                
                 if(visita.getOra().equals(bas.getTime())){
                     correctVisita = visita;
                     break;
                 }
+            }
+            
+            if(correctVisita == null) throw new ServerErrorException();
             
             boolean isOrdinaria = correctVisita.getOrdinaria();
             

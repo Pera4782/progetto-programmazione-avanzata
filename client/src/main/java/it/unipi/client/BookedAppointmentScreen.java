@@ -6,6 +6,7 @@ import it.unipi.client.session.UserSession;
 import it.unipi.client.model.responses.GetVisiteResponse;
 import it.unipi.client.model.responses.Response;
 import java.io.IOException;
+import java.time.DayOfWeek;
 import java.time.LocalDate;
 import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
@@ -106,7 +107,10 @@ public class BookedAppointmentScreen extends VBox {
         }
         
         visite.removeIf(v -> {
-            return v.getOrdinaria() && timeMap.get(v.getOra()) > 1 && v.getPaziente() == null;
+            //rimozione della visita ordinaria non prenotata se c'è una prenotazione quel giorno
+            return (v.getOrdinaria() && timeMap.get(v.getOra()) > 1 && v.getPaziente() == null) ||
+            //rimozione delle visite ordinarie di sabato e domenica
+                    (v.getOrdinaria() && (clickedDate.getDayOfWeek() == DayOfWeek.SATURDAY || clickedDate.getDayOfWeek() == DayOfWeek.SUNDAY));
         });
                     
         return visite;

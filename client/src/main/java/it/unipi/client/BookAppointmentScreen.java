@@ -17,6 +17,7 @@ import javafx.scene.control.ListView;
 import javafx.scene.layout.VBox;
 
 import java.io.IOException;
+import java.time.DayOfWeek;
 import java.time.LocalDate;
 import java.time.LocalTime;
 import java.util.ArrayList;
@@ -48,9 +49,13 @@ public class BookAppointmentScreen extends VBox {
      * @param unfilteredVisits array di visite
      * @return ArrayList di visite non prenotate
      */
-    private ArrayList<Visita> removeBookedAppointments(Visita[] unfilteredVisits){
+    private ArrayList<Visita> removeBookedAppointments(Visita[] unfilteredVisits, LocalDate date){
     
         ArrayList<Visita> visite = new ArrayList<>(Arrays.asList(unfilteredVisits));
+        
+        if(date.getDayOfWeek() == DayOfWeek.SATURDAY || date.getDayOfWeek() == DayOfWeek.SUNDAY)
+            visite.removeIf(v -> v.getOrdinaria());
+        
         HashMap<LocalTime, Integer> timeMap = new HashMap<>();
 
         for(int i = 0; i < visite.size(); ++i){
@@ -124,7 +129,7 @@ public class BookAppointmentScreen extends VBox {
                     
                     if(response.getStatus() == GetVisiteResponse.Status.ERROR) throw new Exception();
                     
-                    ArrayList<Visita> visite = removeBookedAppointments(response.getVisite());
+                    ArrayList<Visita> visite = removeBookedAppointments(response.getVisite(), date);
                     
                     visite.removeIf(v -> v.getMedico().getMatricola() != medico.getMatricola());
                     
@@ -138,7 +143,6 @@ public class BookAppointmentScreen extends VBox {
                     Platform.runLater(() -> timeSlotsList.getItems().addAll(orari));
                     
                 }catch(Exception e){
-                    
                     Platform.runLater(() -> {messageHandler.showMessage("Errore nella comunicazione con il server", true);});
                     return null;
                 }
