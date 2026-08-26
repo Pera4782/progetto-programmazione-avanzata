@@ -91,6 +91,10 @@ public class NewAppointmentScreen extends VBox {
             
             
             if (ordinaria) {
+                
+                if(!visita.getOrdinaria() && (visita.getData().getDayOfWeek() == DayOfWeek.SATURDAY || visita.getData().getDayOfWeek() == DayOfWeek.SUNDAY))
+                    continue;
+                
                 if (visita.getOra().equals(time)) return false;
             } else {
                 if (visita.getOrdinaria() && 
