@@ -49,27 +49,25 @@ public class BookAppointmentScreen extends VBox {
      * @param unfilteredVisits array di visite
      * @return ArrayList di visite non prenotate
      */
-    private ArrayList<Visita> removeBookedAppointments(Visita[] unfilteredVisits, LocalDate date){
-    
-        ArrayList<Visita> visite = new ArrayList<>(Arrays.asList(unfilteredVisits));
+    private ArrayList<Visita> removeBookedAppointments(ArrayList<Visita> unfilteredVisits, LocalDate date){
         
         if(date.getDayOfWeek() == DayOfWeek.SATURDAY || date.getDayOfWeek() == DayOfWeek.SUNDAY)
-            visite.removeIf(v -> v.getOrdinaria());
+            unfilteredVisits.removeIf(v -> v.getOrdinaria());
         
         HashMap<LocalTime, Integer> timeMap = new HashMap<>();
 
-        for(int i = 0; i < visite.size(); ++i){
-            if(timeMap.containsKey(visite.get(i).getOra())) 
-                timeMap.put(visite.get(i).getOra(), timeMap.get(visite.get(i).getOra()) + 1);
+        for(int i = 0; i < unfilteredVisits.size(); ++i){
+            if(timeMap.containsKey(unfilteredVisits.get(i).getOra())) 
+                timeMap.put(unfilteredVisits.get(i).getOra(), timeMap.get(unfilteredVisits.get(i).getOra()) + 1);
             else
-                timeMap.put(visite.get(i).getOra(), 1);
+                timeMap.put(unfilteredVisits.get(i).getOra(), 1);
         }
 
-        visite.removeIf(v -> {
+        unfilteredVisits.removeIf(v -> {
             return timeMap.get(v.getOra()) > 1 || v.getPaziente() != null;
         });
                     
-        return visite;
+        return unfilteredVisits;
     }
        
     
@@ -129,17 +127,18 @@ public class BookAppointmentScreen extends VBox {
                     
                     if(response.getStatus() == GetVisiteResponse.Status.ERROR) throw new Exception();
                     
-                    ArrayList<Visita> visite = removeBookedAppointments(response.getVisite(), date);
-                    
+                    ArrayList<Visita> visite = new ArrayList<>(Arrays.asList(response.getVisite()));
+                            
                     visite.removeIf(v -> v.getMedico().getMatricola() != medico.getMatricola());
+                    ArrayList<Visita> filteredVisite = removeBookedAppointments(visite, date);
                     
-                    if (visite == null || visite.isEmpty()) {
+                    if (filteredVisite == null || filteredVisite.isEmpty()) {
                         Platform.runLater(() -> {appointmentDatePicker.setDisable(false);});
                         return null;
                     }
                     
-                    ArrayList<String> orari = new ArrayList<>(visite.size());
-                    visite.forEach(v -> orari.add(v.getOra().toString() + " " + v.getTipo()));
+                    ArrayList<String> orari = new ArrayList<>(filteredVisite.size());
+                    filteredVisite.forEach(v -> orari.add(v.getOra().toString() + " " + v.getTipo()));
                     Platform.runLater(() -> timeSlotsList.getItems().addAll(orari));
                     
                 }catch(Exception e){

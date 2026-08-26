@@ -299,7 +299,7 @@
       "medico": { "matricola": 4 },
       "paziente": { "matricola": 5 },
       "data": "2026-09-03",
-      "ora": "08:30:00",
+      "ora": "09:00:00",
       "tipo": "Controllo Post-Operatorio",
       "ordinaria": false
     },
@@ -380,7 +380,7 @@
       "medico": { "matricola": 1 },
       "paziente": null,
       "data": null,
-      "ora": "08:00:00",
+      "ora": "14:00:00",
       "tipo": "Visita Cardiologica Generale",
       "ordinaria": true
     },
