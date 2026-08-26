@@ -57,3 +57,9 @@
     -fx-font-weight: bold;
     -fx-font-size: 16px;
 }
+
+.success {
+    -fx-text-fill: #276749;
+    -fx-font-weight: bold;
+    -fx-font-size: 16px;
+}

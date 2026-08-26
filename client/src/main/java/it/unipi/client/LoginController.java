@@ -22,31 +22,26 @@ public class LoginController {
     
     public static boolean isDoctor;
     
-    @FXML
-    private TextField matricolaField;
+    @FXML private TextField matricolaField;
     
-    @FXML
-    private PasswordField passwordField;
+    @FXML private PasswordField passwordField;
+    
+    @FXML private RadioButton doctorRadio;
+    
+    @FXML private RadioButton patientRadio;
 
+    @FXML private Button loginButton;
     
-    @FXML
-    private RadioButton doctorRadio;
+    @FXML private Label message;
     
-    @FXML
-    private RadioButton patientRadio;
-
-    @FXML
-    private Button loginButton;
-    
-    @FXML
-    private Label message;
+    @FXML private Button initDBButton;
     
     private MessageHandler messageHandler;
     
     @FXML
     void initialize(){
         isDoctor = false;
-        messageHandler = new MessageHandler(message, null, "error");
+        messageHandler = new MessageHandler(message, "success", "error");
     }
     
     /**
@@ -75,6 +70,8 @@ public class LoginController {
         
         if(doctorRadio.isSelected()) isDoctor = true;
         else isDoctor = false; 
+        
+        loginButton.setDisable(true);
         
         Task<Void> task = new Task<Void>() {
             
@@ -153,6 +150,8 @@ public class LoginController {
     @FXML
     void inizializzaDB() {
         
+        initDBButton.setDisable(true);
+        
         Task<Void> task = new Task<Void>(){
             
             @Override
@@ -161,8 +160,16 @@ public class LoginController {
                     Response response = RequestHandler.POSTRequest("inizializza", null, Response.class);
                     if(response.isError()) throw new Exception();
                     
+                    Platform.runLater(() -> {
+                        messageHandler.showMessage("DataBase inizializzato con successo", false);
+                        initDBButton.setDisable(false);
+                    });
+                    
                 }catch(Exception e){
-                    System.exit(1);
+                    Platform.runLater(() -> {
+                        messageHandler.showMessage("Errore nella comunicazione con il server", true);
+                        initDBButton.setDisable(false);
+                    });
                 }
                 return null;
             }

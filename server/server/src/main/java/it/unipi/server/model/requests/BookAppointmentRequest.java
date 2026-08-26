@@ -1,5 +1,6 @@
 package it.unipi.server.model.requests;
 
+import it.unipi.server.model.Medico;
 import it.unipi.server.model.Paziente;
 import java.time.LocalDate;
 import java.time.LocalTime;
@@ -9,6 +10,7 @@ public class BookAppointmentRequest {
     private LocalDate date;
     private LocalTime time;
     private Paziente paziente;
+    private Medico medico;
 
     public BookAppointmentRequest() {
     }
@@ -31,6 +33,10 @@ public class BookAppointmentRequest {
         return time;
     }
 
+    public Medico getMedico() {
+        return medico;
+    }
+    
     public void setDate(LocalDate date) {
         this.date = date;
     }
@@ -42,5 +48,10 @@ public class BookAppointmentRequest {
     public void setTime(LocalTime time) {
         this.time = time;
     }
+
+    public void setMedico(Medico medico) {
+        this.medico = medico;
+    }
+    
 }
 

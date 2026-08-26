@@ -182,7 +182,7 @@ public class BookAppointmentScreen extends VBox {
                 
                 try{
                     BookAppointmentRequest body = new BookAppointmentRequest(selectedDate, selectedTime, 
-                                                                            (Paziente) UserSession.getSession().getLoggedUtente());
+                                                                            (Paziente) UserSession.getSession().getLoggedUtente(), medico);
                     Response response = RequestHandler.POSTRequest("visita/prenota", body, Response.class);
                     
                     if(response == null || response.isError()) throw new Exception();

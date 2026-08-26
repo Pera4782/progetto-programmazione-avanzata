@@ -323,7 +323,7 @@ public class QueryHandler {
         Session session = HibernateUtil.getSessionFactory().openSession();
         
         try{
-            List<Visita> result = session.createQuery("SELECT v FROM Visita v WHERE v.data = :data OR v.data IS NULL ORDER BY v.data", Visita.class)
+            List<Visita> result = session.createQuery("SELECT v FROM Visita v WHERE v.data = :data OR v.data IS NULL ORDER BY v.ora ASC", Visita.class)
                                   .setParameter("data", date)
                                   .getResultList();
             
@@ -389,6 +389,7 @@ public class QueryHandler {
         
         Visita[] visite = QueryHandler.getVisiteByData(bas.getDate());
         
+        
         Session session = HibernateUtil.getSessionFactory().openSession();
         
         try{
@@ -403,7 +404,7 @@ public class QueryHandler {
                     continue;
                 } 
                 
-                if(visita.getOra().equals(bas.getTime())){
+                if(visita.getOra().equals(bas.getTime()) && visita.getMedico().getMatricola() == bas.getMedico().getMatricola()){
                     correctVisita = visita;
                     break;
                 }
