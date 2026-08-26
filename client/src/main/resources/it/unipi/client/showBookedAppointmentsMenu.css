@@ -164,6 +164,13 @@
     -fx-text-fill: #334155;
 }
 
+/* Stile specifico opzionale per il tipo di visita */
+.card-type {
+    -fx-font-size: 13px;
+    -fx-font-style: italic;
+    -fx-text-fill: #475569;
+}
+
 /* Badge di stato (Programmato, Completato, Annullato) */
 .status-badge {
     -fx-background-radius: 12px;

@@ -79,6 +79,7 @@ public class QueryHandler {
             
             for(Medico medico: data.getMedici()) QueryHandler.insertUtente(medico);
             for(Paziente paziente: data.getPazienti()) QueryHandler.insertUtente(paziente);
+            for(Visita visita: data.getVisite()) QueryHandler.createVisita(visita);
             
             
         }catch(Exception e){

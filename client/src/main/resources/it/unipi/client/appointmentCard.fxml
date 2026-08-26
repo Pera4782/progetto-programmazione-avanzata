@@ -16,6 +16,7 @@
 
     <VBox spacing="4">
         <Label fx:id="dateTimeLabel" styleClass="card-info" text="Data e Ora" />
+        <Label fx:id="typeLabel" styleClass="card-info" text="Tipo Visita" />
     </VBox>
 
     <HBox alignment="CENTER_RIGHT">

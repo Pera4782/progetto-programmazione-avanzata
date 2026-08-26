@@ -19,6 +19,7 @@ public class AppointmentCard extends VBox {
     @FXML private Label specializationLabel;
     @FXML private Label statusBadge;
     @FXML private Label dateTimeLabel;
+    @FXML private Label typeLabel;
     @FXML private Button actionButton;
     
     private Consumer<Visita> annullaPrenotazioneClicked;
@@ -40,7 +41,8 @@ public class AppointmentCard extends VBox {
         specializationLabel.setText(visita.getMedico().getSpecializzazione());
         
         LocalDateTime dateTime = LocalDateTime.of(visita.getData(), visita.getOra());
-        dateTimeLabel.setText(visita.getData().toString() + " " + visita.getOra().toString() + " " + visita.getTipo());
+        dateTimeLabel.setText(visita.getData().toString() + " " + visita.getOra().toString());
+        typeLabel.setText(visita.getTipo());
         
         if(dateTime.isBefore(LocalDateTime.now())) {
             statusBadge.getStyleClass().add("status-completed");

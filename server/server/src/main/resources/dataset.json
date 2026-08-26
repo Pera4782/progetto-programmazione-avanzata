@@ -1,36 +1,36 @@
 {
   "medici": [
     {
-      "matricola": 1001,
-      "password": "Marco1.",
+      "matricola": 0,
+      "password": "Password1.",
       "nome": "Marco",
       "cognome": "Rossi",
       "specializzazione": "Cardiologia"
     },
     {
-      "matricola": 1002,
-      "password": "Laura1.",
+      "matricola": 0,
+      "password": "Password1.",
       "nome": "Laura",
       "cognome": "Bianchi",
       "specializzazione": "Dermatologia"
     },
     {
-      "matricola": 1003,
-      "password": "Alessandro1.",
+      "matricola": 0,
+      "password": "Password1.",
       "nome": "Alessandro",
       "cognome": "Ferrari",
       "specializzazione": "Neurologia"
     },
     {
-      "matricola": 1004,
-      "password": "Elena1.",
+      "matricola": 0,
+      "password": "Password1.",
       "nome": "Elena",
       "cognome": "Esposito",
       "specializzazione": "Ortopedia"
     },
     {
-      "matricola": 1005,
-      "password": "Stefano1.",
+      "matricola": 0,
+      "password": "Password1.",
       "nome": "Stefano",
       "cognome": "Ricci",
       "specializzazione": "Pediatria"
@@ -38,148 +38,346 @@
   ],
   "pazienti": [
     {
-      "matricola": 5001,
-      "password": "Giuseppe1.",
+      "matricola": 0,
+      "password": "Password1.",
       "nome": "Giuseppe",
       "cognome": "Verdi"
     },
     {
-      "matricola": 5002,
-      "password": "Anna1.",
+      "matricola": 0,
+      "password": "Password1.",
       "nome": "Anna",
       "cognome": "Neri"
     },
     {
-      "matricola": 5003,
-      "password": "Luca1.",
+      "matricola": 0,
+      "password": "Password1.",
       "nome": "Luca",
       "cognome": "Marini"
     },
     {
-      "matricola": 5004,
-      "password": "Giulia1.",
+      "matricola": 0,
+      "password": "Password1.",
       "nome": "Giulia",
       "cognome": "Romano"
     },
     {
-      "matricola": 5005,
-      "password": "Matteo1.",
+      "matricola": 0,
+      "password": "Password1.",
       "nome": "Matteo",
       "cognome": "Gallo"
     },
     {
-      "matricola": 5006,
-      "password": "Francesca1.",
+      "matricola": 0,
+      "password": "Password1.",
       "nome": "Francesca",
       "cognome": "Costa"
     },
     {
-      "matricola": 5007,
-      "password": "Davide1.",
+      "matricola": 0,
+      "password": "Password1.",
       "nome": "Davide",
       "cognome": "Fontana"
     },
     {
-      "matricola": 5008,
-      "password": "Chiara1.",
+      "matricola": 0,
+      "password": "Password1.",
       "nome": "Chiara",
       "cognome": "Conti"
     }
   ],
   "visite": [
     {
-      "id": 1,
-      "medico": { "matricola": 1001 },
-      "paziente": { "matricola": 5001 },
+      "id": 0,
+      "medico": { "matricola": 1 },
+      "paziente": { "matricola": 1 },
+      "data": "2026-05-12",
+      "ora": "15:00:00",
+      "tipo": "Visita Cardiologica Preventiva",
+      "ordinaria": true
+    },
+    {
+      "id": 0,
+      "medico": { "matricola": 1 },
+      "paziente": null,
+      "data": null,
+      "ora": "15:00:00",
+      "tipo": "Visita Cardiologica Preventiva",
+      "ordinaria": true
+    },
+    {
+      "id": 0,
+      "medico": { "matricola": 2 },
+      "paziente": { "matricola": 2 },
+      "data": "2026-05-18",
+      "ora": "14:00:00",
+      "tipo": "Screening Cutaneo",
+      "ordinaria": true
+    },
+    {
+      "id": 0,
+      "medico": { "matricola": 2 },
+      "paziente": null,
+      "data": null,
+      "ora": "14:00:00",
+      "tipo": "Screening Cutaneo",
+      "ordinaria": true
+    },
+    {
+      "id": 0,
+      "medico": { "matricola": 3 },
+      "paziente": { "matricola": 3 },
+      "data": "2026-05-20",
+      "ora": "16:30:00",
+      "tipo": "Valutazione Rifiuti Riflessi",
+      "ordinaria": true
+    },
+    {
+      "id": 0,
+      "medico": { "matricola": 3 },
+      "paziente": null,
+      "data": null,
+      "ora": "16:30:00",
+      "tipo": "Valutazione Rifiuti Riflessi",
+      "ordinaria": true
+    },
+    {
+      "id": 0,
+      "medico": { "matricola": 4 },
+      "paziente": { "matricola": 4 },
+      "data": "2026-06-01",
+      "ora": "09:30:00",
+      "tipo": "Visita Posturale Ortopedica",
+      "ordinaria": true
+    },
+    {
+      "id": 0,
+      "medico": { "matricola": 4 },
+      "paziente": null,
+      "data": null,
+      "ora": "09:30:00",
+      "tipo": "Visita Posturale Ortopedica",
+      "ordinaria": true
+    },
+    {
+      "id": 0,
+      "medico": { "matricola": 5 },
+      "paziente": { "matricola": 5 },
+      "data": "2026-06-10",
+      "ora": "11:30:00",
+      "tipo": "Controllo Pediatrico di Anamnesi",
+      "ordinaria": true
+    },
+    {
+      "id": 0,
+      "medico": { "matricola": 5 },
+      "paziente": null,
+      "data": null,
+      "ora": "11:30:00",
+      "tipo": "Controllo Pediatrico di Anamnesi",
+      "ordinaria": true
+    },
+    {
+      "id": 0,
+      "medico": { "matricola": 1 },
+      "paziente": { "matricola": 6 },
+      "data": "2026-06-15",
+      "ora": "16:00:00",
+      "tipo": "Ecocardiogramma di Controllo",
+      "ordinaria": true
+    },
+    {
+      "id": 0,
+      "medico": { "matricola": 1 },
+      "paziente": null,
+      "data": null,
+      "ora": "16:00:00",
+      "tipo": "Ecocardiogramma di Controllo",
+      "ordinaria": true
+    },
+    {
+      "id": 0,
+      "medico": { "matricola": 2 },
+      "paziente": { "matricola": 7 },
+      "data": "2026-06-22",
+      "ora": "10:30:00",
+      "tipo": "Controllo Nei Annuale",
+      "ordinaria": true
+    },
+    {
+      "id": 0,
+      "medico": { "matricola": 2 },
+      "paziente": null,
+      "data": null,
+      "ora": "10:30:00",
+      "tipo": "Controllo Nei Annuale",
+      "ordinaria": true
+    },
+    {
+      "id": 0,
+      "medico": { "matricola": 3 },
+      "paziente": { "matricola": 8 },
+      "data": "2026-06-25",
+      "ora": "12:00:00",
+      "tipo": "Consulto Neurologico Generale",
+      "ordinaria": true
+    },
+    {
+      "id": 0,
+      "medico": { "matricola": 3 },
+      "paziente": null,
+      "data": null,
+      "ora": "12:00:00",
+      "tipo": "Consulto Neurologico Generale",
+      "ordinaria": true
+    },
+    {
+      "id": 0,
+      "medico": { "matricola": 1 },
+      "paziente": { "matricola": 1 },
       "data": "2026-09-01",
       "ora": "09:00:00",
       "tipo": "Elettrocardiogramma",
       "ordinaria": true
     },
     {
-      "id": 2,
-      "medico": { "matricola": 1001 },
-      "paziente": { "matricola": 5002 },
+      "id": 0,
+      "medico": { "matricola": 1 },
+      "paziente": null,
+      "data": null,
+      "ora": "09:00:00",
+      "tipo": "Elettrocardiogramma",
+      "ordinaria": true
+    },
+    {
+      "id": 0,
+      "medico": { "matricola": 1 },
+      "paziente": { "matricola": 2 },
       "data": "2026-09-01",
       "ora": "10:30:00",
       "tipo": "Visita Cardiologica di Controllo",
       "ordinaria": true
     },
     {
-      "id": 3,
-      "medico": { "matricola": 1002 },
-      "paziente": { "matricola": 5003 },
+      "id": 0,
+      "medico": { "matricola": 1 },
+      "paziente": null,
+      "data": null,
+      "ora": "10:30:00",
+      "tipo": "Visita Cardiologica di Controllo",
+      "ordinaria": true
+    },
+    {
+      "id": 0,
+      "medico": { "matricola": 2 },
+      "paziente": { "matricola": 3 },
       "data": "2026-09-02",
       "ora": "11:00:00",
       "tipo": "Mappatura Nei",
       "ordinaria": true
     },
     {
-      "id": 4,
-      "medico": { "matricola": 1003 },
-      "paziente": { "matricola": 5004 },
+      "id": 0,
+      "medico": { "matricola": 2 },
+      "paziente": null,
+      "data": null,
+      "ora": "11:00:00",
+      "tipo": "Mappatura Nei",
+      "ordinaria": true
+    },
+    {
+      "id": 0,
+      "medico": { "matricola": 3 },
+      "paziente": { "matricola": 4 },
       "data": "2026-09-02",
       "ora": "14:30:00",
       "tipo": "Prima Visita Neurologica",
       "ordinaria": false
     },
     {
-      "id": 5,
-      "medico": { "matricola": 1004 },
-      "paziente": { "matricola": 5005 },
+      "id": 0,
+      "medico": { "matricola": 4 },
+      "paziente": { "matricola": 5 },
       "data": "2026-09-03",
       "ora": "08:30:00",
       "tipo": "Controllo Post-Operatorio",
       "ordinaria": false
     },
     {
-      "id": 6,
-      "medico": { "matricola": 1005 },
-      "paziente": { "matricola": 5006 },
+      "id": 0,
+      "medico": { "matricola": 5 },
+      "paziente": { "matricola": 6 },
       "data": "2026-09-03",
       "ora": "16:00:00",
       "tipo": "Visita Pediatrica Generale",
       "ordinaria": true
     },
     {
-      "id": 7,
-      "medico": { "matricola": 1001 },
-      "paziente": { "matricola": 5007 },
+      "id": 0,
+      "medico": { "matricola": 5 },
+      "paziente": null,
+      "data": null,
+      "ora": "16:00:00",
+      "tipo": "Visita Pediatrica Generale",
+      "ordinaria": true
+    },
+    {
+      "id": 0,
+      "medico": { "matricola": 1 },
+      "paziente": { "matricola": 7 },
       "data": "2026-09-04",
       "ora": "12:00:00",
       "tipo": "Prova da Sforzo",
       "ordinaria": false
     },
     {
-      "id": 8,
-      "medico": { "matricola": 1002 },
-      "paziente": { "matricola": 5008 },
+      "id": 0,
+      "medico": { "matricola": 2 },
+      "paziente": { "matricola": 8 },
       "data": "2026-09-04",
       "ora": "15:30:00",
       "tipo": "Consulto Dermatologico",
       "ordinaria": true
     },
     {
-      "id": 9,
-      "medico": { "matricola": 1003 },
-      "paziente": { "matricola": 5001 },
+      "id": 0,
+      "medico": { "matricola": 2 },
+      "paziente": null,
+      "data": null,
+      "ora": "15:30:00",
+      "tipo": "Consulto Dermatologico",
+      "ordinaria": true
+    },
+    {
+      "id": 0,
+      "medico": { "matricola": 3 },
+      "paziente": { "matricola": 1 },
       "data": "2026-09-05",
       "ora": "10:00:00",
       "tipo": "Elettromiografia",
       "ordinaria": false
     },
     {
-      "id": 10,
-      "medico": { "matricola": 1004 },
-      "paziente": { "matricola": 5002 },
+      "id": 0,
+      "medico": { "matricola": 4 },
+      "paziente": { "matricola": 2 },
       "data": "2026-09-05",
       "ora": "11:30:00",
       "tipo": "Infiltrazione Articolare",
       "ordinaria": true
     },
     {
-      "id": 11,
-      "medico": { "matricola": 1001 },
+      "id": 0,
+      "medico": { "matricola": 4 },
+      "paziente": null,
+      "data": null,
+      "ora": "11:30:00",
+      "tipo": "Infiltrazione Articolare",
+      "ordinaria": true
+    },
+    {
+      "id": 0,
+      "medico": { "matricola": 1 },
       "paziente": null,
       "data": null,
       "ora": "08:00:00",
@@ -187,8 +385,8 @@
       "ordinaria": true
     },
     {
-      "id": 12,
-      "medico": { "matricola": 1002 },
+      "id": 0,
+      "medico": { "matricola": 2 },
       "paziente": null,
       "data": null,
       "ora": "09:30:00",
@@ -196,17 +394,17 @@
       "ordinaria": true
     },
     {
-      "id": 13,
-      "medico": { "matricola": 1003 },
+      "id": 0,
+      "medico": { "matricola": 3 },
       "paziente": null,
       "data": "2026-09-10",
-      "ora": "11:00:00",
+      "ora": "11:30:00",
       "tipo": "Visita Neurologica Straordinaria",
       "ordinaria": false
     },
     {
-      "id": 14,
-      "medico": { "matricola": 1004 },
+      "id": 0,
+      "medico": { "matricola": 4 },
       "paziente": null,
       "data": null,
       "ora": "10:00:00",
@@ -214,12 +412,102 @@
       "ordinaria": true
     },
     {
-      "id": 15,
-      "medico": { "matricola": 1005 },
+      "id": 0,
+      "medico": { "matricola": 5 },
       "paziente": null,
-      "data": "2026-09-12",
+      "data": "2026-09-11",
       "ora": "14:00:00",
       "tipo": "Visita Pediatrica Specialistica",
+      "ordinaria": false
+    },
+    {
+      "id": 0,
+      "medico": { "matricola": 1 },
+      "paziente": null,
+      "data": null,
+      "ora": "11:30:00",
+      "tipo": "Ecocardiogramma",
+      "ordinaria": true
+    },
+    {
+      "id": 0,
+      "medico": { "matricola": 1 },
+      "paziente": null,
+      "data": "2026-09-15",
+      "ora": "14:00:00",
+      "tipo": "Holter Cardiaco 24h",
+      "ordinaria": false
+    },
+    {
+      "id": 0,
+      "medico": { "matricola": 2 },
+      "paziente": null,
+      "data": null,
+      "ora": "12:00:00",
+      "tipo": "Dermatoscopia Digitale",
+      "ordinaria": true
+    },
+    {
+      "id": 0,
+      "medico": { "matricola": 2 },
+      "paziente": null,
+      "data": "2026-09-16",
+      "ora": "16:30:00",
+      "tipo": "Biopsia Cutanea",
+      "ordinaria": false
+    },
+    {
+      "id": 0,
+      "medico": { "matricola": 3 },
+      "paziente": null,
+      "data": null,
+      "ora": "09:00:00",
+      "tipo": "Elettroencefalogramma",
+      "ordinaria": true
+    },
+    {
+      "id": 0,
+      "medico": { "matricola": 3 },
+      "paziente": null,
+      "data": null,
+      "ora": "15:30:00",
+      "tipo": "Visita di Controllo Cefalea",
+      "ordinaria": true
+    },
+    {
+      "id": 0,
+      "medico": { "matricola": 4 },
+      "paziente": null,
+      "data": null,
+      "ora": "11:00:00",
+      "tipo": "Visita Fisiatrica",
+      "ordinaria": true
+    },
+    {
+      "id": 0,
+      "medico": { "matricola": 4 },
+      "paziente": null,
+      "data": "2026-09-18",
+      "ora": "15:00:00",
+      "tipo": "Valutazione Protesi Ginocchio",
+      "ordinaria": false
+    },
+    {
+      "id": 0,
+      "medico": { "matricola": 5 },
+      "paziente": null,
+      "data": null,
+      "ora": "10:30:00",
+      "tipo": "Bilancio di Salute Pediatrico",
+      "ordinaria": true
+    },
+    {
+      "id": 0,
+      "medico": { "matricola": 5 },
+      "paziente": null,
+      "data": "2026-09-22",
+      "ora": "17:00:00",
+      "tipo": "Visita Auxologica",
       "ordinaria": false
     }
   ]
