@@ -9,7 +9,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import it.unipi.server.model.Medico;
 import it.unipi.server.model.Paziente;
-import it.unipi.server.util.QueryHandler;
+import it.unipi.server.DBHandler.QueryHandler;
 import it.unipi.server.model.ServerErrorException;
 import it.unipi.server.model.Utente;
 import it.unipi.server.model.requests.LoginRequest;

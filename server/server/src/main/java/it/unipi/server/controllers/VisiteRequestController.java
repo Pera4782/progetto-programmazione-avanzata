@@ -1,7 +1,7 @@
 package it.unipi.server.controllers;
 
 import it.unipi.server.model.ServerErrorException;
-import it.unipi.server.util.QueryHandler;
+import it.unipi.server.DBHandler.QueryHandler;
 import it.unipi.server.model.Visita;
 import it.unipi.server.model.requests.BookAppointmentRequest;
 import it.unipi.server.model.requests.CreateVisitaRequest;

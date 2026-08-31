@@ -2,7 +2,7 @@ package it.unipi.server.controllers;
 
 import it.unipi.server.model.Paziente;
 import it.unipi.server.model.ServerErrorException;
-import it.unipi.server.util.QueryHandler;
+import it.unipi.server.DBHandler.QueryHandler;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;

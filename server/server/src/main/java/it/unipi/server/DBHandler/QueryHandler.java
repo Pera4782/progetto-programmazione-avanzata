@@ -1,4 +1,4 @@
-package it.unipi.server.util;
+package it.unipi.server.DBHandler;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
@@ -13,6 +13,7 @@ import it.unipi.server.model.ServerErrorException;
 import it.unipi.server.model.Utente;
 import it.unipi.server.model.Visita;
 import it.unipi.server.model.requests.BookAppointmentRequest;
+import it.unipi.server.util.HibernateUtil;
 import java.io.InputStreamReader;
 import java.io.Reader;
 import java.nio.charset.StandardCharsets;

@@ -1,4 +1,4 @@
-package it.unipi.server.util;
+package it.unipi.server.DBHandler;
 
 import it.unipi.server.model.Medico;
 import it.unipi.server.model.Paziente;
